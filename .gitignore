@@ -6,5 +6,5 @@
 *.xls
 *.pptx
 *.Trashes
-./archive/*
+archive/*
 *.Rhistory*
