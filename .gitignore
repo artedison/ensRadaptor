@@ -10,3 +10,4 @@ archive/*
 *.Rhistory*
 temp/*
 tests/workflowtest_internal/*
+internal_data/*

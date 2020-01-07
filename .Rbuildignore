@@ -10,3 +10,4 @@
 ^.*\.DS\_Store.*$
 ^temp/*$
 ^tests/workflowtest_internal/*$
+^internal_data/*$
