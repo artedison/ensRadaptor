@@ -1,0 +1,23 @@
+Package: ensRadaptor
+Title: Metabolic model creator for ensemble method
+Version: 0.0.0.9000
+Authors@R:
+    person(given = "YUE",
+           family = "WU",
+           role = c("aut", "cre"),
+           email = "yue.wu@uga.edu",
+           comment = structure("https://orcid.org/0000-0001-7170-0053", .Names = "ORCID"))
+Description: The package provide an easy way to create input files and analyze output files for ens method. By providing information of the metabolic model, the user can create the complex input file for ens (MCMC) method. Multiple template is provided for different dependency formulation. Distribution in parameters and Chi^2 can be plotted.
+License: What license it uses
+Encoding: UTF-8
+LazyData: true
+Depends:
+        stringr (>= 1.4.0),
+        magrittr (>= 1.5),
+        ggplot2 (>= 3.2.1),
+        cowplot (>= 1.0.0),
+        scales (>= 1.0.0),
+        lhs (>= 1.0.1)
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat
