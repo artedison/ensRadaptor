@@ -55,6 +55,7 @@ multi_line_map<-function(string,pattern){
 #' @param histpath string. the history record file
 #' @param projpath string. the current working project directory
 #' @return no return just modify the file
+#' @export
 #' @examples
 update_history<-function(histpath,projpath){
   time=format(Sys.time(), "%H%M%S_%m%d%Y")

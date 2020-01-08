@@ -81,6 +81,7 @@ o03_reader<-function(pathlist,ioutselec){
   iout_ind=file_str_which(input,"iout_th")
   ####find the first match of block 1
   Sys.setenv(PATH=paste(Sys.getenv("PATH"), "/Users/yuewu/anaconda3/bin/", sep=":"))
+  on.exit(??
   outputs=system(paste0("LC_ALL=C pcregrep -M -n ","\'","iout_th\\n+\\s+1\\s*$","\' \'",input,"\'"),intern=TRUE) ## pcregrep use perl notation in regex so + instead of \+
   iout_1_ind=as.numeric(str_split(outputs[1],pattern=":",simplify=TRUE)[,1])
   iout_ind=iout_ind[iout_ind>(iout_1_ind-1)]

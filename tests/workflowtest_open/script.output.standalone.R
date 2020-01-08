@@ -22,6 +22,7 @@ require(foreach)
 require(doMC)
 require(ensRadaptor)
 registerDoMC(cores=10)
+
 #------------------------------path setup------------------------------#
 compdir="/Users/yuewu/"
 dirpack=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/package.formulate/ensRadaptor/")
@@ -34,7 +35,7 @@ dir.res=paste0(dir.data,foldname,"/res/")
 # source(paste0(dir.lib,"reader.R"))
 # source(paste0(dir.lib,"reader.output.R"))
 # source(paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/R.lib/R.prob.func.R"))
-##analyze output
+
 load(paste0(dir.res,"local.prior.pre.122657_06242019.RData")) ## this need setup manually
 ##fetch of information from output file
 name=modified.file
@@ -48,14 +49,14 @@ name=modified.file
 # }
 ### accumulation combine
 # comb.accum("/Users/mikeaalv/Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/nc_model/model/nc.glucose.fermetation/inputens/addon_model_measurement_new_cor_speed3_inivar_rem_aa_anaerobic/accumu.comb/ens.o02")
-# replicate_accumu=replicateseq
-# info<-foreach(replicatei=replicate_accumu)%dopar%{
-  ### accumulation
+
+#------------------------------o02 summary------------------------------#
 replicatei=1
 path.accumu=paste0(dir.data,"/ens.o02")
 o02.data.accumu=o02_reader(path.accumu)
 summary_o02(o02.data.accumu,dir.res,addonname=paste0("accumu.",name,".",replicatei),TRUE)
 equa_check(o02.data.accumu,1000,paste0("accumu.",name,".",replicatei),"chi2")
+
 ##new method return while output ens.i01
 list.prior.pre=vector(mode="list")
 list.prior.pre[["enz"]][["comb"]]=as_data_frame_rowname(len.list[["localpara"]][["enz"]])
@@ -63,17 +64,16 @@ list.prior.pre[["kcat"]][["comb"]]=as_data_frame_rowname(len.list[["localpara"]]
 list.prior.pre[["km"]][["comb"]]=as_data_frame_rowname(len.list[["localpara"]][["km"]])
 list.prior.pre[["kcatr"]][["comb"]]=as_data_frame_rowname(len.list[["localpara"]][["kcatr"]])
 list.prior.pre[["kmr"]][["comb"]]=as_data_frame_rowname(len.list[["localpara"]][["kmr"]])
-rownames(list.prior.pre[["kcat"]][["comb"]])=paste0(rownames(list.prior.pre[["kcat"]][["comb"]]),
-            "_S")
-rownames(list.prior.pre[["kcatr"]][["comb"]])=paste0(rownames(list.prior.pre[["kcatr"]][["comb"]]),
-            "_P")
+rownames(list.prior.pre[["kcat"]][["comb"]])=paste0(rownames(list.prior.pre[["kcat"]][["comb"]]),"_S")
+rownames(list.prior.pre[["kcatr"]][["comb"]])=paste0(rownames(list.prior.pre[["kcatr"]][["comb"]]),"_P")
 list.prior.pre[["kcat"]][["comb"]]=rbind(list.prior.pre[["kcat"]][["comb"]],list.prior.pre[["kcatr"]][["comb"]])
-rownames(list.prior.pre[["km"]][["comb"]])=paste0(rownames(list.prior.pre[["km"]][["comb"]]),
-            "_S")
-rownames(list.prior.pre[["kmr"]][["comb"]])=paste0(rownames(list.prior.pre[["kmr"]][["comb"]]),
-            "_P")
+rownames(list.prior.pre[["km"]][["comb"]])=paste0(rownames(list.prior.pre[["km"]][["comb"]]),"_S")
+rownames(list.prior.pre[["kmr"]][["comb"]])=paste0(rownames(list.prior.pre[["kmr"]][["comb"]]),"_P")
 list.prior.pre[["km"]][["comb"]]=rbind(list.prior.pre[["km"]][["comb"]],list.prior.pre[["kmr"]][["comb"]])
 # list.prior.pre[["kmr"]][["comb"]]["comb_glycolysis_P",]=c(0.0018,7.5000)
+
+#------------------------------o01 summary------------------------------#
+
 ##overlap with experiment data
 paths.accu.01=paste0(dir.data,"/ens.o01")
 for(exp in seq(length(experiments))){
@@ -81,6 +81,7 @@ for(exp in seq(length(experiments))){
     exp_model_overlay(paths.accu.01,comp,paste0("_",name,"_repli_",replicatei),exp,dir.res)
   }
 }
+
 ##metabolite concentration
 # allspe=list.exi[["species"]]
 # meta.list=allspe[!str_detect(string=allspe,pattern="^NCU")]
@@ -90,6 +91,7 @@ meta.list.use=meta.list
 for(exp in seq(length(experiments))){
   plot_multi_spec_time(path.accumu.o01,meta.list.use,paste0(name,".multisub",".",replicatei),exp,dir.res)
 }
+
 # distribution of estimated enzyme
 # compare between different extend range in parameters
 reac.rank=unique(str_replace(string=rownames(list.prior.pre[["kcat"]][["comb"]]),pattern="\\_[SP]+$",replacement=""))
@@ -121,6 +123,7 @@ temp=sapply(list.res[[4]],function(x){
 })
 boxplot_multi_exp(enzrealval.list,paste0(dir.res,"boxplot.enz.ini.all.multiexp",".",replicatei,".pdf"),
             "enzymes","log_concentration",NULL,TRUE,rank)
+
 temptest=enzrealval.list[1]
 names(temptest)="comb"
 list.prior.pre[["enz"]][["comb"]]=list.prior.pre[["enz"]][["comb"]][enz,]
@@ -178,7 +181,7 @@ boxplot_multi_exp_comb(kine.all.list[["km"]],paste0(dir.res,"boxplot.km.all","."
 boxplot_multi_exp_comb(kine.all.list[["kcat"]],paste0(dir.res,"boxplot.kcat.all",".",replicatei,".pdf"),
             "enzymes","log_kcat",list.prior.pre[["kcat"]],TRUE,kine.rank)
 
-###vmax plot
+#vmax distribution
 enz.list=enz.all.list
 vmax.list=vector(mode="list")
 model_len=length(kine.kcat.list)
@@ -203,4 +206,3 @@ vmax.list.list=vector(mode="list")
 vmax.list.list[["comb"]]=vmax.list
 boxplot_multi_exp_comb(vmax.list.list,paste0(dir.res,"boxplot.vmax.all",".",replicatei,".pdf"),
             "reaction","log_vmax",list.prior.pre[["vmax"]],TRUE,kine.rank)
-# }

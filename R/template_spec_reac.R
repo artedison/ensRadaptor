@@ -30,7 +30,7 @@ template_spec_reac<-function(path,type,dir.data,modified.file,para.list,list.exi
   outfile12=paste0(dir.data,"ens.modified.add.i12")
   modilines=readLines(sourcefile)
   # prioroutput=paste0(dir.data,"prior.",modified.file,".RData")
-  list.reac.addon=read.reac(path)
+  list.reac.addon=read_reac(path)
   names(list.reac.addon)=sapply(list.reac.addon,function(x){
     x[["name"]]
   })
@@ -42,12 +42,13 @@ template_spec_reac<-function(path,type,dir.data,modified.file,para.list,list.exi
   templist=vector(mode="list")
   local.para=list(enz=templist,kcat=templist,km=templist,kcatr=templist,kmr=templist)
   ## load default parameters
-  if(type=="mr"){
+  if((!para.list[["species"]][["format"]])||(!para.list[["react"]][["format"]])){
     load(paste0(dir.lib,"default.para.mr.RData"))
+    # load(paste0(dir.lib,"default.para.mm.RData"))
+  }
+  if(type=="mr"){
     jkin=1
   }else if(type=="mm"){
-    # load(paste0(dir.lib,"default.para.mm.RData"))
-    load(paste0(dir.lib,"default.para.mr.RData"))
     jkin=10011
     # jmsspec="0011"
     jmsspec="0001"
@@ -74,10 +75,10 @@ template_spec_reac<-function(path,type,dir.data,modified.file,para.list,list.exi
   }
   ###output the species format
   if(para.list[["species"]][["format"]]){
-    environment(spec.output.format)<-environment()
+    environment(spec_output_format)<-environment()
     spec_output=spec_output_format()
   }else{
-    environment(spec.output)<-environment()
+    environment(spec_output)<-environment()
     spec_output=spec_output()
   }
   cat(spec_output,file=paste(dir.data,"species.addon.txt"),sep="\n")

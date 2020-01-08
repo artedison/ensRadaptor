@@ -121,7 +121,7 @@ summary_input<-function(i01,i02){
 #' @return list. list containing enzyme information
 #' @export
 summary_reac<-function(path,enzpattern){
-  list.reac.addon=read.reac(path)
+  list.reac.addon=read_reac(path)
   specs=unique(unlist(sapply(list.reac.addon,function(x){
     c(x[[2]],x[[3]])
   })))
