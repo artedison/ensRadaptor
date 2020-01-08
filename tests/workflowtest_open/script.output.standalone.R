@@ -22,6 +22,7 @@ require(foreach)
 require(doMC)
 require(ensRadaptor)
 registerDoMC(cores=10)
+#------------------------------path setup------------------------------#
 compdir="/Users/yuewu/"
 dirpack=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/package.formulate/ensRadaptor/")
 dir=paste0(dirpack,"temp/testworkflow/")

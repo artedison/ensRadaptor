@@ -23,13 +23,16 @@ require(cowplot)
 require(scales)
 require(lhs)
 require(ensRadaptor)
+#------------------------------path setup------------------------------#
 compdir="/Users/yuewu/"
 dirpack=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/package.formulate/ensRadaptor/")
 dir=paste0(dirpack,"temp/testworkflow_open/")##user defined location for testing
 dir_ext_data=paste0(dirpack,"inst/extdata/")## the open external data directory
 # dir.lib=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/ensemble_infor/code/")
 dir.his=paste0(dir,"history/history.record.tab")
-foldcreate(dir.his)
+if(!file.exists(dir.his)){
+  file.create(dir.his)
+}
 dir.data=paste0(dir,"testmodel/")
 # dir.template.format=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/ensemble_infor/doc/template.file/")
 dir.template.format=paste0(dir_ext_data,"template_format")
@@ -53,10 +56,11 @@ nreplicate=10##number of model replicate to run in the model
 for(replicatei in seq(nreplicate)){
   foldcreate(paste0(dir.input,replicatei,"/"))
 }
-
 ## make sure the output anlaysis file agree with the input production file
-localpath=paste0(dir.data,"inputens/",foldname,"/")
-homoge_file(localpath,foldname)
+# localpath=paste0(dir.data,"inputens/",foldname,"/")
+# homoge_file(localpath,foldname)
+
+#------------------------------parameter setup------------------------------#
 ## the class number for measurement
 classnum=1##using scale factor, 0 not using scale factor
 modified.file="testmodel"
