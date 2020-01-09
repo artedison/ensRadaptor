@@ -4,16 +4,17 @@
 \alias{summary_o02}
 \title{summary plot for o02}
 \usage{
-summary_o02(o02.data, dir.res, addonname, linethick = FALSE)
+summary_o02(o02.data = NULL, dir.res = NULL, addonname = "",
+  linethick = FALSE)
 }
 \arguments{
-\item{o02.data}{list. the struct from o02.reader}
+\item{o02.data}{list. the struct from o02.reader. must be provided}
 
-\item{dir.res}{string. the location for producing figures}
+\item{dir.res}{string. the location for producing figures. must be provided}
 
-\item{addonname}{string. the addon name}
+\item{addonname}{string. the addon name. default ""}
 
-\item{linethick}{bool. whether thicker lines shoulde be draw for figure}
+\item{linethick}{bool. whether thicker lines shoulde be draw for figure. default FALSE}
 }
 \value{
 just plot no return

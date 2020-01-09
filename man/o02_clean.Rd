@@ -4,10 +4,10 @@
 \alias{o02_clean}
 \title{clean o02 file}
 \usage{
-o02_clean(path)
+o02_clean(path = NULL)
 }
 \arguments{
-\item{path}{string. input file}
+\item{path}{string. input file. must be provided}
 }
 \value{
 string. the path to the cleaned file

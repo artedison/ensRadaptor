@@ -4,14 +4,14 @@
 \alias{nameparser}
 \title{parser for name information}
 \usage{
-nameparser(lines, ind, pattern)
+nameparser(lines = NULL, ind = NULL, pattern = NULL)
 }
 \arguments{
-\item{lines}{array. specific lines to parse}
+\item{lines}{array. specific lines to parse. must be provided}
 
-\item{ind}{array. the index to define start searching point}
+\item{ind}{array. the index to define start searching point. must be provided}
 
-\item{pattern}{string. the pattern for titile. 'namespec' or 'namereac'}
+\item{pattern}{string. the pattern for titile. 'namespec' or 'namereac'. must be provided}
 }
 \value{
 array. parameter name list

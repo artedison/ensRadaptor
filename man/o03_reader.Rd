@@ -4,12 +4,12 @@
 \alias{o03_reader}
 \title{reader for o03 file}
 \usage{
-o03_reader(pathlist, ioutselec)
+o03_reader(pathlist = NULL, ioutselec = NULL)
 }
 \arguments{
-\item{pathlist}{list. input file list for o03}
+\item{pathlist}{list. input file list for o03. must be provided}
 
-\item{ioutselec}{int. the iout_id to be read}
+\item{ioutselec}{int. the iout_id to be read. must be provided}
 }
 \value{
 array. array of time series data. time x species x #blocks

@@ -4,16 +4,17 @@
 \alias{numparse}
 \title{parse the parameter numbers for theta speceis/parameters}
 \usage{
-numparse(lines_models, this_ind, next_ind, name)
+numparse(lines_models = NULL, this_ind = NULL, next_ind = NULL,
+  name = NULL)
 }
 \arguments{
-\item{lines_models}{array. lines for searching}
+\item{lines_models}{array. lines for searching. must be provided}
 
-\item{this_ind}{array. define the range start}
+\item{this_ind}{array. define the range start. must be provided}
 
-\item{next_ind}{array. define the range end}
+\item{next_ind}{array. define the range end. must be provided}
 
-\item{name}{array. name of the theta vector}
+\item{name}{array. name of the theta vector. default NULL. no names}
 }
 \value{
 list. the named parameter list

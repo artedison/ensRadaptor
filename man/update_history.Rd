@@ -4,12 +4,12 @@
 \alias{update_history}
 \title{record history in the history file}
 \usage{
-update_history(histpath, projpath)
+update_history(histpath = NULL, projpath = NULL)
 }
 \arguments{
-\item{histpath}{string. the history record file}
+\item{histpath}{string. the history record file. must be provided}
 
-\item{projpath}{string. the current working project directory}
+\item{projpath}{string. the current working project directory. must be provided}
 }
 \value{
 no return just modify the file

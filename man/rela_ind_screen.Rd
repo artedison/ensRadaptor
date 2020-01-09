@@ -4,14 +4,14 @@
 \alias{rela_ind_screen}
 \title{use relative locaiton between indx and indy to filter indy}
 \usage{
-rela_ind_screen(indx, indy, rela = ">=")
+rela_ind_screen(indx = NULL, indy = NULL, rela = ">=")
 }
 \arguments{
-\item{indx}{array. the reference index}
+\item{indx}{array. the reference index. must be provided}
 
-\item{indy}{array. the index to be filtered}
+\item{indy}{array. the index to be filtered. must be provided}
 
-\item{rela}{string. the expected relative location between indx and indy}
+\item{rela}{string. the expected relative location between indx and indy. default ">="}
 }
 \value{
 array. the filtered indy

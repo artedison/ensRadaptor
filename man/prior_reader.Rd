@@ -4,10 +4,10 @@
 \alias{prior_reader}
 \title{read the prior information}
 \usage{
-prior_reader(path)
+prior_reader(path = NULL)
 }
 \arguments{
-\item{path}{string. the location of i01 for prior information}
+\item{path}{string. the location of i01 for prior information. must be provided}
 }
 \value{
 list. list containing prioir information

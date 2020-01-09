@@ -4,10 +4,10 @@
 \alias{as_data_frame_rowname}
 \title{modified version of as.data.frame for rownames}
 \usage{
-as_data_frame_rowname(list)
+as_data_frame_rowname(list = NULL)
 }
 \arguments{
-\item{list}{list. list to be converted}
+\item{list}{list. list to be converted. must be provided}
 }
 \value{
 dataframe. will return t(as.data.frame(list))

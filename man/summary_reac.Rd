@@ -4,12 +4,12 @@
 \alias{summary_reac}
 \title{reaction summary}
 \usage{
-summary_reac(path, enzpattern)
+summary_reac(path = NULL, enzpattern = NULL)
 }
 \arguments{
-\item{path}{string. path to the reaction list file}
+\item{path}{string. path to the reaction list file. must be provided}
 
-\item{enzpattern}{string. the pattern to search for the enzyme entity}
+\item{enzpattern}{string. the pattern to search for the enzyme entity. must be provided}
 }
 \value{
 list. list containing enzyme information

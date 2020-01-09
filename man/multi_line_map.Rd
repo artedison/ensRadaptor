@@ -4,12 +4,12 @@
 \alias{multi_line_map}
 \title{str_which for multiple lines}
 \usage{
-multi_line_map(string, pattern)
+multi_line_map(string = NULL, pattern = NULL)
 }
 \arguments{
-\item{string}{string. input string to match with. array with each element for a line}
+\item{string}{string. input string to match with. array with each element for a line. must be provided}
 
-\item{pattern}{string. the pattern to find. \\n is in the pattern}
+\item{pattern}{string. the pattern to find. \\n is in the pattern. must be provided}
 }
 \value{
 array. the index location for the last line of the matching block

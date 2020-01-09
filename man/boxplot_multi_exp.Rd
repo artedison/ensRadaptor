@@ -4,23 +4,23 @@
 \alias{boxplot_multi_exp}
 \title{boxplot of multiple species and different experiments}
 \usage{
-boxplot_multi_exp(list.spe, path, xlab, ylab, list.prior.part = NULL,
-  logtrans = FALSE, rank)
+boxplot_multi_exp(list.spe = NULL, path = NULL, rank = NULL,
+  xlab = "x", ylab = "y", list.prior.part = NULL, logtrans = FALSE)
 }
 \arguments{
-\item{list.spe}{list. data.list}
+\item{list.spe}{list. data.list. must be provided}
 
-\item{path}{string. result location}
+\item{path}{string. result location. must be provided}
 
-\item{xlab}{string. x axis}
+\item{rank}{array. rank of presenting the data. must be provided}
 
-\item{ylab}{string. y axis}
+\item{xlab}{string. x axis. default "x"}
 
-\item{list.prior.part}{list. the prior range}
+\item{ylab}{string. y axis. default "y"}
 
-\item{logtrans}{bool. whether use log transform}
+\item{list.prior.part}{list. the prior range. default NULL}
 
-\item{rank}{array. rank of presenting the data}
+\item{logtrans}{bool. whether use log transform. default FALSE}
 }
 \value{
 just plot no return

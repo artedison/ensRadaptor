@@ -4,18 +4,19 @@
 \alias{change_def}
 \title{editing or showing ens.def files}
 \usage{
-change_def(term, value, infile, outfile, type = "show")
+change_def(term = NULL, value = NULL, infile = NULL,
+  outfile = NULL, type = "show")
 }
 \arguments{
-\item{term}{string. the value that need to be changed}
+\item{term}{string. the value that need to be changed. must be provided}
 
-\item{value}{array, dim(array)=1. the value}
+\item{value}{array, dim(array)=1. the value. default NULL}
 
-\item{infile}{string. input file path}
+\item{infile}{string. input file path. must be provided}
 
-\item{outfile}{string. output file path}
+\item{outfile}{string. output file path. default NULL}
 
-\item{type}{string. "show"(show the parameter), "edit"(edit the value)}
+\item{type}{string. "show"(show the parameter. default), "edit"(edit the value)}
 }
 \value{
 If type="edit", no value is returned and just change the file correspondingly

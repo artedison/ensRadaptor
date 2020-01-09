@@ -4,10 +4,10 @@
 \alias{linecount}
 \title{count number of lines in the file}
 \usage{
-linecount(path)
+linecount(path = NULL)
 }
 \arguments{
-\item{path}{string. the file location}
+\item{path}{string. the file location. must be provided}
 }
 \value{
 int. line number

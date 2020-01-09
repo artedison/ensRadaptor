@@ -4,12 +4,12 @@
 \alias{summary_input}
 \title{summary input files}
 \usage{
-summary_input(i01, i02)
+summary_input(i01 = NULL, i02 = NULL)
 }
 \arguments{
-\item{i01}{string. the locaiton of i01}
+\item{i01}{string. the locaiton of i01. must be provided}
 
-\item{i02}{string. the locaiton of i02}
+\item{i02}{string. the locaiton of i02. must be provided}
 }
 \value{
 list. list of information contains in input files

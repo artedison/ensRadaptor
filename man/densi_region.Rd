@@ -4,12 +4,12 @@
 \alias{densi_region}
 \title{constructed density frunction from a list of interval}
 \usage{
-densi_region(list.intev, logtrans)
+densi_region(list.intev = NULL, logtrans = FALSE)
 }
 \arguments{
-\item{list.intev}{list. list of parameter range}
+\item{list.intev}{list. list of parameter range. must be provided}
 
-\item{logtrans}{bool. whether log transform the interval. TRUE log transformed}
+\item{logtrans}{bool. whether log transform the interval. TRUE log transformed. default FALSE}
 }
 \value{
 list. list of range distribution information

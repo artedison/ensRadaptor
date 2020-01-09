@@ -4,24 +4,27 @@
 \alias{change_block}
 \title{Editing or showing specific blocks (ens.i01)}
 \usage{
-change_block(paternlist, contentlist, infile, outfile, type = "show")
+change_block(paternlist = NULL, contentlist = NULL, infile = NULL,
+  outfile = NULL, type = "show")
 }
 \arguments{
 \item{paternlist}{list. indicates the location for block changing
 ->pattern0: the start of the block to be matched
 ->pattern1: the end of the block to be matched.
 ->shift: a vector. if length(shift)==2. Index shift will be added on pattern0 and pattern1
-         if length(shift)==1. The shift is the same for both pattern0 and pattern1}
+         if length(shift)==1. The shift is the same for both pattern0 and pattern1
+must be provided.}
 
 \item{contentlist}{list. the value to be changed
 ->file: the file to read from
-->ilinerag: the index range of lines as input}
+->ilinerag: the index range of lines as input
+Default NULL}
 
-\item{infile}{string. input file path}
+\item{infile}{string. input file path. must be provided}
 
-\item{outfile}{string. output file path}
+\item{outfile}{string. output file path. default NULL}
 
-\item{type}{string. "show"(show the parameter), "edit"(edit the value)
+\item{type}{string. "show"(show the parameter, default), "edit"(edit the value)
 if there is mulitple value for the corresponding term, only show value is possible}
 }
 \value{

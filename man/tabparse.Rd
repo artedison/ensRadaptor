@@ -4,14 +4,14 @@
 \alias{tabparse}
 \title{table data parse}
 \usage{
-tabparse(lines_models, rowrange, colrange)
+tabparse(lines_models = NULL, rowrange = NULL, colrange = NULL)
 }
 \arguments{
-\item{lines_models}{array. the lines to fetch}
+\item{lines_models}{array. the lines to fetch. must be provided}
 
-\item{rowrange}{array. row range in the table}
+\item{rowrange}{array. row range in the table. must be provided}
 
-\item{colrange}{array. column range in the table}
+\item{colrange}{array. column range in the table. must be provided}
 }
 \value{
 array. the selected part of the table

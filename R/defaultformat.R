@@ -7,11 +7,11 @@
 #' @seealso [spec_output_format()] for similar function based on user defined format files
 #'          [react_output()] for producing reaction block in i01 for default format
 spec_output<-function(){
-  ##recover environment
-  old<-options(stringsAsFactors=FALSE)
-  on.exit(options(old),add=TRUE)
+  oldstr<-options(stringsAsFactors=FALSE)
+  on.exit(options(oldstr),add=TRUE)
   ##environment change for digit
-  options(scipen=20)
+  oldscipen<-options(scipen=20)
+  on.exit(options(oldscipen),add=TRUE)
   list.inival=vector(mode="list")
   list.inival[["low.all.spec"]]=para.list[["species"]][["low.all.spec"]]
   list.inival[["high.all.spec"]]=para.list[["species"]][["high.all.spec"]]
@@ -114,11 +114,11 @@ spec_output<-function(){
 #' @seealso [react_output_format()] for similar function based on user defined format files
 #'          [spec_output()] for producing species block in i01 for default format
 react_output<-function(){
-  ##recover environment
-  old<-options(stringsAsFactors=FALSE)
-  on.exit(options(old),add=TRUE)
+  oldstr<-options(stringsAsFactors=FALSE)
+  on.exit(options(oldstr),add=TRUE)
   ##environment change for digit
-  options(scipen=20)
+  oldscipen<-options(scipen=20)
+  on.exit(options(oldscipen),add=TRUE)
   vals=para.list[["react"]][["initial"]]
   reac_outputreturn=sapply(list.reac.addon,function(x){
       flagmmrev=0

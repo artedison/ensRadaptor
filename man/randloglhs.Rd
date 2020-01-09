@@ -4,16 +4,17 @@
 \alias{randloglhs}
 \title{initial guess generate}
 \usage{
-randloglhs(nsample, isample, input, output)
+randloglhs(nsample = NULL, isample = NULL, input = NULL,
+  output = NULL)
 }
 \arguments{
-\item{nsample}{int. number of replicate to produce}
+\item{nsample}{int. number of replicate to produce. must be provided}
 
-\item{isample}{int. the sample index}
+\item{isample}{int. the sample index. must be provided}
 
-\item{input}{string. input file path}
+\item{input}{string. input file path. must be provided}
 
-\item{output}{string. output file path}
+\item{output}{string. output file path. must be provided}
 }
 \value{
 just change the file no return

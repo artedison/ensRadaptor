@@ -4,19 +4,20 @@
 \alias{template_exp_data}
 \title{formualte the dataset (i02)}
 \usage{
-template_exp_data(listdata, classnum, output, dir.data, modified.file,
-  zspec_wid = 0.4, sameclass = 0)
+template_exp_data(listdata = NULL, classnum = NULL, output = NULL,
+  dir.data = NULL, modified.file = "", zspec_wid = 0.4,
+  sameclass = 0)
 }
 \arguments{
-\item{listdata}{list. the list contains time and value}
+\item{listdata}{list. the list contains time and value. must be provided}
 
-\item{classnum}{int. the start class number to be considered, a new class number will be return}
+\item{classnum}{int. the start class number to be considered, a new class number will be return. must be provided}
 
-\item{output}{string. ouput the add part of experiment measrument}
+\item{output}{string. output path for the add part of experiment measrument. must be provided}
 
-\item{dir.data}{string. the working/data directory}
+\item{dir.data}{string. the working/data directory. must be provided}
 
-\item{modified.file}{string. addon file name}
+\item{modified.file}{string. addon file name. default ""}
 
 \item{zspec_wid}{numeric. the zspec_wid for new input data, the default is 0.4}
 

@@ -4,14 +4,14 @@
 \alias{iniguess}
 \title{set initial guess}
 \usage{
-iniguess(input, output, valvec)
+iniguess(input = NULL, output = NULL, valvec = NULL)
 }
 \arguments{
-\item{input}{string. input file path}
+\item{input}{string. input file path. must be provided}
 
-\item{output}{string. output file path}
+\item{output}{string. output file path. must be provided}
 
-\item{valvec}{array. named vector of values for initial guess. block of value that wasn't inlcuded in the vector will be initilized as lowval + smallvalue}
+\item{valvec}{array. named vector of values for initial guess. block of value that wasn't inlcuded in the vector will be initilized as lowval + smallvalue. must be provided}
 }
 \value{
 no return just change the file

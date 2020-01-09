@@ -9,11 +9,11 @@
 #' @seealso [spec_output_format()] for producing species block in i01 for default format
 #'          [react_output()] for similar function based on default format
 react_output_format<-function(){
-  ##recover environment
-  old<-options(stringsAsFactors=FALSE)
-  on.exit(options(old),add=TRUE)
+  oldstr<-options(stringsAsFactors=FALSE)
+  on.exit(options(oldstr),add=TRUE)
   ##environment change for digit
-  options(scipen=20)
+  oldscipen<-options(scipen=20)
+  on.exit(options(oldscipen),add=TRUE)
   vals=para.list[["react"]][["initial"]]
   lines_exm=sapply(c("rev","irrev"),simplify=FALSE,function(x){
     lines=readLines(para.list[["react"]][["formatfile"]][[x]])
@@ -138,11 +138,11 @@ react_output_format<-function(){
 #'          [spec_output()] for similar function based on default format
 #' @examples
 spec_output_format<-function(){
-  ##recover environment
-  old<-options(stringsAsFactors=FALSE)
-  on.exit(options(old),add=TRUE)
+  oldstr<-options(stringsAsFactors=FALSE)
+  on.exit(options(oldstr),add=TRUE)
   ##environment change for digit
-  options(scipen=20)
+  oldscipen<-options(scipen=20)
+  on.exit(options(oldscipen),add=TRUE)
   list.inival=vector(mode="list")
   list.inival[["low.all.spec"]]=para.list[["species"]][["low.all.spec"]]
   list.inival[["high.all.spec"]]=para.list[["species"]][["high.all.spec"]]

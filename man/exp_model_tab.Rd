@@ -4,22 +4,24 @@
 \alias{exp_model_tab}
 \title{experiment specie concentration fetching(o01)}
 \usage{
-exp_model_tab(lines, start, end, specname_ind, power_ind, ch_ind, species)
+exp_model_tab(lines = NULL, start = NULL, end = NULL,
+  specname_ind = NULL, power_ind = NULL, ch_ind = NULL,
+  species = NULL)
 }
 \arguments{
-\item{lines}{array. lines to parse}
+\item{lines}{array. lines to parse. must be provided}
 
-\item{start}{array. start of the index range}
+\item{start}{array. start of the index range. must be provided}
 
-\item{end}{array. end of the index range}
+\item{end}{array. end of the index range. must be provided}
 
-\item{specname_ind}{array. the index of species part}
+\item{specname_ind}{array. the index of species part. must be provided}
 
-\item{power_ind}{array. the index of power line}
+\item{power_ind}{array. the index of power line. must be provided}
 
-\item{ch_ind}{array. the index of the number line}
+\item{ch_ind}{array. the index of the number line. must be provided}
 
-\item{species}{string. the specie to fetch}
+\item{species}{string. the specie to fetch. must be provided}
 }
 \value{
 array. the informaiton table

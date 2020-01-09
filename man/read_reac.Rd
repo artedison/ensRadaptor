@@ -4,10 +4,10 @@
 \alias{read_reac}
 \title{read reactions file}
 \usage{
-read_reac(path)
+read_reac(path = NULL)
 }
 \arguments{
-\item{path}{string. the path to the reaction list file}
+\item{path}{string. the path to the reaction list file. must be provided}
 }
 \value{
 list. return the list containing c(reaction_name, substrates, products)

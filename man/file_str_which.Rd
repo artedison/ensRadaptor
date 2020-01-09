@@ -4,12 +4,12 @@
 \alias{file_str_which}
 \title{file based str_which}
 \usage{
-file_str_which(path, pattern)
+file_str_which(path = NULL, pattern = NULL)
 }
 \arguments{
-\item{path}{string. input file for the string}
+\item{path}{string. input file for the string. must be provided}
 
-\item{pattern}{string. pattern to be matched}
+\item{pattern}{string. pattern to be matched. must be provided}
 }
 \value{
 array. the index(line number) of matched position

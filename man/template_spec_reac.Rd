@@ -4,34 +4,35 @@
 \alias{template_spec_reac}
 \title{produce i01 file}
 \usage{
-template_spec_reac(path, type, dir.data, modified.file, para.list,
-  list.exi, extend = 1, rand = FALSE, rand.seed = 0)
+template_spec_reac(path = NULL, type = "mm", dir.data = NULL,
+  modified.file = "", para.list = NULL, list.exi = NULL,
+  extend = 1, rand = FALSE, rand.seed = 0)
 }
 \arguments{
-\item{path}{string. the reaction file path}
+\item{path}{string. the reaction file path. must be provided}
 
 \item{type}{string. the reaction type that need to be formated
 "mr": mass reaction
-"mm": Michaelis–Menten kinetics}
+"mm": Michaelis–Menten kinetics. default}
 
-\item{dir.data}{string. the data directory(working folder)}
+\item{dir.data}{string. the data directory(working folder). must be provided}
 
-\item{modified.file}{string. the addon name}
+\item{modified.file}{string. the addon name. default ""}
 
 \item{para.list}{list. the input parameter list that need to be changed
-       a list contains parameters related to species and reactions
+       a list contains parameters related to species and reactions. must be provided
 
        Attention: if there is no regulation to formualte then regu=NULL
        species: obsv(jmsspec), fixed(jctspec), initial(4th, 5th of ivpm) const(jfix)
        react: kine(kinetic parameter list), enz(the enzyme in mm reaction, need for ranking), rev(reversible, 1 indicate reversible 0 non-reversible),}
 
-\item{list.exi}{list. existing species and reactions list}
+\item{list.exi}{list. existing species and reactions list. default NULL}
 
 \item{extend}{numeric the enlarge amount/by proportion of parameters(k1 k2). default 1}
 
-\item{rand}{bool. related to generating initial theta. FALSE not randomeness, geometry mean of the boundary. TRUE unif random generating.}
+\item{rand}{bool. related to generating initial theta. FALSE not randomeness, geometry mean of the boundary. TRUE unif random generating. default FALSE}
 
-\item{rand.seed}{numeric. the seed for sampling initial condiiton}
+\item{rand.seed}{numeric. the seed for sampling initial condiiton. default 0}
 }
 \value{
 list. parameters and related sizes

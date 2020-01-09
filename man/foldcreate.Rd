@@ -4,10 +4,10 @@
 \alias{foldcreate}
 \title{folder creating}
 \usage{
-foldcreate(dirpath)
+foldcreate(dirpath = NULL)
 }
 \arguments{
-\item{dirpath}{string. path to the folder to create}
+\item{dirpath}{string. path to the folder to create. must be provided}
 }
 \value{
 no return just create the folder

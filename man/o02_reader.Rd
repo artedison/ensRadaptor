@@ -4,10 +4,10 @@
 \alias{o02_reader}
 \title{reader for o02 file}
 \usage{
-o02_reader(path, flagsweep = FALSE)
+o02_reader(path = NULL, flagsweep = FALSE)
 }
 \arguments{
-\item{path}{string. input file}
+\item{path}{string. input file. must be provided}
 
 \item{flagsweep}{bool. TRUE or FALSE.
 TRUE: only the end of sweep part are considered for final reasult.

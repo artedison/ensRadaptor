@@ -4,22 +4,23 @@
 \alias{change_para}
 \title{Editing or showing ensemble input files (ens.i01) for single term}
 \usage{
-change_para(term, value, infile, outfile, type = "show", indrep = 1)
+change_para(term = NULL, value = NULL, infile = NULL,
+  outfile = NULL, type = "show", indrep = 1)
 }
 \arguments{
-\item{term}{string. the term that need to be changed}
+\item{term}{string. the term that need to be changed. must be provided}
 
-\item{value}{array, dim(array)=1. the set value}
+\item{value}{array, dim(array)=1. the set value. default NULL}
 
-\item{infile}{string. input file path}
+\item{infile}{string. input file path. must be provided}
 
-\item{outfile}{string. output file path}
+\item{outfile}{string. output file path. default NULL}
 
-\item{type}{string. "show"(show the parameter), "edit"(edit the value)
+\item{type}{string. "show"(show the parameter, default), "edit"(edit the value)
 if there is mulitple locations for the corresponding term, only show value is possible
 and both location/index and value are returned.}
 
-\item{indrep}{array. the index of the one that need to be changed if there are multiple (edit)}
+\item{indrep}{array. the index of the one that need to be changed if there are multiple (edit). default 1}
 }
 \value{
 If type="edit", no value is returned and just change the file correspondingly
