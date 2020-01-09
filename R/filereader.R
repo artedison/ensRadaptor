@@ -16,8 +16,8 @@ o02_reader<-function(path=NULL,flagsweep=FALSE){
   spec_ind=str_which(string=lines,pattern="^\\s+species\\s+Theta\\s+parameters$")
   reac_ind=str_which(string=lines,pattern="^\\s+reaction\\s+Theta\\s+parameters$")
   output_ind=str_which(string=lines,pattern="^iout_th\\s+jclC\\s+jclO")
-  specs=nameparser(lines,c(spec_ind,reac_ind),"namespec")
-  reacs=nameparser(lines,c(reac_ind,min(output_ind)),"namereac")
+  specs=nameparser(lines,ind=c(spec_ind,reac_ind),pattern="namespec")
+  reacs=nameparser(lines,ind=c(reac_ind,min(output_ind)),pattern="namereac")
   lines_models=lines[min(output_ind):(length(lines))]
   start_ind=str_which(string=lines_models,pattern="iout_th")
   chisq_ind=str_which(string=lines_models,pattern="chisq_th")
@@ -33,7 +33,7 @@ o02_reader<-function(path=NULL,flagsweep=FALSE){
     ##use relative location to screen other inds
     indlist=c("start_ind","chisq_ind","theta_spec_ind","theta_reac_ind","raccp_swo_ind","fstp_swo_ind","repacc_ind")
     for(indele in indlist){
-      assign(indele,rela_ind_screen(end_ind,get(indele),">="))
+      assign(indele,rela_ind_screen(indx=end_ind,indy=get(indele),rela=">="))
     }
   }
   ids=as.numeric(str_split(string=str_trim(lines_models[start_ind+1],side="both"),
@@ -45,17 +45,17 @@ o02_reader<-function(path=NULL,flagsweep=FALSE){
                 pattern="\\s+",simplify=TRUE)
   nrep=as.numeric(str_replace_all(string=numvec[,2],pattern="D",replacement="e"))
   nacc=as.numeric(str_replace_all(string=numvec[,4],pattern="D",replacement="e"))
-  theta_spec_ini=numparse(lines_models,theta_spec_ind,theta_reac_ind,specs)
-  theta_reac_para=numparse(lines_models,theta_reac_ind,raccp_swo_ind,reacs)
-  raccp_swo=numparse(lines_models,raccp_swo_ind,fstp_swo_ind,NULL)
-  ch_ind_cho=rela_ind_screen(fstp_swo_ind,ch_ind,">")
+  theta_spec_ini=numparse(lines_models,this_ind=theta_spec_ind,next_ind=theta_reac_ind,name=specs)
+  theta_reac_para=numparse(lines_models,this_ind=theta_reac_ind,next_ind=raccp_swo_ind,name=reacs)
+  raccp_swo=numparse(lines_models,this_ind=raccp_swo_ind,next_ind=fstp_swo_ind,name=NULL)
+  ch_ind_cho=rela_ind_screen(indx=fstp_swo_ind,indy=ch_ind,rela=">")
   # ch_ind_cho=sapply(fstp_swo_ind,function(x){
   #   ch_ind[ch_ind>x][1]
   # })
   if(is.na(ch_ind_cho[length(ch_ind_cho)])){
     ch_ind_cho[length(ch_ind_cho)]=length(lines_models)
   }
-  fstp_swo=numparse(lines_models,fstp_swo_ind,ch_ind_cho,NULL)
+  fstp_swo=numparse(lines_models,this_ind=fstp_swo_ind,next_ind=ch_ind_cho,name=NULL)
   o02.data=list(ids=ids,chisq=chisq,nrep=nrep,nacc=nacc,theta_spec_ini=theta_spec_ini,
                 theta_reac_para=theta_reac_para,
                 raccp=raccp_swo,fstp=fstp_swo

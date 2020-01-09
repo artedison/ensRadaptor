@@ -3,26 +3,35 @@
 #' produce the template for species and reactions
 #' read the reaction file formated as template/addon.reac.tab
 #'
-#' @param path string. the reaction file path
+#' @param path string. the reaction file path. must be provided
 #' @param type string. the reaction type that need to be formated
 #'        "mr": mass reaction
-#'        "mm": Michaelis–Menten kinetics
-#' @param dir.data string. the data directory(working folder)
-#' @param modified.file string. the addon name
+#'        "mm": Michaelis–Menten kinetics. default
+#' @param dir.data string. the data directory(working folder). must be provided
+#' @param modified.file string. the addon name. default ""
 #' @param para.list list. the input parameter list that need to be changed
-#'        a list contains parameters related to species and reactions
+#'        a list contains parameters related to species and reactions. must be provided
 #'
 #'        Attention: if there is no regulation to formualte then regu=NULL
 #'        species: obsv(jmsspec), fixed(jctspec), initial(4th, 5th of ivpm) const(jfix)
 #'        react: kine(kinetic parameter list), enz(the enzyme in mm reaction, need for ranking), rev(reversible, 1 indicate reversible 0 non-reversible),
 #'
-#' @param list.exi list. existing species and reactions list
+#' @param list.exi list. existing species and reactions list. default NULL
 #' @param extend numeric the enlarge amount/by proportion of parameters(k1 k2). default 1
-#' @param rand bool. related to generating initial theta. FALSE not randomeness, geometry mean of the boundary. TRUE unif random generating.
-#' @param rand.seed numeric. the seed for sampling initial condiiton
+#' @param rand bool. related to generating initial theta. FALSE not randomeness, geometry mean of the boundary. TRUE unif random generating. default FALSE
+#' @param rand.seed numeric. the seed for sampling initial condiiton. default 0
 #' @return list. parameters and related sizes
 #' @export
-template_spec_reac<-function(path,type,dir.data,modified.file,para.list,list.exi,extend=1,rand=FALSE,rand.seed=0){
+template_spec_reac<-function(path=NULL,type="mm",dir.data=NULL,modified.file="",para.list=NULL,list.exi=NULL,extend=1,rand=FALSE,rand.seed=0){
+  if(is.null(path)){
+    stop("please provide the reaction file path")
+  }
+  if(is.null(dir.data)){
+    stop("please provide the data directory path")
+  }
+  if(is.null(para.list)){
+    stop("please provide the parameter list")
+  }
   ## reading source files
   # smallvalue=0.0000000000000000001
   sourcefile=paste0(dir.data,"ens.i01")

@@ -3,13 +3,22 @@
 #' this function will generate the initial guess for all parameters by lhs (Latin Hypercube sample) in log-uniform distribution
 #' the lhs matrix will be calcualted for isample and used afterwards
 #'
-#' @param nsample int. number of replicate to produce
-#' @param isample int. the sample index
-#' @param input string. input file path
-#' @param output string. output file path
+#' @param nsample int. number of replicate to produce. must be provided
+#' @param isample int. the sample index. must be provided
+#' @param input string. input file path. must be provided
+#' @param output string. output file path. must be provided
 #' @return just change the file no return
 #' @export
-randloglhs<-function(nsample,isample,input,output){
+randloglhs<-function(nsample=NULL,isample=NULL,input=NULL,output=NULL){
+  if(is.null(nsample)){
+    stop("please provide number of replicates")
+  }
+  if(is.null(isample)){
+    stop("please provide sample index")
+  }
+  if(is.null(input)||is.null(output)){
+    stop("please provide path of input and output files")
+  }
   lines=readLines(input)
   indspec=str_which(string=lines,pattern="\\#\\s+Species\\s+control\\-\\s+and\\s+\\\\Theta\\-variables")
   lines_abov=lines[1:indspec]

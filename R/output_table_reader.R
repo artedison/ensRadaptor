@@ -2,16 +2,28 @@
 #'
 #' experiment specie concentration fetching from the table in file o01
 #'
-#' @param lines array. lines to parse
-#' @param start array. start of the index range
-#' @param end array. end of the index range
-#' @param specname_ind array. the index of species part
-#' @param power_ind array. the index of power line
-#' @param ch_ind array. the index of the number line
-#' @param species string. the specie to fetch
+#' @param lines array. lines to parse. must be provided
+#' @param start array. start of the index range. must be provided
+#' @param end array. end of the index range. must be provided
+#' @param specname_ind array. the index of species part. must be provided
+#' @param power_ind array. the index of power line. must be provided
+#' @param ch_ind array. the index of the number line. must be provided
+#' @param species string. the specie to fetch. must be provided
 #' @return array. the informaiton table
 #' @seealso [mod_model_tab()] for similar function on model estimation information
-exp_model_tab<-function(lines,start,end,specname_ind,power_ind,ch_ind,species){
+exp_model_tab<-function(lines=NULL,start=NULL,end=NULL,specname_ind=NULL,power_ind=NULL,ch_ind=NULL,species=NULL){
+  if(is.null(lines)){
+    stop("please provide lines to parse")
+  }
+  if(is.null(start)||is.null(end)){
+    stop("please provide index boundaries")
+  }
+  if(is.null(specname_ind)||is.null(power_ind)||is.null(ch_ind)){
+    stop("please provide related index information")
+  }
+  if(is.null(species)){
+    stop("please provide the species to parse")
+  }
   specname_ind_exp=specname_ind[specname_ind>start&specname_ind<end]
   titltable_ind_exp=str_which(string=lines,pattern="^\\s+itxpt")
   ch_ind_exp=ch_ind[ch_ind>start&ch_ind<=end]
@@ -29,7 +41,7 @@ exp_model_tab<-function(lines,start,end,specname_ind,power_ind,ch_ind,species){
             temp=lines[tab_block]
             temp=temp[!str_detect(string=temp,pattern="^\\s*$")]
             if(length(temp)>0){
-              tab=tabparse(lines,tab_block,c(2,4))
+              tab=tabparse(lines,rowrange=tab_block,colrange=c(2,4))
             }else{
               NULL
             }
@@ -47,15 +59,27 @@ exp_model_tab<-function(lines,start,end,specname_ind,power_ind,ch_ind,species){
 #'
 #' model specie concentration fetching from the table in file o01
 #'
-#' @param lines array. lines to parse
-#' @param start array. start of the index range
-#' @param end array. end of the index range
-#' @param specname_ind array. the index of species part
-#' @param ch_ind array. the index of the number line
-#' @param species string. the specie to fetch
+#' @param lines array. lines to parse. must be provided
+#' @param start array. start of the index range. must be provided
+#' @param end array. end of the index range. must be provided
+#' @param specname_ind array. the index of species part. must be provided
+#' @param ch_ind array. the index of the number line. must be provided
+#' @param species string. the specie to fetch. must be provided
 #' @return array. the informaiton table
 #' @seealso [exp_model_tab()] for similar function on model estimation information
-mod_model_tab<-function(lines,start,end,specname_ind,power_ind,species){
+mod_model_tab<-function(lines=NULL,start=NULL,end=NULL,specname_ind=NULL,power_ind=NULL,species=NULL){
+  if(is.null(lines)){
+    stop("please provide lines to parse")
+  }
+  if(is.null(start)||is.null(end)){
+    stop("please provide index boundaries")
+  }
+  if(is.null(specname_ind)||is.null(power_ind)){
+    stop("please provide related index information")
+  }
+  if(is.null(species)){
+    stop("please provide the species to parse")
+  }
   specname_ind_mod=specname_ind[specname_ind>start]
   power_ind_mod=power_ind[power_ind>start]
   titltable_ind_mod=str_which(string=lines,pattern="^\\s+io_time")
@@ -74,7 +98,7 @@ mod_model_tab<-function(lines,start,end,specname_ind,power_ind,species){
             tabstart=titltable_ind_mod[titltable_ind_mod>specname_block][1]+1
             tabend=power_ind_mod[power_ind_mod>tabstart][1]-1
             tab_block=tabstart:tabend
-            tab=tabparse(lines,tab_block,c(4,7,8))
+            tab=tabparse(lines,rowrange=tab_block,colrange=c(4,7,8))
          }else{
            NULL
          }

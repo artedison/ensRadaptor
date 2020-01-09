@@ -2,17 +2,29 @@
 #'
 #' formualte the dataset (i02)
 #'
-#' @param listdata list. the list contains time and value
-#' @param classnum int. the start class number to be considered, a new class number will be return
-#' @param output string. ouput the add part of experiment measrument
-#' @param dir.data string. the working/data directory
-#' @param modified.file string. addon file name
+#' @param listdata list. the list contains time and value. must be provided
+#' @param classnum int. the start class number to be considered, a new class number will be return. must be provided
+#' @param output string. output path for the add part of experiment measrument. must be provided
+#' @param dir.data string. the working/data directory. must be provided
+#' @param modified.file string. addon file name. default ""
 #' @param zspec_wid numeric. the zspec_wid for new input data, the default is 0.4
 #' @param sameclass int. whether different scale class for different input measurement,
 #'        the default is 0 (use different class number). 1 use the same class number
 #' @return int. the new class number to be used
 #' @export
-template_exp_data<-function(listdata,classnum,output,dir.data,modified.file,zspec_wid=0.4,sameclass=0){
+template_exp_data<-function(listdata=NULL,classnum=NULL,output=NULL,dir.data=NULL,modified.file="",zspec_wid=0.4,sameclass=0){
+  if(is.null(listdata)){
+    stop("please provide the data list")
+  }
+  if(is.null(classnum)){
+    stop("please provide the start class number")
+  }
+  if(is.null(output)){
+    stop("please provide the output path")
+  }
+  if(is.null(dir.data)){
+    stop("please provide the working directory path")
+  }
   ##find the used class type
   load(paste0(dir.lib,"default.measurement.RData"))
   classini=classnum

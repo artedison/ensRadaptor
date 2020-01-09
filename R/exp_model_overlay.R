@@ -32,9 +32,9 @@ exp_model_overlay<-function(o01=NULL,species=NULL,addon="",exp=NULL,dir.res=NULL
   power_ind=str_which(string=lines,pattern="^\\s*ipow")
   ch_ind=str_which(string=lines,pattern="[:alpha:][:alpha:]+")
   ### experiment result
-  tabexp=exp_model_tab(lines,start_exp_ind,start_mod_ind,specname_ind,power_ind,ch_ind,species)
+  tabexp=exp_model_tab(lines,start=start_exp_ind,end=start_mod_ind,specname_ind=specname_ind,power_ind=power_ind,ch_ind=ch_ind,species=species)
   ### modeled result
-  tabmod=mod_model_tab(lines,start_mod_ind,start_mod_ind,specname_ind,power_ind,species)
+  tabmod=mod_model_tab(lines,start=start_mod_ind,end=start_mod_ind,specname_ind=specname_ind,power_ind=power_ind,species=species)
   ##plot
   exppart=tabexp[tabexp[,"exp"]==exp,c(1,2)]
   modpart=tabmod[tabmod[,"mod"]==exp,c(1,2,3)]

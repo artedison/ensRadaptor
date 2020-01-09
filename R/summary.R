@@ -5,11 +5,14 @@
 #' print imporant parameters
 #' these information can be used for modify ens.def file
 #'
-#' @param i01 string. the locaiton of i01
-#' @param i02 string. the locaiton of i02
+#' @param i01 string. the locaiton of i01. must be provided
+#' @param i02 string. the locaiton of i02. must be provided
 #' @return list. list of information contains in input files
 #' @export
-summary_input<-function(i01,i02){
+summary_input<-function(i01=NULL,i02=NULL){
+  if(is.null(i01)||is.null(i02)){
+    stop("please provide path to both i01 and i02 files")
+  }
   list.exi=vector(mode="list")
   #i01
   nexpt=change_para("nexpt",NA,infile=i01,outfile=NA,type="show")
@@ -116,11 +119,17 @@ summary_input<-function(i01,i02){
 #' path the reaction file location
 #' warning on input equation file
 #'
-#' @param path string. path to the reaction list file
-#' @param enzpattern string. the pattern to search for the enzyme entity
+#' @param path string. path to the reaction list file. must be provided
+#' @param enzpattern string. the pattern to search for the enzyme entity. must be provided
 #' @return list. list containing enzyme information
 #' @export
-summary_reac<-function(path,enzpattern){
+summary_reac<-function(path=NULL,enzpattern=NULL){
+  if(is.null(path)){
+    stop("please provide the input path")
+  }
+  if(is.null(enzpattern)){
+    stop("please provide the searching pattern for enzyme")
+  }
   list.reac.addon=read_reac(path)
   specs=unique(unlist(sapply(list.reac.addon,function(x){
     c(x[[2]],x[[3]])
@@ -177,13 +186,19 @@ summary_reac<-function(path,enzpattern){
 #'
 #' summary plot for o02
 #'
-#' @param o02.data list. the struct from o02.reader
-#' @param dir.res string. the location for producing figures
-#' @param addonname string. the addon name
-#' @param linethick bool. whether thicker lines shoulde be draw for figure
+#' @param o02.data list. the struct from o02.reader. must be provided
+#' @param dir.res string. the location for producing figures. must be provided
+#' @param addonname string. the addon name. default ""
+#' @param linethick bool. whether thicker lines shoulde be draw for figure. default FALSE
 #' @return just plot no return
 #' @export
-summary_o02<-function(o02.data,dir.res,addonname,linethick=FALSE){
+summary_o02<-function(o02.data=NULL,dir.res=NULL,addonname="",linethick=FALSE){
+  if(is.null(o02.data)){
+    stop("please provide the input path")
+  }
+  if(is.null(dir.res)){
+    stop("please provide the output result path")
+  }
   ##length of modeling
   print(paste0("length: ",length(o02.data[["ids"]])))
   ##sweep~t

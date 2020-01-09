@@ -3,12 +3,18 @@
 #' this function will take kinetic parameters structure and modify it
 #' will calcualte range for all kinetic parameters and give default value for those without enough information
 #'
-#' @param list.res.refine list. the species non-specific data struct
-#' @param range.speci list. the species specific data struct
-#' @param extendrag numeric. extent to extend unknown range in kinetic parameters(when there is only one value in in record)
+#' @param list.res.refine list. the species non-specific data struct. must be provided
+#' @param range.speci list. the species specific data struct. must be provided
+#' @param extendrag numeric. extent to extend unknown range in kinetic parameters(when there is only one value in in record). must be provided
 #' @return list. refined parameter list
 #' @export
-kine_para_refine<-function(list.res.refine,range.speci,extendrag){
+kine_para_refine<-function(list.res.refine=NULL,range.speci=NULL,extendrag=NULL){
+  if(is.null(list.res.refine)||is.null(range.speci)){
+    stop("please provide the two parameter lists")
+  }
+  if(is.null(extendrag)){
+    stop("please provide the extension range")
+  }
   ## the enzyme with kinetic parameter
   ecs=unique(c(names(list.res.refine[[1]]),names(list.res.refine[[2]]), ##for all species
                names(range.speci[[1]]),names(range.speci[[2]]))) ## for NC

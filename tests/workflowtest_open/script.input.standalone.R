@@ -42,7 +42,7 @@ foldcreate(paste0(dir.data,foldname))
 # source(paste0(dir.lib,"reader.R"))
 # source(paste0(dir.lib,"reader.output.R"))
 # source(paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/R.lib/R.prob.func.R"))
-update_history(dir.his,paste0(dir.data,foldname,"/"))
+update_history(histpath=dir.his,projpath=paste0(dir.data,foldname,"/"))
 dir.res=paste0(dir.data,foldname,"/res/")
 foldcreate(dir.res)
 dir.tempt=paste0(dir.data,foldname,"/tempt/")
@@ -121,7 +121,7 @@ rev=unlist(list(
 ##stored kinetic parameters for enzyme
 load(paste0(dir_ext_data,"kin_infor/Neurospora crassa.kine.new.RData"))
 load(paste0(dir_ext_data,"kin_infor/all.kine.RData"))
-parameter.list=kine_para_refine(list.res.refine,range.speci,extendrag)
+parameter.list=kine_para_refine(list.res.refine=list.res.refine,range.speci=range.speci,extendrag=extendrag)
 
 ##further refinement of the value range
 ##for km: 2.7.1.1 is proper choice as it is with larger range than 2.7.1.2. Both are used in glucose->glu-6-p
@@ -219,9 +219,9 @@ submit.sh=paste0(dir.tempt,"submit.sh")
 
 #----------------------i01 construct------------------------#
 len.list.temp<-template_spec_reac(pathfile,
-                   "mm",
-                   dir.tempt,modified.file,
-                   para.list,c(),extend)
+                   type="mm",
+                   dir.data=dir.tempt,modified.file=modified.file,
+                   para.list=para.list,list.exi=c(),extend=extend)
 ##only len.list produced by one loop is needed as they are the same
 if(is.null(len.list)){
   len.list=len.list.temp
@@ -276,7 +276,7 @@ system(paste0("cp \"",submit.sh,"\" \"",dir.input,"submit.sh\""))
 for(replicatei in seq(nreplicate)){
   print(paste0("replicate: ",replicatei))
   ##Latin Hypercube log uniform initial guess reformulating
-  randloglhs(nreplicate,replicatei,temp.change.file2,temp.change.file3)
+  randloglhs(nreplicate,replicatei,input=temp.change.file2,output=temp.change.file3)
   change_para("imc_ran",9518730-replicatei+1,infile=temp.change.file3,outfile=temp.change.file3,type="edit")
   change_para("iseed2",replicatei+1-1,infile=temp.change.file3,outfile=temp.change.file3,type="edit")
   system(paste0("cp \"",ens.def,"\" \"",dir.input,replicatei,"/ens.def\""))
@@ -312,9 +312,10 @@ for(exp in experiments){
   list.nmr=list.nmr[!sapply(list.nmr,function(y){dim(y)[1]==0})]
   # print(sapply(list.nmr,dim))
   localblockpath=paste0(dir.tempt,"addon.measure.nmr.",exp,".tab")
-  classnum<-template_exp_data(list.nmr,classnumfix,
-                              localblockpath,
-                              dir.tempt,modified.file,zspec_wid,1)
+  classnum<-template_exp_data(list.nmr,classnum=classnumfix,
+                              output=localblockpath,
+                              dir.data=dir.tempt,modified.file=modified.file,
+                              zspec_wid=zspec_wid,sameclass=1)
   patternmatch=paste0("^\\s+",exp-3,"\\s+18\\s+$")
   nlineblock=linecount(localblockpath)
   change_block(list(pattern0=patternmatch,pattern1=patternmatch,shift=c(2,2)),
@@ -335,7 +336,7 @@ for(replicatei in seq(nreplicate)){
 }
 
 #-----------------------summary input-----------------------#
-list.exi<-summary_input(paste0(dir.tempt,"ens.modified3.i01"),paste0(dir.tempt,"ens.i02"))
+list.exi<-summary_input(i01=paste0(dir.tempt,"ens.modified3.i01"),i02=paste0(dir.tempt,"ens.i02"))
 ##!check the files according to ensem.info and compare files(i01 i02 between replicate and previous version)
 ##transfer the folder, cd into the folder
 ##!work in qlogin environment

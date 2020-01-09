@@ -44,7 +44,7 @@ name=modified.file
 # info<-foreach(replicatei=replicateseq)%dopar%{
 #   path.equala=paste0(dir.res,"equala/",replicatei,"/ens.o02")
 #   o02.data.equ=o02_reader(path.equala)
-#   summary_o02(o02.data.equ,dir.res,addonname=paste0("equala.",name,".",replicatei),TRUE)
+#   summary_o02(o02.data=o02.data.equ,dir.res=dir.res,addonname=paste0("equala.",name,".",replicatei),linethick=TRUE)
 #   equa_check(o02.data.equ,sweeps=1000,addon=paste0("equala.",name,".",replicatei),comp="chi2")
 # }
 ### accumulation combine
@@ -54,7 +54,7 @@ name=modified.file
 replicatei=1
 path.accumu=paste0(dir.data,"/ens.o02")
 o02.data.accumu=o02_reader(path.accumu)
-summary_o02(o02.data.accumu,dir.res,addonname=paste0("accumu.",name,".",replicatei),TRUE)
+summary_o02(o02.data=o02.data.accumu,dir.res=dir.res,addonname=paste0("accumu.",name,".",replicatei),linethick=TRUE)
 equa_check(o02.data.accumu,sweeps=1000,
           addon=paste0("accumu.",name,".",replicatei),comp="chi2")
 
@@ -92,7 +92,10 @@ names(meta.list)=meta.list
 path.accumu.o01=paste0(dir.data,"/ens.o01")
 meta.list.use=meta.list
 for(exp in seq(length(experiments))){
-  plot_multi_spec_time(path.accumu.o01,meta.list.use,paste0(name,".multisub",".",replicatei),exp,dir.res)
+  plot_multi_spec_time(path.accumu.o01,
+            species.list=meta.list.use,
+            addon=paste0(name,".multisub",".",replicatei),
+            exp=exp,dir.res=dir.res)
 }
 
 # distribution of estimated enzyme

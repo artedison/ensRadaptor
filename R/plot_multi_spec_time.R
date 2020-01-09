@@ -2,15 +2,28 @@
 #'
 #' plot of time trajectory of multiple species
 #'
-#' @param o01 string. the location of o01
-#' @param species.list array. the species to plot
-#' @param addon string. addon file name
-#' @param exp int. the experiment number to choose
-#' @param dir.res string. result locaiton
-#' @param logtrans bool. whether log transformation is  performed
+#' @param o01 string. the location of o01. must be provided
+#' @param species.list array. the species to plot. must be provided
+#' @param addon string. addon file name. default ""
+#' @param exp int. the experiment number to choose. must be provided
+#' @param dir.res string. result locaiton. must be provided
+#' @param ncol int. the number of columne in plot_grid plot. default 5
+#' @param logtrans bool. whether log transformation is  performed. default FALSE
 #' @return figure. the figure itself
 #' @export
-plot_multi_spec_time<-function(o01,species.list,addon,exp,dir.res,ncol=5,logtrans=FALSE){
+plot_multi_spec_time<-function(o01=NULL,species.list=NULL,addon="",exp=NULL,dir.res=NULL,ncol=5,logtrans=FALSE){
+  if(is.null(o01)){
+    stop("please provide input path")
+  }
+  if(is.null(species.list)){
+    stop("please provide species list")
+  }
+  if(is.null(exp)){
+    stop("please provide the experiment number")
+  }
+  if(is.null(dir.res)){
+    stop("please provide output path")
+  }
   ## reading o01
   lines=readLines(o01)
   start_mod_ind=str_which(string=lines,pattern="^\\s*MC\\s+averaged\\s+model\\s+species\\s+concentrations")
@@ -21,7 +34,7 @@ plot_multi_spec_time<-function(o01,species.list,addon,exp,dir.res,ncol=5,logtran
   ### experiment result
   list.p=vector(mode="list")
   for(spec_meta in species.list){
-    tabmod=mod_model_tab(lines,start_mod_ind,start_mod_ind,specname_ind,power_ind,spec_meta)
+    tabmod=mod_model_tab(lines,start=start_mod_ind,end=start_mod_ind,specname_ind=specname_ind,power_ind=power_ind,species=spec_meta)
     modpart=tabmod[tabmod[,"mod"]==exp,c(1,2,3)]
     tab=modpart
     colnames(tab)=c("time","val","var")
