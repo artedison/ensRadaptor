@@ -3,10 +3,13 @@
 #' this script is before fetching information out of output file from ensemble
 #' currently only deal with RESTART run which cause some block rearrangement in o02 file
 #'
-#' @param path string. input file
+#' @param path string. input file. must be provided
 #' @return string. the path to the cleaned file
 #' @export
-o02_clean<-function(path){
+o02_clean<-function(path=NULL){
+  if(is.null(path)){
+    stop("please provide input path")
+  }
   outputpath=paste0(path,".cleaned")
   lines=readLines(path)
   start_ind=str_which(string=lines,pattern="iout_th")

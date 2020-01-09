@@ -3,14 +3,17 @@
 #' this is for submitting multiple accumulation run individually and combine them by one run
 #' the function will correct the index number and make the combined file looks like output of one run
 #'
-#' @param path string. the input o02 file
+#' @param path string. the input o02 file. must be provided
 #' @return no return
 #' @export
-comb_accum<-function(path){
+comb_accum<-function(path=NULL){
+  if(is.null(path)){
+    stop("please provide the path to o02 file")
+  }
   lines=readLines(path)
   iout.ind=str_which(string=lines,pattern="iout_th")
   lines[iout.ind+1]=str_replace_all(string=lines[iout.ind+1],pattern="^\\s+\\d+",replacement=paste("     ",seq(from=0,by=1,to=length(iout.ind)-1)))
-  listres=change_para("imc\\_rep",NA,path,NA,type="show")
+  listres=change_para("imc\\_rep",NA,infile=path,outfile=NA,type="show")
   numval=as.numeric(listres[["val"]])
   diffval=diff(numval)
   if(length(which(diffval<0))!=0){

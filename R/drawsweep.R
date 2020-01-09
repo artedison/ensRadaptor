@@ -2,12 +2,15 @@
 #'
 #' plot the variable through sweeps
 #'
-#' @param tab array. the data table
-#' @param para string. y axis
-#' @param loci string. location for result (add on string for name)
-#' @param linethick bool. whether make line thicker
+#' @param tab array. the data table. must be provided
+#' @param para string. y axis. default "ylab"
+#' @param loci string. location for result (add on string for name). default ""
+#' @param linethick bool. whether make line thicker. default FALSE
 #' @return no return just plot
-draw_sweep<-function(tab,para,loci,linethick){
+draw_sweep<-function(tab=NULL,ylab="ylab",loci="",linethick=FALSE){
+  if(is.null(tab)){
+    stop("please provide input data")
+  }
   if(linethick){
     size=1
   }else{
@@ -21,7 +24,7 @@ draw_sweep<-function(tab,para,loci,linethick){
         geom_line(size=size,alpha=0.75)+
         # geom_point(color="red",alpha=0.5,size=0.5)+
         xlab("sweep")+
-        ylab(para)+
+        ylab(ylab)+
         theme_bw()
   ggsave(plot=p,file=loci)
 }

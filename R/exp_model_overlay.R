@@ -3,15 +3,27 @@
 #' measurement is actually "scaled" measurement
 #' the range [low high] will also be plot
 #'
-#' @param o01 string. file path
-#' @param species string. the species that need overlay
-#' @param addon string. addon on output file name
-#' @param exp numeric. the experiment number that need to be plot
-#' @param dir.res string. the output folder
-#' @param logtrans bool. whether log transformaed is performed on dat
+#' @param o01 string. file path. must be provided
+#' @param species string. the species that need overlay. must be provided
+#' @param addon string. addon on output file name. default ""
+#' @param exp numeric. the experiment number that need to be plot. must be provided
+#' @param dir.res string. the output folder. must be provided
+#' @param logtrans bool. whether log transformaed is performed on dat. default FALSE
 #' @return figure. return the figure itself
 #' @export
-exp_model_overlay<-function(o01,species,addon,exp,dir.res,logtrans=FALSE){
+exp_model_overlay<-function(o01=NULL,species=NULL,addon="",exp=NULL,dir.res=NULL,logtrans=FALSE){
+  if(is.null(o01)){
+    stop("please provide input path")
+  }
+  if(is.null(species)){
+    stop("please provide species list")
+  }
+  if(is.null(exp)){
+    stop("please provide experiment list")
+  }
+  if(is.null(dir.res)){
+    stop("please provide output path")
+  }
   ## reading o01
   lines=readLines(o01)
   start_mod_ind=str_which(string=lines,pattern="^\\s*MC\\s+averaged\\s+model\\s+species\\s+concentrations")

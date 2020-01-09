@@ -69,7 +69,7 @@ obsv=c("gluc_all","ethanol","lactate","succinate","citrate","glu_1_phos","fumara
 time1=12# the end time for simulation, the time length of data
 extend=1#extend of all parameters range
 extendrag=100#extend of parameters without range (no informaiton from database or just one value)
-smallvalue<<-0.0000000000000000001#used to replace 0 when math on 0 is not working
+smallvalue<-0.0000000000000000001#used to replace 0 when math on 0 is not working
 refenz="NCU05627"#the enzyme used to scale different experimental globally(as they are with different concentration)
 
 ##measurement parameter
@@ -79,7 +79,7 @@ names(conv.factor)=c("km","kcat")
 zspec_wid=0.3# the default relative uncerntainty for measurement
 experiments=c(4:6)#4,5,6anaerobic, 1,2,3 aerobic
 
-lhsmatrix<<-c()#global variable as used by a function multiple times
+lhsmatrix<-c()#global variable as used by a function multiple times
 # lowthrespec=0.00000000000000001
 # highthrespec=100.00006
 
@@ -232,29 +232,29 @@ if(is.null(len.list)){
 # 0.0018 7.5000 0.116189500386223
 change_block(list(pattern0="namereac\\s+\\/nipart\\s+nopart\\sjkin\\n\\s+comb_glycolysis",pattern1="namereac\\s+\\/nipart\\s+nopart\\s+jkin\\n\\s+2.7.1.40",shift=c(26,-31)),
              list(file=paste0(dir.template.format,"comb_glycolysis.tab"),ilinerag=c(31,35)),
-             temp.change.file1,temp.change.file1,type="edit")
+             infile=temp.change.file1,outfile=temp.change.file1,type="edit")
 ## add on the combined measrument{addon.comb.meas.tab}
 ### gluc_all=Gluc_ex + gluc_in
 change_block(list(pattern0="^\\#\\s+Reaction\\s+control\\-\\s+and\\s+\\\\Theta\\-variables",pattern1="^\\#\\s+Reaction\\s+control\\-\\s+and\\s+\\\\Theta\\-variables",shift=c(-1,-2)),
              list(file=paste0(dir.template.format,"addon.comb.meas.tab"),ilinerag=c(76,99)),
-             temp.change.file1,temp.change.file1,type="edit")
+             infile=temp.change.file1,outfile=temp.change.file1,type="edit")
 ## modify the first enzyme to be scale factor {addon.scalenz.tab}
-change.block(list(pattern0="namespec\\/jfix\\s+npulse\\s+nperiod\\s+jmsspec\\s+xspec\\_min xspec\\_max\\n\\s+NCU05627",pattern1="namespec\\/jfix\\s+npulse\\s+nperiod\\s+jmsspec\\s+xspec\\_min\\s+xspec\\_max\\n\\s+gluc_in",shift=c(-1,-3)),
+change_block(list(pattern0="namespec\\/jfix\\s+npulse\\s+nperiod\\s+jmsspec\\s+xspec\\_min xspec\\_max\\n\\s+NCU05627",pattern1="namespec\\/jfix\\s+npulse\\s+nperiod\\s+jmsspec\\s+xspec\\_min\\s+xspec\\_max\\n\\s+gluc_in",shift=c(-1,-3)),
               list(file=paste0(dir.template.format,"addon.scalenz.tab"),ilinerag=c(66,127)),
-              temp.change.file1,temp.change.file1,type="edit")
+              infile=temp.change.file1,outfile=temp.change.file1,type="edit")
 ## add differences on oxidative phosphorylation for anaerobic and aerobic conditions {addon.aero.vs.anaero.tab}
 change_block(list(pattern0="namereac\\s+\\/nipart\\s+nopart\\s+jkin\\n\\s+oxy\\_phos\\_enz1",pattern1="namereac\\s+\\/nipart\\s+nopart\\s+jkin\\n\\s+gluc1p\\_phosase\\_enz",shift=c(-1,-2)),## this line need modification
              list(file=paste0(dir.template.format,"addon.aero.vs.anaero.tab"),ilinerag=c(245,392)),
-             temp.change.file1,temp.change.file1,type="edit")
+             infile=temp.change.file1,outfile=temp.change.file1,type="edit")
 
 ## change dimension parameters
-nspec=length(change_para("namespec",NA,temp.change.file1,NA,type="show")[[1]])
-ndepn=length(change_para("iparn",NA,temp.change.file1,NA,type="show")[[1]])
+nspec=length(change_para("namespec",NA,infile=temp.change.file1,outfile=NA,type="show")[[1]])
+ndepn=length(change_para("iparn",NA,infile=temp.change.file1,outfile=NA,type="show")[[1]])
 list.i01.para=list(nspec=nspec,nreac=len.list[["reac"]],time1=time1,nexpt=length(experiments),"th\\_opt1"=102010001,##supress unuseful information in o02 file
                    "jmc\\_ini"=40)
 system(paste0("cp \"",temp.change.file1,"\" \"",temp.change.file2,"\""))
 for(para.name in names(list.i01.para)){
-  change_para(para.name,list.i01.para[[para.name]],temp.change.file2,temp.change.file2,type="edit")
+  change_para(para.name,list.i01.para[[para.name]],infile=temp.change.file2,outfile=temp.change.file2,type="edit")
 }
 
 #----------------------def modificate-----------------------#
@@ -263,7 +263,7 @@ list.def.para=list("mp\\_dim\\_yspec\\_x"=120000,"iline\\_x"="200+2*nspec_x+2*nr
                    "nspec\\_x"=nspec,"nreac\\_x"=len.list[["reac"]],"ndpen\\_tot\\_x"=ndepn)
 # for(paraname in names(list.def.para)){
 #   change_def(paraname,list.def.para[[paraname]],
-#              ens.def,ens.def,type="edit")
+#              infile=ens.def,outfile=ens.def,type="edit")
 # }
 
 #-------------------submit.sh modificate--------------------#
@@ -277,8 +277,8 @@ for(replicatei in seq(nreplicate)){
   print(paste0("replicate: ",replicatei))
   ##Latin Hypercube log uniform initial guess reformulating
   randloglhs(nreplicate,replicatei,temp.change.file2,temp.change.file3)
-  change_para("imc_ran",9518730-replicatei+1,temp.change.file3,temp.change.file3,type="edit")
-  change_para("iseed2",replicatei+1-1,temp.change.file3,temp.change.file3,type="edit")
+  change_para("imc_ran",9518730-replicatei+1,infile=temp.change.file3,outfile=temp.change.file3,type="edit")
+  change_para("iseed2",replicatei+1-1,infile=temp.change.file3,outfile=temp.change.file3,type="edit")
   system(paste0("cp \"",ens.def,"\" \"",dir.input,replicatei,"/ens.def\""))
   system(paste0("cp \"",ens.f90,"\" \"",dir.input,replicatei,"/ens.f90\""))
   system(paste0("cp \"",temp.change.file3,"\" \"",dir.input,replicatei,"/ens.i01\""))
@@ -319,7 +319,7 @@ for(exp in experiments){
   nlineblock=linecount(localblockpath)
   change_block(list(pattern0=patternmatch,pattern1=patternmatch,shift=c(2,2)),
                list(file=localblockpath,ilinerag=c(1,nlineblock)),
-               i02path,i02path,type="edit")
+               infile=i02path,outfile=i02path,type="edit")
 }
 
 ##modify i02 measurement number

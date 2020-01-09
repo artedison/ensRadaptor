@@ -2,24 +2,30 @@
 #'
 #' The function will edit or show the value of specific parameters
 #'
-#' @param term string. the term that need to be changed
-#' @param value array, dim(array)=1. the set value
-#' @param infile string. input file path
-#' @param outfile string. output file path
-#' @param type string. "show"(show the parameter), "edit"(edit the value)
+#' @param term string. the term that need to be changed. must be provided
+#' @param value array, dim(array)=1. the set value. default NULL
+#' @param infile string. input file path. must be provided
+#' @param outfile string. output file path. default NULL
+#' @param type string. "show"(show the parameter, default), "edit"(edit the value)
 #'         if there is mulitple locations for the corresponding term, only show value is possible
 #'         and both location/index and value are returned.
-#' @param indrep array. the index of the one that need to be changed if there are multiple (edit)
+#' @param indrep array. the index of the one that need to be changed if there are multiple (edit). default 1
 #' @return If type="edit", no value is returned and just change the file correspondingly
 #'         If type="show" OR length(uncomm)!=1&&indrep==1, a list of value and line number will be returned
 #' @seealso [change_block()] for modifying one block
 #' @export
-change_para<-function(term,value,infile,outfile,type="show",indrep=1){
+change_para<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show",indrep=1){
+  if(is.null(term)){
+    stop("please provide the term to change")
+  }
+  if(is.null(infile)){
+    stop("please provide full path for input at least")
+  }
   lines=readLines(infile)
   comment_ind=str_detect(string=lines,pattern="^#")
   ind=str_which(string=lines,pattern=term)
   uncomm=which(!comment_ind[ind])
-  if(infile==outfile||is.na(outfile)){
+  if(infile==outfile){
     print("pay attention to file name!")
   }
   if(length(uncomm)!=1&&indrep==1){
@@ -62,19 +68,27 @@ change_para<-function(term,value,infile,outfile,type="show",indrep=1){
 #'          ->pattern1: the end of the block to be matched.
 #'          ->shift: a vector. if length(shift)==2. Index shift will be added on pattern0 and pattern1
 #'                   if length(shift)==1. The shift is the same for both pattern0 and pattern1
+#'          must be provided.
 #' @param contentlist list. the value to be changed
 #'          ->file: the file to read from
 #'          ->ilinerag: the index range of lines as input
-#' @param infile string. input file path
-#' @param outfile string. output file path
-#' @param type string. "show"(show the parameter), "edit"(edit the value)
+#'          Default NULL
+#' @param infile string. input file path. must be provided
+#' @param outfile string. output file path. default NULL
+#' @param type string. "show"(show the parameter, default), "edit"(edit the value)
 #'        if there is mulitple value for the corresponding term, only show value is possible
 #' @return If type="edit", no value is returned and just change the file correspondingly
 #'         If type="show", return the show part
 #' @seealso [change_para()] for modifying one parameter
 #' @export
-change_block<-function(paternlist,contentlist,infile,outfile,type="show"){
-  if(infile==outfile||is.na(outfile)){
+change_block<-function(paternlist=NULL,contentlist=NULL,infile=NULL,outfile=NULL,type="show"){
+  if(is.null(paternlist)){
+    stop("please provide correct searching pattern")
+  }
+  if(is.null(infile)){
+    stop("please provide full path for input at least")
+  }
+  if(infile==outfile){
     print("pay attention to file name!")
   }
   lines=readLines(infile)
@@ -105,15 +119,21 @@ change_block<-function(paternlist,contentlist,infile,outfile,type="show"){
 #'
 #' the function is for editing or showing specific parameters
 #'
-#' @param term string. the value that need to be changed
-#' @param value array, dim(array)=1. the value
-#' @param infile string. input file path
-#' @param outfile string. output file path
-#' @param type string. "show"(show the parameter), "edit"(edit the value)
+#' @param term string. the value that need to be changed. must be provided
+#' @param value array, dim(array)=1. the value. default NULL
+#' @param infile string. input file path. must be provided
+#' @param outfile string. output file path. default NULL
+#' @param type string. "show"(show the parameter. default), "edit"(edit the value)
 #' @return If type="edit", no value is returned and just change the file correspondingly
 #'         If type="show", a list of value will be returned
 #' @export
-change_def<-function(term,value,infile,outfile,type="show"){
+change_def<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show"){
+  if(is.null(term)){
+    stop("please provide the term to change")
+  }
+  if(is.null(infile)){
+    stop("please provide full path for input at least")
+  }
   lines=readLines(infile)
   comment_ind=str_detect(string=lines,pattern="^!")
   patternwrap=paste0("parameter\\(",term,"\\=[^\\)]+\\)")
@@ -121,7 +141,7 @@ change_def<-function(term,value,infile,outfile,type="show"){
   repalcewrap=paste0("parameter(",term_nonescape,"=",value,")")
   ind=str_which(string=lines,pattern=patternwrap)
   uncomm=which(!comment_ind[ind])
-  if(infile==outfile||is.na(outfile)){
+  if(infile==outfile){
     print("pay attention to file name!")
   }
   ind=ind[!comment_ind[ind]]
@@ -142,20 +162,26 @@ change_def<-function(term,value,infile,outfile,type="show"){
 #'
 #' the function is for editing or showing specific parameters
 #'
-#' @param term string. the value that need to be changed
-#' @param value array, dim(array)=1. the value
-#' @param infile string. input file path
-#' @param outfile string. output file path
-#' @param type string. "show"(show the parameter), "edit"(edit the value)
+#' @param term string. the value that need to be changed. must be provided
+#' @param value array, dim(array)=1. the value. default NULL
+#' @param infile string. input file path.  must be provided
+#' @param outfile string. output file path. default NULL
+#' @param type string. "show"(show the parameter. default), "edit"(edit the value)
 #' @return If type="edit", no value is returned and just change the file correspondingly
 #'         If type="show", a list of value will be returned
 #' @export
-change_sh<-function(term,value,infile,outfile,type="show"){
+change_sh<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show"){
+  if(is.null(term)){
+    stop("please provide the term to change")
+  }
+  if(is.null(infile)){
+    stop("please provide full path for input at least")
+  }
   lines=readLines(infile)
   patternwrap=paste0(term,"\\=.+")
   repalcewrap=paste0(term,"=",value)
   ind=str_which(string=lines,pattern=patternwrap)
-  if(infile==outfile||is.na(outfile)){
+  if(infile==outfile){
     print("pay attention to file name!")
   }
   if(type=="show"){

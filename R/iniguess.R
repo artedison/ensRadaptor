@@ -2,11 +2,20 @@
 #'
 #' this function will use the vector to initilize the inital guess for parameters
 #'
-#' @param input string. input file path
-#' @param output string. output file path
-#' @param valvec array. named vector of values for initial guess. block of value that wasn't inlcuded in the vector will be initilized as lowval + smallvalue
+#' @param input string. input file path. must be provided
+#' @param output string. output file path. must be provided
+#' @param valvec array. named vector of values for initial guess. block of value that wasn't inlcuded in the vector will be initilized as lowval + smallvalue. must be provided
 #' @return no return just change the file
-iniguess<-function(input,output,valvec){
+iniguess<-function(input=NULL,output=NULL,valvec=NULL){
+  if(is.null(input)){
+    stop("please provide input path")
+  }
+  if(is.null(output)){
+    stop("please provide output path")
+  }
+  if(is.null(valvec)){
+    stop("please provide the value array")
+  }
   lines=readLines(input)
   indspec=str_which(string=lines,pattern="\\#\\s+Species\\s+control\\-\\s+and\\s+\\\\Theta\\-variables")
   lines_abov=lines[1:indspec]

@@ -2,13 +2,16 @@
 #'
 #' file reader for o02 file
 #'
-#' @param path string. input file
+#' @param path string. input file. must be provided
 #' @param flagsweep bool. TRUE or FALSE.
 #'        TRUE: only the end of sweep part are considered for final reasult.
 #'        FALSE: output all blocks. Default FALSE
 #' @return list. list containing information in o02
 #' @export
-o02_reader<-function(path,flagsweep=FALSE){
+o02_reader<-function(path=NULL,flagsweep=FALSE){
+  if(is.null(path)){
+    stop("please provide input path")
+  }
   lines=readLines(path)
   spec_ind=str_which(string=lines,pattern="^\\s+species\\s+Theta\\s+parameters$")
   reac_ind=str_which(string=lines,pattern="^\\s+reaction\\s+Theta\\s+parameters$")
@@ -63,11 +66,17 @@ o02_reader<-function(path,flagsweep=FALSE){
 #'
 #' file reader for o03 file
 #'
-#' @param pathlist list. input file list for o03
-#' @param ioutselec int. the iout_id to be read
+#' @param pathlist list. input file list for o03. must be provided
+#' @param ioutselec int. the iout_id to be read. must be provided
 #' @return array. array of time series data. time x species x #blocks
 #' @export
-o03_reader<-function(pathlist,ioutselec){
+o03_reader<-function(pathlist=NULL,ioutselec=NULL){
+  if(is.null(pathlist)){
+    stop("please provide input path")
+  }
+  if(is.null(ioutselec)){
+    stop("please provide the index list")
+  }
   ####combine the files in the pathlist
   input=pathlist[[1]]
   ##was used for the case the run was run in multiple section(restart and continued) so there was multiple o03 file
@@ -185,10 +194,13 @@ o03_reader<-function(pathlist,ioutselec){
 #' this function only works for the simple formulation of i01
 #' for later version with much complex dependence formulation it is no longer working.
 #'
-#' @param path string. the location of i01 for prior information
+#' @param path string. the location of i01 for prior information. must be provided
 #' @return list. list containing prioir information
 #' @export
-prior_reader<-function(path){
+prior_reader<-function(path=NULL){
+  if(is.null(path)){
+    stop("please provide input path")
+  }
   lines=readLines(path)
   spec_tit_ind=str_which(string=lines,pattern="^\\s*namespec/jfix\\s+npulse\\s+nperiod\\s+jmsspec\\s+xspec_min\\s+xspec_max\\s*$")
   spec_dattit_ind=str_which(string=lines,pattern="^\\s*ipm\\s+ivpm\\s+pmspec\\s+jctspec\\s+jbcspec\\s*$")

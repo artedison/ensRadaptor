@@ -2,11 +2,17 @@
 #'
 #' makesure the output analysis script agreed with the original input file
 #'
-#' @param localpath string. the local working directory
-#' @param foldname string. the name of the project folder
+#' @param localpath string. the local working directory. must be provided
+#' @param foldname string. the name of the project folder. must be provided
 #' @return print out result no return
 #' @export
-homoge_file<-function(localpath,foldname){
+homoge_file<-function(localpath=NULL,foldname=NULL){
+  if(is.null(localpath)){
+    stop("please provide directory path")
+  }
+  if(is.null(foldname)){
+    stop("please provide project folder")
+  }
   outputfiles=list.files(path=localpath,pattern="\\.+output.R")
   if(length(outputfiles)>1){
     stop("multiple local output files")

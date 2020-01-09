@@ -287,9 +287,9 @@ react_output<-function(){
 #'
 #' automatic dependence formulation with default format
 #'
-#' @param y array. the location of the dependent variable
-#' @param x array. the independent variable
-#' @param func array. the function to be formulated for the dependency
+#' @param y array. the location of the dependent variable. must be provided
+#' @param x array. the independent variable. must be provided
+#' @param func array. the function to be formulated for the dependency. must be provided
 #'
 #' @return string. output information
 #' @seealso [spec_output()] for producing species block in i01 for default format

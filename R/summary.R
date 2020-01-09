@@ -12,11 +12,11 @@
 summary_input<-function(i01,i02){
   list.exi=vector(mode="list")
   #i01
-  nexpt=change_para("nexpt","",i01,"",type="show")
-  ntxpt=change_para("ntxpt","",i01,"",type="show")
-  nspec=change_para("nspec","",i01,"",type="show")
-  nreac=change_para("nreac","",i01,"",type="show")
-  ntime=change_para("ntime","",i01,"",type="show")
+  nexpt=change_para("nexpt",NA,infile=i01,outfile=NA,type="show")
+  ntxpt=change_para("ntxpt",NA,infile=i01,outfile=NA,type="show")
+  nspec=change_para("nspec",NA,infile=i01,outfile=NA,type="show")
+  nreac=change_para("nreac",NA,infile=i01,outfile=NA,type="show")
+  ntime=change_para("ntime",NA,infile=i01,outfile=NA,type="show")
   lines=readLines(i01)
   lenlines=length(lines)
   lines %>% str_which(string=.,pattern="^\\s*namespec") %>%
@@ -188,14 +188,14 @@ summary_o02<-function(o02.data,dir.res,addonname,linethick=FALSE){
   print(paste0("length: ",length(o02.data[["ids"]])))
   ##sweep~t
   tab=cbind(o02.data[["ids"]],o02.data[["chisq"]]*2)
-  draw_sweep(tab,"chi^2",
-      paste0(dir.res,"chi2-sweep.",addonname,".pdf"),
-      linethick
+  draw_sweep(tab,ylab="chi^2",
+      loci=paste0(dir.res,"chi2-sweep.",addonname,".pdf"),
+      linethick=linethick
   )
   ##hisogram of chi^2
   tab=o02.data[["chisq"]]*2
   dim(tab)=c(length(o02.data[["chisq"]]),1)
-  draw_hist(tab,paste0(dir.res,"chi2.distr.",addonname,".pdf"),"chi^2")
+  draw_hist(tab,loci=paste0(dir.res,"chi2.distr.",addonname,".pdf"),xlab="chi^2")
   print(paste0("mean: ",mean(tab[,1])))
   ##acceptance rates
   vec=unlist(o02.data[["raccp"]])
@@ -203,14 +203,14 @@ summary_o02<-function(o02.data,dir.res,addonname,linethick=FALSE){
   tab=tab[tab>=0]
   tab[tab>1]=1
   dim(tab)=c(length(tab),1)
-  draw_hist(tab,paste0(dir.res,"acceptance.rate.distr.",addonname,".pdf"),"acceprate")
+  draw_hist(tab,loci=paste0(dir.res,"acceptance.rate.distr.",addonname,".pdf"),xlab="acceprate")
   print("acceptance rate:")
   print(summary(vec))
   ##step size
   vec=unlist(o02.data[["fstp"]])
   tab=vec
   dim(tab)=c(length(vec),1)
-  draw_hist(tab,paste0(dir.res,"footstepsize.rate.distr.",addonname,".pdf"),"stepsize")
+  draw_hist(tab,loci=paste0(dir.res,"footstepsize.rate.distr.",addonname,".pdf"),xlab="stepsize")
   print("stepsize:")
   print(summary(vec))
 }

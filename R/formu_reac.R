@@ -2,11 +2,17 @@
 #'
 #' this is funciton is for producing transcription and translation reaction from a gene/enzyme list
 #'
-#' @param enz array. the enzyme list
-#' @param path string. the result location
+#' @param enz array. the enzyme list. must be provided
+#' @param path string. the result location. must be provided
 #' @return no return
 #' @export
-formu_reac<-function(enz,path){
+formu_reac<-function(enz=NULL,path=NULL){
+  if(is.null(enz)){
+    stop("please provide enzyme list")
+  }
+  if(is.null(path)){
+    stop("please provide output path")
+  }
   lines<-sapply(seq(length(enz)),function(x){
     enzyme=enz[x]
     transcr=paste0("Reaction (",x,") ",enzyme,"_trans: ",
