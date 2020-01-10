@@ -29,7 +29,7 @@ compdir="/Users/yuewu/"
 dirpack=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/package.formulate/ensRadaptor/")
 dir=paste0(dirpack,"temp/testworkflow_open/")##user defined location for testing
 dir_ext_data=paste0(dirpack,"inst/extdata/")## the open external data directory
-# dir.lib=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/ensemble_infor/code/")
+dir.lib=paste0(dir_ext_data,"template_format/")##this path is used within many functions
 dir.his=paste0(dir,"history/history.record.tab")
 if(!file.exists(dir.his)){
   file.create(dir.his)
@@ -69,7 +69,7 @@ obsv=c("gluc_all","ethanol","lactate","succinate","citrate","glu_1_phos","fumara
 time1=12# the end time for simulation, the time length of data
 extend=1#extend of all parameters range
 extendrag=100#extend of parameters without range (no informaiton from database or just one value)
-smallvalue<-0.0000000000000000001#used to replace 0 when math on 0 is not working
+smallvalue<-0.0000000000000000001#used to replace 0 when math on 0 is not working. used within many functions
 refenz="NCU05627"#the enzyme used to scale different experimental globally(as they are with different concentration)
 
 ##measurement parameter

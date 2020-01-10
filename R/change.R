@@ -97,7 +97,7 @@ change_block<-function(paternlist=NULL,contentlist=NULL,infile=NULL,outfile=NULL
   ind0=multi_line_map(string=lines,pattern=paternlist[["pattern0"]])+shifts[1]
   ind1=multi_line_map(string=lines,pattern=paternlist[["pattern1"]])+shifts[2]
   if(type=="show"){
-    print(paste0(term," : ",lines[ind0:ind1]))
+    # print(paste0(term," : ",lines[ind0:ind1]))
     return(lines[ind0:ind1])
   }else{
     line_replace=readLines(contentlist[["file"]])

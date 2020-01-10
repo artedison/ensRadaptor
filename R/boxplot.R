@@ -28,7 +28,7 @@ boxplot_multi_exp<-function(list.spe=NULL,path=NULL,rank=NULL,xlab="x",ylab="y",
       temp=cbind(unlist(temptab),rep(names(temptab[[1]]),times=length(temptab)))
       cbind(temp,rep(name,times=dim(temp)[1]))
     })
-    tab=Reduce(rbind,list.tab)
+    tab=Reduce("rbind",list.tab)
     temp_pattern=str_replace(string=tab[,2],pattern="\\_[\\dr]+$",replacement="")
     tab_list=sapply(rank,simplify=FALSE,function(x){
       tab[temp_pattern==x,]
@@ -62,7 +62,7 @@ boxplot_multi_exp<-function(list.spe=NULL,path=NULL,rank=NULL,xlab="x",ylab="y",
       temp=cbind(temptab,rownames(temptab))
       cbind(temp,rep(name,times=dim(temp)[1]))
     })
-    tab.add=Reduce(rbind,list.tab.add)
+    tab.add=Reduce("rbind",list.tab.add)
     temp_pattern=str_replace(string=tab[,2],pattern="\\_[\\dr]+$",replacement="")
     tab_list=sapply(rank,simplify=FALSE,function(x){
       tab[temp_pattern==x,]
@@ -125,7 +125,7 @@ boxplot_multi_exp_comb<-function(list.spe=NULL,path=NULL,rank=NULL,xlab="x",ylab
     temp=cbind(unlist(temptab),rep(names(temptab[[1]]),times=length(temptab)))
     cbind(temp,rep(name,times=dim(temp)[1]))
   })
-  tab=Reduce(rbind,list.tab)
+  tab=Reduce("rbind",list.tab)
   temp_pattern=str_replace(string=tab[,2],pattern="\\_[\\dr]+$",replacement="")
   tab_list=sapply(rank,simplify=FALSE,function(x){
     tab[temp_pattern==x,]
@@ -148,7 +148,7 @@ boxplot_multi_exp_comb<-function(list.spe=NULL,path=NULL,rank=NULL,xlab="x",ylab
     temp=cbind(temptab,rownames(temptab))
     cbind(temp,rep(name,times=dim(temp)[1]))
   })
-  tab.add=Reduce(rbind,list.tab.add)
+  tab.add=Reduce("rbind",list.tab.add)
   rownames(tab.add)=NULL
   tab.add=as.data.frame(tab.add)
   colnames(tab.add)=c("low","high","type","exp")

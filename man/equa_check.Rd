@@ -4,13 +4,15 @@
 \alias{equa_check}
 \title{check equalabration}
 \usage{
-equa_check(o02data = NULL, sweeps = NULL, addon = "",
-  comp = "chi2")
+equa_check(o02data = NULL, sweeps = NULL, dir.res = NULL,
+  addon = "", comp = "chi2")
 }
 \arguments{
 \item{o02data}{list. o02 data struct. must be provided}
 
 \item{sweeps}{numeric. the last n sweeps that should be included in the drawing. must be provided}
+
+\item{dir.res}{string. result directory. must be provided}
 
 \item{addon}{string. addon string for names. default ""}
 

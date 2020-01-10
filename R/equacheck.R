@@ -6,6 +6,7 @@
 #'
 #' @param o02data list. o02 data struct. must be provided
 #' @param sweeps numeric. the last n sweeps that should be included in the drawing. must be provided
+#' @param dir.res string. result directory. must be provided
 #' @param addon string. addon string for names. default ""
 #' @param comp string. whether plot parameter with sweep?
 #'       "chi2": only plot chi2. default
@@ -14,12 +15,15 @@
 #' @export
 #' @examples
 #'
-equa_check<-function(o02data=NULL,sweeps=NULL,addon="",comp="chi2"){
+equa_check<-function(o02data=NULL,sweeps=NULL,dir.res=NULL,addon="",comp="chi2"){
   if(is.null(o02data)){
     stop("please provide input data")
   }
   if(is.null(sweeps)){
     stop("please state explicitly the presenting sweeps")
+  }
+  if(is.null(dir.res)){
+    stop("please provide the output path")
   }
   len=length(o02data[["ids"]])
   rang=(len-sweeps+1):len
@@ -30,7 +34,7 @@ equa_check<-function(o02data=NULL,sweeps=NULL,addon="",comp="chi2"){
   if(comp=="all"){
     ##ini concentration
     inis=names(o02data[["theta_spec_ini"]][[1]])
-    tabchose=Reduce(rbind,o02data[["theta_spec_ini"]][rang])
+    tabchose=Reduce("rbind",o02data[["theta_spec_ini"]][rang])
     for(ini in inis){
       tab=cbind(o02data[["ids"]][rang],tabchose[,ini])
       draw_sweep(tab,ylab=ini,
@@ -38,7 +42,7 @@ equa_check<-function(o02data=NULL,sweeps=NULL,addon="",comp="chi2"){
     }
     ##kinetic parameter
     paras=names(o02data[["theta_reac_para"]][[1]])
-    tabchose=Reduce(rbind,o02data[["theta_reac_para"]][rang])
+    tabchose=Reduce("rbind",o02data[["theta_reac_para"]][rang])
     for(para in paras){
       tab=cbind(o02data[["ids"]][rang],tabchose[,para])
       draw_sweep(tab,ylab=para,

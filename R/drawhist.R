@@ -7,7 +7,7 @@
 #' @param xlab string. x axis. default "xlab"
 #' @return no return just plot the histogram
 draw_hist<-function(tab=NULL,loci="",xlab="xlab"){
-  if(is.null){
+  if(is.null(tab)){
     stop("please provide input data")
   }
   tab=as.data.frame(tab)

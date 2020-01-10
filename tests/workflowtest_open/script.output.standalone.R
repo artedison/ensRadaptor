@@ -27,7 +27,8 @@ registerDoMC(cores=10)
 compdir="/Users/yuewu/"
 dirpack=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/package.formulate/ensRadaptor/")
 dir=paste0(dirpack,"temp/testworkflow/")
-# dir.lib=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/ensemble_infor/code/")
+dir_ext_data=paste0(dirpack,"inst/extdata/")## the open external data directory
+dir.lib=paste0(dir_ext_data,"template_format/")##this path is used within many functions
 dir.data=paste0(dirpack,"internal_data/")
 # dir.template.format=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/ensemble_infor/doc/template.file/")
 foldname="1"
@@ -45,7 +46,7 @@ name=modified.file
 #   path.equala=paste0(dir.res,"equala/",replicatei,"/ens.o02")
 #   o02.data.equ=o02_reader(path.equala)
 #   summary_o02(o02.data=o02.data.equ,dir.res=dir.res,addonname=paste0("equala.",name,".",replicatei),linethick=TRUE)
-#   equa_check(o02.data.equ,sweeps=1000,addon=paste0("equala.",name,".",replicatei),comp="chi2")
+#   equa_check(o02.data.equ,sweeps=1000,dir.res=dir.res,addon=paste0("equala.",name,".",replicatei),comp="chi2")
 # }
 ### accumulation combine
 # comb.accum("/Users/mikeaalv/Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/nc_model/model/nc.glucose.fermetation/inputens/addon_model_measurement_new_cor_speed3_inivar_rem_aa_anaerobic/accumu.comb/ens.o02")
@@ -55,7 +56,7 @@ replicatei=1
 path.accumu=paste0(dir.data,"/ens.o02")
 o02.data.accumu=o02_reader(path.accumu)
 summary_o02(o02.data=o02.data.accumu,dir.res=dir.res,addonname=paste0("accumu.",name,".",replicatei),linethick=TRUE)
-equa_check(o02.data.accumu,sweeps=1000,
+equa_check(o02.data.accumu,sweeps=1000,dir.res=dir.res,
           addon=paste0("accumu.",name,".",replicatei),comp="chi2")
 
 ##new method return while output ens.i01

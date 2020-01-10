@@ -243,9 +243,9 @@ spec_output_format<-function(){
       local.para[["enz"]][[x]]<<-c(list.inival[["low.ini.spec"]][x],list.inival[["high.ini.spec"]][x])
       if(x%in%names(vals)){
         template=str_replace_all(string=template,pattern="expenz\\d_val\\d",replacement=paste0(vals[x]))
-        if(fixed==1){
-          ###
-        }
+        # if(fixed==1){
+        #   ###
+        # }
       }else if(rand){
         set.seed(rand.seed)
         valrand=runif(1,min=list.inival[["low.ini.spec"]][x],max=list.inival[["high.ini.spec"]][x])

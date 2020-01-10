@@ -51,7 +51,7 @@ exp_model_tab<-function(lines=NULL,start=NULL,end=NULL,specname_ind=NULL,power_i
   })
   exp_str=exp_str[sapply(exp_str,function(x){!is.null(x)})]
   len=sapply(exp_str,function(x){dim(x)[1]})
-  tabexp=cbind(Reduce(rbind,exp_str),rep(seq(length(len)),times=unlist(len)))
+  tabexp=cbind(Reduce("rbind",exp_str),rep(seq(length(len)),times=unlist(len)))
   colnames(tabexp)=c("time","val","exp")
   return(tabexp)
 }
@@ -105,7 +105,7 @@ mod_model_tab<-function(lines=NULL,start=NULL,end=NULL,specname_ind=NULL,power_i
   })
   mod_str=mod_str[sapply(mod_str,function(x){!is.null(x)})]
   len=sapply(mod_str,function(x){dim(x)[1]})
-  tabmod=cbind(Reduce(rbind,mod_str),rep(seq(length(len)),times=unlist(len)))
+  tabmod=cbind(Reduce("rbind",mod_str),rep(seq(length(len)),times=unlist(len)))
   colnames(tabmod)=c("time","val","var","mod")
   return(tabmod)
 }
