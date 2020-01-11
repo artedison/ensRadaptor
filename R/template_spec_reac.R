@@ -43,11 +43,11 @@ template_spec_reac<-function(path=NULL,type="mm",dir.data=NULL,modified.file="",
   names(list.reac.addon)=sapply(list.reac.addon,function(x){
     x[["name"]]
   })
-  vec.spec.addon=unique(unlist(sapply(list.reac.addon,function(x){
+  vec_spec_addon=unique(unlist(sapply(list.reac.addon,function(x){
     c(x[["subs"]],x[["prods"]])
   })))
-  vec.spec.addon=setdiff(vec.spec.addon,list.exi[["species"]])
-  save(list.reac.addon,vec.spec.addon,file=paste(dir.data,modified.file,"addon.reac.speci.RData"))
+  vec_spec_addon=setdiff(vec_spec_addon,list.exi[["species"]])
+  save(list.reac.addon,vec_spec_addon,file=paste(dir.data,modified.file,"addon.reac.speci.RData"))
   templist=vector(mode="list")
   local.para=list(enz=templist,kcat=templist,km=templist,kcatr=templist,kmr=templist)
   ## load default parameters
@@ -70,7 +70,7 @@ template_spec_reac<-function(path=NULL,type="mm",dir.data=NULL,modified.file="",
     colnames(regutab)=c("compd","regu","enz")
     regutab[,"regu"]=ifelse(regutab[,"regu"]=="->",1,-1)
     reguinfor[["regutab"]]=regutab
-    wrongname=setdiff(regutab[,"compd"],vec.spec.addon)
+    wrongname=setdiff(regutab[,"compd"],vec_spec_addon)
     if(length(wrongname)!=0){
       warning("wrong names for compound in the regulation table")
       warning(paste(wrongname,collapse=","))
@@ -127,11 +127,11 @@ template_spec_reac<-function(path=NULL,type="mm",dir.data=NULL,modified.file="",
   # save(list.kine.prior,file=prioroutput)
   ## output for the .i12 file
   output=paste("# species addon",
-              paste(rep(0.02,times=length(vec.spec.addon)),collapse=" "),
+              paste(rep(0.02,times=length(vec_spec_addon)),collapse=" "),
               "# reactions addon",
               paste(rep(0.4,times=reac.para.addon.len),collapse=" "),
               sep="\n")
   cat(output,file=outfile12,sep="\n")
-  lenlist=list(spec=length(vec.spec.addon),reac=reac.count,localpara=local.para)
+  lenlist=list(spec=length(vec_spec_addon),reac=reac.count,localpara=local.para)
   return(lenlist)
 }

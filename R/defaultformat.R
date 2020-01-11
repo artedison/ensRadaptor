@@ -18,7 +18,7 @@ spec_output<-function(){
   list.inival[["low.ini.spec"]]=para.list[["species"]][["low.ini.spec"]]
   list.inival[["high.ini.spec"]]=para.list[["species"]][["high.ini.spec"]]
   vals=para.list[["species"]][["initial"]]
-  spec_outputreturn=sapply(vec.spec.addon,function(x){
+  spec_outputreturn=sapply(vec_spec_addon,function(x){
     lineannonum2=spelineannonum
     ## settings
     if(x%in%para.list[["species"]][["obsv"]]){

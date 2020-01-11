@@ -154,7 +154,7 @@ spec_output_format<-function(){
     lines[!str_detect(string=lines,pattern="^##")]
   })
   parareg=para.list[["regu"]][["parameter"]]
-  spec_output=sapply(vec.spec.addon,function(x){
+  spec_output=sapply(vec_spec_addon,function(x){
       print(x)
       ###regulation format?
       templatetrans=c()
