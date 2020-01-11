@@ -2,6 +2,7 @@
 
 export(as_data_frame_rowname)
 export(boxplot_multi_exp)
+export(boxplot_multi_exp_comb)
 export(change_block)
 export(change_def)
 export(change_para)
@@ -30,3 +31,4 @@ export(summary_reac)
 export(tabparse)
 export(template_exp_data)
 export(template_spec_reac)
+export(update_history)

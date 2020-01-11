@@ -109,6 +109,7 @@ boxplot_multi_exp<-function(list.spe=NULL,path=NULL,rank=NULL,xlab="x",ylab="y",
 #' @param list.prior.part list. the prior range. default NULL.
 #' @param logtrans bool. whether use log transform. default FALSE.
 #' @return just plot no return
+#' @export
 #' @seealso [boxplot_multi_exp()]
 boxplot_multi_exp_comb<-function(list.spe=NULL,path=NULL,rank=NULL,xlab="x",ylab="y",list.prior.part=NULL,logtrans=FALSE){
   if(is.null(rank)){

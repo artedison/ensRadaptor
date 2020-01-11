@@ -29,15 +29,14 @@ dirpack=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modelin
 dir=paste0(dirpack,"temp/testworkflow/")
 dir_ext_data=paste0(dirpack,"inst/extdata/")## the open external data directory
 dir.lib=paste0(dir_ext_data,"template_format/")##this path is used within many functions
-dir.data=paste0(dirpack,"internal_data/")
+dir.data=paste0(dirpack,"internal_data/pre_input_testplotting/")
 # dir.template.format=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/ensemble_infor/doc/template.file/")
 foldname="1"
-dir.res=paste0(dir.data,foldname,"/res/")
-# source(paste0(dir.lib,"reader.R"))
-# source(paste0(dir.lib,"reader.output.R"))
-# source(paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/R.lib/R.prob.func.R"))
+dir.res=paste0(dir,"testmodel/",foldname,"/res/")
 
-load(paste0(dir.res,"local.prior.pre.122657_06242019.RData")) ## this need setup manually
+load(paste0(dir.data,"local.prior.pre.122657_06242019.RData")) ## this need setup manually
+foldname="1"
+dir.res=paste0(dir,"testmodel/",foldname,"/res/")
 ##fetch of information from output file
 name=modified.file
 # replicateseq=c("1","2","3","4","5","8","10","11","12","13")
@@ -223,3 +222,12 @@ boxplot_multi_exp_comb(vmax.list.list,paste0(dir.res,"boxplot.vmax.all",".",repl
             rank=kine.rank,
             xlab="reaction",ylab="log_vmax",
             list.prior.part=list.prior.pre[["vmax"]],logtrans=TRUE)
+
+#compare expected one difference in each comparison as it is from time
+#skip first 100 bytes in pdf file
+predatadir=predatadir=paste0(dirpack,"internal_data/pre_result_testplotting/")
+pdflist=list.files(dir.res,pattern="*.pdf")
+for(file in pdflist){
+  cat(paste0(file,"\n"))
+  system(paste0("cmp -i 100 \'",dir.res,file,"\' \'",predatadir,file,"\'"))
+}
