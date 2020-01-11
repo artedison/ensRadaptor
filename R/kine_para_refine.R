@@ -39,18 +39,18 @@ kine_para_refine<-function(list.res.refine=NULL,range.speci=NULL,extendrag=NULL)
               datatemp=list.res.refine[[type]][[x]]
               datalist=list.res.refine[[paste0(type,"list")]][[x]]
             }
-            # if(!is.null(datatemp)){
-            #   if(datatemp[1]==datatemp[2]){
-            #     datatemp[1]=datatemp[1]/general.val[[paste0(type,".var")]]
-            #     datatemp[2]=datatemp[2]*general.val[[paste0(type,".var")]]
-            #   }
-            #   ## 0 is not allowed for lower limit
-            #   lowrag=datatemp[1]
-            #   if(lowrag==0){
-            #     datatemp[1]=sort(unique(datalist))[2]
-            #   }
-            #   datatemp*conv.factor[[type]]
-            # }
+            if(!is.null(datatemp)){
+              if(datatemp[1]==datatemp[2]){
+                datatemp[1]=datatemp[1]/general.val[[paste0(type,".var")]]
+                datatemp[2]=datatemp[2]*general.val[[paste0(type,".var")]]
+              }
+              ## 0 is not allowed for lower limit
+              lowrag=datatemp[1]
+              if(lowrag==0){
+                datatemp[1]=sort(unique(datalist))[2]
+              }
+              datatemp*conv.factor[[type]]
+            }
     })
     temp=temp[sapply(temp,length)!=0]
     parameter.list[[type]]=temp
