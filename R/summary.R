@@ -71,7 +71,7 @@ summary_input<-function(i01=NULL,i02=NULL){
           indlocele=indloc[indloci]
           lines[ind_theta_sele+indlocele] %>% str_trim(string=.,side="both") %>%
                             str_split(string=.,pattern="\\s+",simplify=TRUE) %>%
-                            extract(,3) %>% as.numeric(.) -> val
+                            extract(.,3) %>% as.numeric(.) -> val
           valvec=c(valvec,val)
         }
         cat(paste0(valvec[1],"\t",valvec[2],"\t",valvec[3],"\n"))

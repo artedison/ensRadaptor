@@ -49,7 +49,7 @@ change_para<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show",
     strs=str_split(string=str_trim(lines[ind],side="both"),pattern="\\s+")[[1]]
     if(type=="show"){
       print(paste0(term," : ",strs[colind]))
-      res=strs[,colind]
+      res=strs[colind]
       list=list(val=res,ind=ind)
       return(list)
     }else{
