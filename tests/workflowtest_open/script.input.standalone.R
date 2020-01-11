@@ -36,7 +36,7 @@ if(!file.exists(dir.his)){
 }
 dir.data=paste0(dir,"testmodel/")
 foldcreate(paste0(dir.data))
-dir.template.format=paste0(dir_ext_data,"template_format")
+dir.template.format=paste0(dir_ext_data,"template_format/")
 foldname="1" ##the model directory
 foldcreate(paste0(dir.data,foldname))
 # source(paste0(dir.lib,"reader.R"))
@@ -85,7 +85,7 @@ lhsmatrix<-c()#global variable as used by a function multiple times
 
 #----------------------construt template setup--------------#
 ### code files not open just use fake files
-templatepath=list(input.template=paste0(dir_ext_data,"template_input"),enscode=paste0(dir_ext_data,"enscode"))
+templatepath=list(input.template=paste0(dir_ext_data,"template_input/"),enscode=paste0(dir_ext_data,"enscode/"))
 pre_file_prepare(dir.tempt,templatepath)
 specformat=list(metabolites=paste0(dir.template.format,"spec.metabolite.tab"),enzyme=paste0(dir.template.format,"spec.enz.massscal.tab"))
 reacformat=list(rev=paste0(dir.template.format,"reac.rev.mm.tab"),irrev=paste0(dir.template.format,"reac.irrev.mm.tab"))
@@ -284,7 +284,8 @@ for(replicatei in seq(nreplicate)){
   system(paste0("cp \"",temp.change.file3,"\" \"",dir.input,replicatei,"/ens.i01\""))
   system(paste0("cp \"",ens.sh,"\" \"",dir.input,replicatei,"/ens.sh\""))
 }
-save(len.list,rev,meta.list,list.res,experiments,obsv,modified.file,foldname,dir.res,enz,file=paste0(dir.res,"local.prior.pre.",format(Sys.time(), "%H%M%S_%m%d%Y"),".RData"))
+savedrdata=paste0(dir.res,"local.prior.pre.",format(Sys.time(), "%H%M%S_%m%d%Y"),".RData")
+save(len.list,rev,meta.list,list.res,experiments,obsv,modified.file,foldname,dir.res,enz,file=savedrdata)
 
 #-----------------------i02 construct-----------------------#
 load(paste0(dir_ext_data,"measurements/compound.quan.record.absmore.upd.RData"))
@@ -343,3 +344,20 @@ list.exi<-summary_input(i01=paste0(dir.tempt,"ens.modified3.i01"),i02=paste0(dir
 ##!a small local interactive run(if debug clear the whole folder)
 ##chmod +x submit.sh
 ##./submit.sh
+
+##compare with previous result
+cat("\n\nidentity check\n")
+predatadir=paste0(dirpack,"internal_data/pre_result_1/")
+filelist=c("ens.sh","ens.i01","ens.i02")#"ens.def","ens.f90",
+for(file in filelist){
+  cat(paste0(file,"\n"))
+  system(paste0("diff \'",dir.input,"1/",file,"\' \'",predatadir,file,"\'"))
+}
+listpre1=mget(load(paste0(predatadir,"local.prior.pre.170008_01102020.RData")))
+listnew=mget(load(savedrdata))
+flagmatch=sapply(names(listpre1),function(namedata){
+  identical(listpre1[[namedata]],listnew[[namedata]])
+})
+cat(paste0(">difference in data \n"))## there can be differences in folder
+cat(length(flagmatch[!flagmatch]),"\n")
+cat(paste0(names(flagmatch[!flagmatch]),"\n"))
