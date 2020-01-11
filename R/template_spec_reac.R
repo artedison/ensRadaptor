@@ -84,10 +84,11 @@ template_spec_reac<-function(path=NULL,type="mm",dir.data=NULL,modified.file="",
   }
   ###output the species format
   if(para.list[["species"]][["format"]]){
-    # environment(spec_output_format)<-environment()
+    environment(spec_output_format)<-environment()
+    # print(vec_spec_addon)
     spec_output=spec_output_format()
   }else{
-    # environment(spec_output)<-environment()
+    environment(spec_output)<-environment()
     spec_output=spec_output()
   }
   cat(spec_output,file=paste(dir.data,"species.addon.txt"),sep="\n")
@@ -105,10 +106,10 @@ template_spec_reac<-function(path=NULL,type="mm",dir.data=NULL,modified.file="",
   # }
   # list.kine.prior=list(km=vector(mode="list"),kcat=vector(mode="list"))
   if(para.list[["react"]][["format"]]){
-    # environment(react.output.format)<-environment()
+    environment(react_output_format)<-environment()
     list.res=react_output_format()
   }else{
-    # environment(react.output)<-environment()
+    environment(react_output)<-environment()
     list.res=react_output()
   }
   reac_output=list.res[["out"]]

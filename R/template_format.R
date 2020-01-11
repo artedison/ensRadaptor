@@ -138,6 +138,9 @@ react_output_format<-function(){
 #'          [spec_output()] for similar function based on default format
 #' @examples
 spec_output_format<-function(){
+  # print("****")
+  # print(search())
+  # vec_spec_addon
   oldstr<-options(stringsAsFactors=FALSE)
   on.exit(options(oldstr),add=TRUE)
   ##environment change for digit
