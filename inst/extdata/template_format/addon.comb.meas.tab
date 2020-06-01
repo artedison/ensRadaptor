@@ -1,0 +1,99 @@
+######glucose all
+namespec/jfix  npulse  nperiod jmsspec       xspec_min       xspec_max
+ gluc_all
+    -100       0       0      11  0.00000000000000001       100.00006
+     ipm    ivpm          pmspec jctspec jbcspec
+      1       1      0.00000001      20       1
+#
+     ipm   mparn   jprio   jfunc/namefunc
+       1       2    1005      -1
+                                DO_SUM_LIN
+           iparn ipm_parn         ti_parn / pmparn,nmparn
+               1     -200        0.000001
+              gluc_in 
+               2     -200        0.000001
+              Gluc_ex
+
+#####citrate all
+namespec/jfix  npulse  nperiod jmsspec       xspec_min       xspec_max
+ citrate_all
+    -100       0       0      11  0.00000000000000001       100.00006
+     ipm    ivpm          pmspec jctspec jbcspec
+      1       1      0.00000001      20       1
+#
+     ipm   mparn   jprio   jfunc/namefunc
+       1       2    1005      -1
+                                DO_SUM_LIN
+           iparn ipm_parn         ti_parn / pmparn,nmparn
+               1     -200        0.000001
+              citrate_in 
+               2     -200        0.000001
+              citrate_ex
+
+######glucose all considering the different volume between intracellular and extracellular
+namespec/jfix  npulse  nperiod jmsspec       xspec_min       xspec_max
+ gluc_all
+    -20100       0       0      11  0.00000000000000001       100.00006
+     ipm    ivpm          pmspec jctspec jbcspec
+      1       1      0.00000001      20       1
+      2       1      1               100      1
+      3       1      5.63            100      1
+#
+     ipm   mparn   jprio   jfunc/namefunc
+       1       4    1005      -1
+                                DO_DOT_PRODUCT
+           iparn ipm_parn         ti_parn / pmparn,nmparn
+               1     -200        0.000001
+              gluc_in 
+               2      2          0.000001
+              gluc_all
+               3     -200        0.000001
+              Gluc_ex
+               4      3          0.000001
+              gluc_all
+
+####glucose all considering the different volume between intracellular and extracellular for speed up
+namespec/jfix  npulse  nperiod jmsspec       xspec_min       xspec_max
+ gluc_all
+    -20100       0       0      11  0.00000000000000001       100.00006
+     ipm    ivpm          pmspec jctspec jbcspec
+      1       1      0.00000001      20       1
+      2       1      1               100      1
+      3       1      5.63            100      1
+#
+     ipm   mparn   jprio   jfunc/namefunc
+       1       4    1005      30
+           iparn ipm_parn         ti_parn / pmparn,nmparn
+               1     -200        0.000001
+              gluc_in 
+               2      2          0.000001
+              gluc_all
+               3     -200        0.000001
+              Gluc_ex
+               4      3          0.000001
+              gluc_all
+####glucose all considering the different volume between intracellular and extracellular and flexible ratio and for speed up
+namespec/jfix  npulse  nperiod jmsspec       xspec_min       xspec_max
+ gluc_all
+    -20100       0       0      11  0.00000000000000001       100.00006
+     ipm    ivpm          pmspec jctspec jbcspec
+      1       1      0.00000001      20       1
+      2       1      1               100      1
+      3       1      0.5            1      1
+      3       2      20 
+      3       3      5
+      3       4      5
+      3       5      5
+#
+     ipm   mparn   jprio   jfunc/namefunc
+       1       4    1005      -1
+                                DO_DOT_PRODUCT
+           iparn ipm_parn         ti_parn / pmparn,nmparn
+               1     -200        0.000001
+              gluc_in 
+               2      2          0.000001
+              gluc_all
+               3     -200        0.000001
+              Gluc_ex
+               4      3          0.000001
+              gluc_all

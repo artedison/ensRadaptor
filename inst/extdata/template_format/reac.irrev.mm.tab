@@ -1,0 +1,40 @@
+##template_rv_MM
+## this is a format for the irreverse form of MM 
+##E+S->ES->P+E
+##k1, k-1=0, k2, k-2=0
+### the parameter Km, Kcat
+##k1=Kcat/Km
+##k-1=0
+##k2=Kcat
+##k-2=0
+namereac /nipart nopart jkin
+ EC
+  NSUBSTRATE   NPRODUCT   10011
+  ENZYME 
+  XSUBSTRATE
+            ENZYME
+            XPRODUCT
+  ipm   ivpm   pmreac   jctreac   jbcreac
+  1     1     0.001     10     1
+  2     1     0     100     1
+  3     1     kcat_min     1     1
+  3     2     kcat_max
+  3     3     kcat_val1
+  3     4     kcat_val2
+  3     5     kcat_val3
+  4     1     0     100     1
+  5     1     km_min     1     1
+  5     2     km_max
+  5     3     km_val1
+  5     4     km_val2
+  5     5     km_val3
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   2   1004   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 3 0.000001 
+     EC
+           2 5 0.000001 
+     EC
+#

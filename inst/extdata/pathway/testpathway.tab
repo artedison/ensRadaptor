@@ -1,0 +1,32 @@
+Reaction (11) trans_gluc: Gluc_ex NCU05627 <-> gluc_in NCU05627
+Reaction (1) 2.7.1.1: gluc_in NCU00575 <-> gluc_6_phos NCU00575 
+Reaction (2) 5.3.1.9: gluc_6_phos NCU07281 <-> frut_6_phos NCU07281 
+Reaction (3) 2.7.1.11: frut_6_phos NCU00629 <-> fruc_1_6_biphos NCU00629
+Reaction (5) 3.1.3.11: fruc_1_6_biphos NCU04797 <-> frut_6_phos NCU04797 
+Reaction (4) comb_glycolysis: fruc_1_6_biphos enz_glycolysis_comp NAD <-> phos_pyruvate enz_glycolysis_comp NADH
+Reaction (10) 2.7.1.40: phos_pyruvate NCU06075 <-> pyruvate NCU06075 
+Reaction (17) 4.1.1.1: NCU02193 pyruvate <-> NCU02193 ace_dehydro 
+Reaction (19) 1.1.1.1: NCU02476 ace_dehydro NADH <-> NCU02476 ethanol NAD
+Reaction (48) 1.1.1.28: NCU02179 pyruvate NADH <-> NCU02179 lactate NAD
+Reaction (25) 1.2.1.-: NCU07659 pyruvate coa NAD <-> NCU07659 cytcoa NADH
+Reaction (29) 2.3.3.1: NCU01692 cytcoa oxaloacetate <-> NCU01692 coa citrate
+Reaction (30) comb_tca: enz_tca_comp citrate <-> enz_tca_comp isocitrate
+Reaction (33) 1.1.1.41: NCU00775 isocitrate NAD <-> NCU00775 2oxoglutarate NADH
+Reaction (35) oxo2succ_enz: 2oxodehycomp 2oxoglutarate coa NAD <-> 2oxodehycomp succinylcoa NADH
+Reaction (38) 6.2.1.5: NCU09810 succinylcoa <-> NCU09810 succinate coa
+Reaction (41) 1.3.5.1: NCU00959 succinate FAD <-> NCU00959 fumarate FADH2
+Reaction (45) 4.2.1.2: NCU10008 fumarate <-> NCU10008 Smalate
+Reaction (46) 1.1.1.37: NCU04899 Smalate NAD <-> NCU04899 oxaloacetate NADH
+Reaction (51) 4.1.1.31: NCU09873 oxaloacetate <-> NCU09873 phos_pyruvate
+Reaction (51) 6.4.1.1: NCU02505 oxaloacetate <-> NCU02505 pyruvate
+Reaction (52) 1.1.1.38: NCU02906 Smalate NAD <-> NCU02906 pyruvate NADH
+Reaction (65) 5.4.2.2: NCU10058 glu_1_phos <-> NCU10058 gluc_6_phos
+Reaction (661) glycogen_syn_enz: glycogen_syn_comp glu_1_phos <-> glycogen_syn_comp glycogen
+Reaction (662) glycogen_deg_enz: glycogen_deg_comp glycogen <-> glycogen_deg_comp glu_1_phos
+Reaction (671) fattyacid_syn_enz: fattyacid_syn_comp cytcoa  NADH <-> fattyacid_syn_comp fattyacid coa NAD 
+Reaction (672) fattyacid_deg_enz: fattyacid_deg_comp fattyacid coa NAD FAD <-> fattyacid_deg_comp cytcoa  NADH  FADH2
+Reaction (68) 4.1.3.1: NCU04230 isocitrate <-> NCU04230 glyoxylate succinate
+Reaction (69) 2.3.3.9: NCU10007 glyoxylate cytcoa <-> NCU10007 Smalate coa
+Reaction (80) oxy_phos_enz1: oxy_phos_enz_comp NADH <-> oxy_phos_enz_comp NAD
+Reaction (80) oxy_phos_enz2: oxy_phos_enz_comp FADH2 <-> oxy_phos_enz_comp FAD
+Reaction (107) gluc1p_phosase_enz: gluc1p_phosase_enz_comp glu_1_phos <-> gluc1p_phosase_enz_comp gluc_in

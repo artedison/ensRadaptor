@@ -1,0 +1,203 @@
+#=====================================================================
+# Input File "ens.i01"
+#=====================================================================
+#
+# AUTHOR OF ENS METHOD
+#
+# H.-B. Schuttler
+# Department of Physics and Astronomy
+# University of Georgia
+# Athens, GA 30602
+# E-Mail hbs@physast.uga.edu
+#
+# This input file is written by yue wu
+#
+#=====================================================================
+  data set metabo_model 
+#=====================================================================
+# Monte Carlo (MC) equilibration and accumulation parameters:
+# =====================================================================
+ jmp_task mp_w2sv     ...    ...     ...     ...     ...     ...     ...     ...
+       1      10        0      0       0       0       0       0       0       0 
+ nmc_rep jmc_eql nmc_eql nmc_acc nmc_upd imc_ran npow_sp npow_re   jrand  iseed2    
+       1       1       1       1       0 9518730       2       2       1       1
+         temp_mc       chisq_cut jmc_ini jst_ini     ...     ...     ...     ...
+      1.00000000   -100.00000000      40      10      0       0       0       0
+#
+# MC step-width optimization
+# ==========================
+ mpr_swo jac_swo   
+      20       1      
+#
+# Boundary force adjustment
+# =========================
+ meq_fbx mac_fbx nbx_time   
+       2     200      200     
+# 
+#
+# fict. Hamiltonian hybrid MC parameters (DO NOT USE OR CHANGE):
+# ==============================================================
+        gamma_ms        gamma_fx           dtfic       dderiv_th
+      1.00000000      1.00000000      0.10000000      0.01000000
+   ntfic  jbcfic  jmsfic  jdtfic  jfxfic     
+       5       1       2       2       3      
+# 
+#
+# AMOEBA minimization parameters (DO NOT USE OR CHANGE):
+# ======================================================
+         tol_amb mit_amb     
+      0.00100000      20      
+#
+#
+# Equilibration and acccumulation/updating MC move schedules:
+# ===========================================================
+# 
+#  Lengths of the 2 move schedules:
+#  --------------------------------
+ jmvloop jmvsched nmvsequ   
+       1       2       2     
+       2       2       2   
+#
+# Equilibration schedule:
+#------------------------
+# Full-weight Metropolis MC w/ fixed fbxx=500
+ jmvloop imvsequ    jmty   nmove         pmvtype        raccp_lo        raccp_hi
+       1       1       8      -1       .40000004       .34000000       .66000000
+    jtmp_mc(sx,kx,en,mv) jstp_mc jwgt_mc   npwgt         ftmp_mc         fstp_mc
+                00000001       1      -1       4      1.00000000      0.10000000
+                       twgt_cent       twgt_leng       twgt_rise       fwgt_ampl
+                   .00000000D+00   .63000000D+02   .40000000D+01   .10000000D+01
+            jbxx_mc(qb,af,nf,mv)         fbxx_mc       bxx_lo_mc       bxx_hi_mc
+                        01000301        500.0000          0.8000          0.9000
+                                        qqbxx_mc       redbxx_mc    afbxx_max_mc
+                                          0.0010          1.0000         10.0000
+            jbxn_mc(qb,af,nf,mv)         fbxn_mc       bxn_lo_mc       bxn_hi_mc
+                              -1          0.0000          0.0001          0.0002
+                                        qqbxn_mc       redbxn_mc    afbxn_max_mc
+                                          0.0010          1.0000         10.0000
+         jsft_mc(xd,wf,pf,ln,mv)        ffour_mc        efour_mc        cfour_mc
+                              -1          0.0000          0.0000          1.0000
+# 
+ jmvloop imvsequ    jmty   nmove         pmvtype        raccp_lo        raccp_hi
+       1       2      12   60000       .40000004       .34000000       .66000000
+    jtmp_mc(sx,kx,en,mv) jstp_mc jwgt_mc   npwgt         ftmp_mc         fstp_mc
+                00000001       1      -1       4      1.00000000      0.10000000
+                       twgt_cent       twgt_leng       twgt_rise       fwgt_ampl
+                   .00000000D+00   .63000000D+02   .40000000D+01   .10000000D+01
+            jbxx_mc(qb,af,nf,mv)         fbxx_mc       bxx_lo_mc       bxx_hi_mc
+                        01000301        500.0000          0.8000          0.9000
+                                        qqbxx_mc       redbxx_mc    afbxx_max_mc
+                                          0.0010          1.0000         10.0000
+            jbxn_mc(qb,af,nf,mv)         fbxn_mc       bxn_lo_mc       bxn_hi_mc
+                              -1          0.0000          0.0001          0.0002
+                                        qqbxn_mc       redbxn_mc    afbxn_max_mc
+                                          0.0010          1.0000         10.0000
+         jsft_mc(xd,wf,pf,ln,mv)        ffour_mc        efour_mc        cfour_mc
+                              -1          0.0000          0.0000          1.0000
+#
+# Accumulation/updating schedule
+#-------------------------------
+# Global turned off by set (jmty=12) pmvtype=0.000000000~~
+# 
+jmvloop imvsequ    jmty   nmove         pmvtype        raccp_lo        raccp_hi
+       2       1       8      -1       .40000004       .34000000       .66000000
+    jtmp_mc(sx,kx,en,mv) jstp_mc jwgt_mc   npwgt         ftmp_mc         fstp_mc
+                00000001       1      -1       4      1.00000000      0.10000000
+                       twgt_cent       twgt_leng       twgt_rise       fwgt_ampl
+                   .00000000D+00   .63000000D+02   .40000000D+01   .10000000D+01
+            jbxx_mc(qb,af,nf,mv)         fbxx_mc       bxx_lo_mc       bxx_hi_mc
+                        01000301        500.0000          0.8000          0.9000
+                                        qqbxx_mc       redbxx_mc    afbxx_max_mc
+                                          0.0010          1.0000         10.0000
+            jbxn_mc(qb,af,nf,mv)         fbxn_mc       bxn_lo_mc       bxn_hi_mc
+                              -1          0.0000          0.0001          0.0002
+                                        qqbxn_mc       redbxn_mc    afbxn_max_mc
+                                          0.0010          1.0000         10.0000
+         jsft_mc(xd,wf,pf,ln,mv)        ffour_mc        efour_mc        cfour_mc
+                              -1          0.0000          0.0000          1.0000
+#
+ jmvloop imvsequ    jmty   nmove         pmvtype        raccp_lo        raccp_hi
+       2       2      12       1      0.00000004      0.29000000      0.71000000
+    jtmp_mc(sx,kx,en,mv) jstp_mc jwgt_mc   npwgt         ftmp_mc         fstp_mc
+                00000001       1      -1       4      1.00000000      1.00000000
+                    twgt_cent_mc    twgt_leng_mc    twgt_rise_mc    fwgt_ampl_mc
+                         13.0000          2.0000          2.0000          1.0000
+            jbxx_mc(qb,af,nf,mv)         fbxx_mc       bxx_lo_mc       bxx_hi_mc
+                        01000301        500.0000          0.8000          0.9000
+                                        qqbxx_mc       redbxx_mc    afbxx_max_mc
+                                          0.0010          1.0000         10.0000
+            jbxn_mc(qb,af,nf,mv)         fbxn_mc       bxn_lo_mc       bxn_hi_mc
+                              -1          0.0000          0.0001          0.0002
+                                        qqbxn_mc       redbxn_mc    afbxn_max_mc
+                                          0.0010          1.0000         10.0000
+         jsft_mc(xd,wf,pf,ln,mv)        ffour_mc        efour_mc        cfour_mc
+                              -1          0.0000          0.0000          1.0000
+#
+#
+# Wang-Landau DOS sampling parameters (DO NOT USE OR CHANGE):
+# ===========================================================
+       alnf_dos0       alnf_dos1          pf_dos          ck_his
+       1.0000000      0.01000000      1.00000000      0.30000000
+ nit_dos nck_dos no_dos  jnm_dos jck_his jbc_dos ngintv
+ 1000000 1000000   2000        1      -1       0      2
+  igintv  mgintv  jdv_ig         enrg_ig
+       0       0       0     0.000000000
+       1       2       1     0.100000000
+       2       2       2   125.000000000
+#
+#
+# Exptl. data and kinetics eqn. solver control parameters:
+# ========================================================
+   nexpt    jxpt   ntxpt ixpt_ran  nspec   nreac
+  3      1      183      5445      136      59
+       glob_scal     widlog_spec          fdtxdi
+      1.00000000      0.20000000       1.1111111
+           time0           time1   ntime  ntskip   jtime   jrlim
+  0.0000      12      800      1      220      1
+#
+# ARK kin solver parameters, for jtime=10,11 only:
+# ================================================
+         eps_ark        dtime_rl nlim_all jsto_ark
+          1.d-08          0.0010     -1     0
+         nstp_ark   nlim_drv … … … … … … 
+          100000      10000 0 0 0 0 0 0
+      rdtsto_ark       rhini_ark      rhmin1_ark      rhmin2_ark
+          1.0000       1000.0000          1.0000          1.0000
+#
+# Virtual expt. time points, for jxpt>=100 only:
+# ==============================================
+   itxpt        time_xpt 
+#
+#
+# Fourier freq. filter parameters:   
+# ================================
+#
+   iexpt  nsegft
+ 9999999       1
+#
+# Output control parameters "jo_*":
+# ===========================================
+# jo_th...                                            ark
+#                                                      |
+# jo_th... mvs,xo,wg,cu,sw,bxx,bxn,ft,hto              |
+#                                      |               |
+# jo_... sxt,cfi,xdi,xko               |               |
+#              |                       |               |
+#             \ /                     \ /             \ /
+#              *                       *               *
+jo_...ar   xspec      th         th_opt1         th_opt2
+  10      2000      41      102010001      11001
+#
+################################################################################
+#
+# Species control- and \Theta-variables
+#================================================
+#
+# add on by yue new species  
+#     
+# Reaction control- and \Theta-variables
+# ================================================
+#
+# add on by yue new reactions
+
+==================================================================

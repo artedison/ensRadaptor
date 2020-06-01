@@ -1,0 +1,33 @@
+##template_species
+namespec/jfix npulse nperiod jmsspec xspec_min xspec_max
+ SPEC 
+  30000   0   0   OBSERVE   ranglow   ranghigh
+  ipm   ivpm   pmspec   jctspec   jbcspec
+  1     1     0.0000000001     10     1
+  2     1     expenz1_low     1     1
+  2     2     expenz1_high 
+  2     3     expenz1_val1
+  2     4     expenz1_val2
+  2     5     expenz1_val3
+  3     1     expenz2_low     1     1
+  3     2     expenz2_high
+  3     3     expenz2_val1
+  3     4     expenz2_val2
+  3     5     expenz2_val3
+  4     1     expenz3_low     1     1
+  4     2     expenz3_high
+  4     3     expenz3_val1
+  4     4     expenz3_val2
+  4     5     expenz3_val3
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   3   1002   -1
+  LOOK4_PM_IEXPT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 2 0.000001 
+      SPEC
+           2 3 0.000001 
+      SPEC
+           3 4 0.000001 
+      SPEC
+#

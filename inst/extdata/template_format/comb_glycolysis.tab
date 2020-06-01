@@ -1,0 +1,63 @@
+##this is a file for modified combination of reaction of glycolysis
+##!change backward km (ipm=6) for comb_glycolysis as 4.2.1.11
+# 0.0018 7.5000 0.116189500386223
+namereac /nipart nopart jkin
+ comb_glycolysis
+  3   3   30011
+   enz_glycolysis_comp
+   fruc_1_6_biphos
+   NAD
+            enz_glycolysis_comp
+            phos_pyruvate
+         NADH
+  ipm   ivpm   pmreac   jctreac   jbcreac
+  1     1     0.001     10     1
+  2     1     3.6     1     1
+  2     2     313200
+  2     3     1061.84744667019
+  2     4     1061.84744667019
+  2     5     1061.84744667019
+  3     1     3.6     1     1
+  3     2     313200
+  3     3     1061.84744667019
+  3     4     1061.84744667019
+  3     5     1061.84744667019
+  4     1     0.001     10     1
+  5     1     0.000000000001     1     1
+  5     2     3306.25
+  5     3     0.0000575
+  5     4     0.0000575
+  5     5     0.0000575
+  6     1     0.0018     1     1
+  6     2     7.5000
+  6     3     0.116189500386223
+  6     4     0.116189500386223
+  6     5     0.116189500386223
+  7     1     0.001     10     1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   2   1005   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 7 0.000001 
+      comb_glycolysis
+           2 5 0.000001 
+      comb_glycolysis
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  4   2   1005   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 7 0.000001 
+      comb_glycolysis
+           2 6 0.000001 
+      comb_glycolysis
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  7   2   1004   -1
+  DO_SUM_LIN
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 2 0.000001 
+      comb_glycolysis 
+           2 3 0.000001 
+      comb_glycolysis

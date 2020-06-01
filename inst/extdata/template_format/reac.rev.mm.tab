@@ -1,0 +1,70 @@
+##template_rv_MM
+## this is a format for the reverse form of MM 
+##E+S<->ES<->P+E
+##k1, k-1, k2, k-2
+##v=(k2*E*S/KmS-k-1*E*P/KmP)/(1+S/KmS+P/KmP)
+##KmS=(k-1+k2)/k1  KmP=(k-1+k2)/k-2
+### the parameter KmS, KmP, KcatS, KcatP
+##k1=(KcatP+KcatS)/KmS
+##k-1=KcatP
+##k2=KcatS
+##k-2=(KcatP+KcatS)/KmP
+namereac /nipart nopart jkin
+ EC
+  NSUBSTRATE   NPRODUCT   30011
+   ENZYME
+   XSUBSTRATE
+            ENZYME
+            XPRODUCT
+  ipm   ivpm   pmreac   jctreac   jbcreac
+  1     1     0.001     10     1
+  2     1     kcatP_min     1     1
+  2     2     kcatP_max
+  2     3     kcatP_val1
+  2     4     kcatP_val2
+  2     5     kcatP_val3
+  3     1     kcatS_min     1     1
+  3     2     kcatS_max
+  3     3     kcatS_val1
+  3     4     kcatS_val2
+  3     5     kcatS_val3
+  4     1     0.001     10     1
+  5     1     kmS_min     1     1
+  5     2     kmS_max
+  5     3     kmS_val1
+  5     4     kmS_val2
+  5     5     kmS_val3
+  6     1     kmP_min     1     1
+  6     2     kmP_max
+  6     3     kmP_val1
+  6     4     kmP_val2
+  6     5     kmP_val3
+  7     1     0.001     10     1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   2   1005   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 7 0.000001 
+      EC
+           2 5 0.000001 
+      EC
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  4   2   1005   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 7 0.000001 
+      EC
+           2 6 0.000001 
+      EC
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  7   2   1004   -1
+  DO_SUM_LIN
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 2 0.000001 
+      EC 
+           2 3 0.000001 
+      EC
+#

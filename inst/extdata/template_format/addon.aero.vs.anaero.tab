@@ -1,0 +1,662 @@
+##template_rv_MM_02_vs_no_o2
+## this is a format for the irreverse form of MM 
+##E+S->ES->P+E
+##k1, k-1=0, k2, k-2=0
+### the parameter Km, Kcat
+##k1=Kcat/Km
+##k-1=0
+##k2=Kcat
+##k-2=0
+##this file is only used for fitting with both aerobic and anaerobic condition
+##all aerobic replicate are with same scale factor, while the scale factor for anaerobic condition is 1
+## even though in anaerobic condition, there is no oxygen and phosphoralation should not work, this can represent baseline level of conversion from NADH to NAD
+##for anaerobic condition, also there might be limited oxygen level
+####in both condition 2 reactions for oxidative phosphoralation  
+namereac /nipart nopart jkin
+ oxy_phos_enz1
+  2   2   100011
+  oxy_phos_enz_comp 
+  NADH
+            oxy_phos_enz_comp
+            NAD
+  ipm   ivpm   pmreac   jctreac   jbcreac
+  1     1     0.001     10     1
+  2     1     0     100     1
+  3     1     0.001      10     1
+  4     1     0     100     1
+  5     1     0.0000321963557535558     1     1
+  5     2     760.714976175373
+  5     3     0.1565
+  5     4     0.1565
+  5     5     0.1565
+  6     1     0.001      10     1
+  7     1     0.001      10     1
+  8     1     0.001      10     1
+  9     1     0.001      10     1
+  10     1     0.001      10     1
+  11     1     0.001      10     1
+  12     1     0.00100725086309702     1     1
+  12     2     13469.2805474572
+  12     3     3.683333335
+  12     4     3.683333335
+  12     5     3.683333335
+  13     1     1      100     1
+  14     1     1     1     1
+  14     2     100
+  14     3     10
+  14     4     10
+  14     5     10
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   2   1004   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 3 0.000001 
+     oxy_phos_enz1
+           2 5 0.000001 
+     oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  3   6   1002   -1
+  LOOK4_PM_IEXPT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 6 0.000001 
+      oxy_phos_enz1
+           2 7 0.000001 
+      oxy_phos_enz1
+           3 8 0.000001 
+      oxy_phos_enz1
+           4 9 0.000001 
+      oxy_phos_enz1
+           5 10 0.000001 
+      oxy_phos_enz1
+           6 11 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  6   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz1
+           2 13 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  7   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz1
+           2 13 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  8   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz1
+           2 13 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  9   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz1
+           2 14 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  10   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz1
+           2 14 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  11   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz1
+           2 14 0.000001 
+      oxy_phos_enz1
+#
+namereac /nipart nopart jkin
+ oxy_phos_enz2
+  2   2   100011
+  oxy_phos_enz_comp 
+  FADH2
+            oxy_phos_enz_comp
+            FAD
+  ipm   ivpm   pmreac   jctreac   jbcreac
+  1     1     0.001     10     1
+  2     1     0     100     1
+  3     1     0.001      10     1
+  4     1     0     100     1
+  5     1     0.0000321963557535558     1     1
+  5     2     760.714976175373
+  5     3     0.1565
+  5     4     0.1565
+  5     5     0.1565
+  6     1     0.001      10     1
+  7     1     0.001      10     1
+  8     1     0.001      10     1
+  9     1     0.001      10     1
+  10     1     0.001      10     1
+  11     1     0.001      10     1
+  12     1     0.00100725086309702     1     1
+  12     2     13469.2805474572
+  12     3     3.683333335
+  12     4     3.683333335
+  12     5     3.683333335
+  13     1     1      100     1
+  14     1     1     1     1
+  14     2     100
+  14     3     10
+  14     4     10
+  14     5     10
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   2   1004   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 3 0.000001 
+     oxy_phos_enz2
+           2 5 0.000001 
+     oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  3   6   1002   -1
+  LOOK4_PM_IEXPT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 6 0.000001 
+      oxy_phos_enz2
+           2 7 0.000001 
+      oxy_phos_enz2
+           3 8 0.000001 
+      oxy_phos_enz2
+           4 9 0.000001 
+      oxy_phos_enz2
+           5 10 0.000001 
+      oxy_phos_enz2
+           6 11 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  6   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz2
+           2 13 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  7   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz2
+           2 13 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  8   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz2
+           2 13 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  9   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz2
+           2 14 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  10   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz2
+           2 14 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  11   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz2
+           2 14 0.000001 
+      oxy_phos_enz2
+### in anaerobic condition oxidative phosphoralation 2 reactions
+namereac /nipart nopart jkin
+ oxy_phos_enz1
+  2   2   60011
+  oxy_phos_enz_comp 
+  NADH
+            oxy_phos_enz_comp
+            NAD
+  ipm   ivpm   pmreac   jctreac   jbcreac
+  1     1     0.001     10     1
+  2     1     0     100     1
+  3     1     0.001      10     1
+  4     1     0     100     1
+  5     1     0.0000321963557535558     1     1
+  5     2     760.714976175373
+  5     3     0.1565
+  5     4     0.1565
+  5     5     0.1565
+  6     1     0.001      10     1
+  7     1     0.001      10     1
+  8     1     0.001      10     1
+  9     1     0.00100725086309702     1     1
+  9     2     13469.2805474572
+  9     3     3.683333335
+  9     4     3.683333335
+  9     5     3.683333335
+  10     1     1      100     1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   2   1004   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 3 0.000001 
+     oxy_phos_enz1
+           2 5 0.000001 
+     oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  3   3   1002   -1
+  LOOK4_PM_IEXPT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 6 0.000001 
+      oxy_phos_enz1
+           2 7 0.000001 
+      oxy_phos_enz1
+           3 8 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  6   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz1
+           2 10 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  7   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz1
+           2 10 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  8   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz1
+           2 10 0.000001 
+      oxy_phos_enz1
+#
+namereac /nipart nopart jkin
+ oxy_phos_enz2
+  2   2   60011
+  oxy_phos_enz_comp 
+  FADH2
+            oxy_phos_enz_comp
+            FAD
+  ipm   ivpm   pmreac   jctreac   jbcreac
+  1     1     0.001     10     1
+  2     1     0     100     1
+  3     1     0.001      10     1
+  4     1     0     100     1
+  5     1     0.0000321963557535558     1     1
+  5     2     760.714976175373
+  5     3     0.1565
+  5     4     0.1565
+  5     5     0.1565
+  6     1     0.001      10     1
+  7     1     0.001      10     1
+  8     1     0.001      10     1
+  9     1     0.00100725086309702     1     1
+  9     2     13469.2805474572
+  9     3     3.683333335
+  9     4     3.683333335
+  9     5     3.683333335
+  10     1     1      100     1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   2   1004   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 3 0.000001 
+     oxy_phos_enz2
+           2 5 0.000001 
+     oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  3   3   1002   -1
+  LOOK4_PM_IEXPT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 6 0.000001 
+      oxy_phos_enz2
+           2 7 0.000001 
+      oxy_phos_enz2
+           3 8 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  6   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz2
+           2 10 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  7   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz2
+           2 10 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  8   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz2
+           2 10 0.000001 
+      oxy_phos_enz2
+#
+### in aerobic condition oxidative phosphoralation 2 reactions
+namereac /nipart nopart jkin
+ oxy_phos_enz1
+  2   2   60011
+  oxy_phos_enz_comp 
+  NADH
+            oxy_phos_enz_comp
+            NAD
+  ipm   ivpm   pmreac   jctreac   jbcreac
+  1     1     0.001     10     1
+  2     1     0     100     1
+  3     1     0.001      10     1
+  4     1     0     100     1
+  5     1     0.0000321963557535558     1     1
+  5     2     760.714976175373
+  5     3     0.1565
+  5     4     0.1565
+  5     5     0.1565
+  6     1     0.001      10     1
+  7     1     0.001      10     1
+  8     1     0.001      10     1
+  9     1     0.00100725086309702     1     1
+  9     2     13469.2805474572
+  9     3     3.683333335
+  9     4     3.683333335
+  9     5     3.683333335
+  10     1     1     1     1
+  10     2     100
+  10     3     10
+  10     4     10
+  10     5     10
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   2   1004   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 3 0.000001 
+     oxy_phos_enz1
+           2 5 0.000001 
+     oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  3   3   1002   -1
+  LOOK4_PM_IEXPT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 6 0.000001 
+      oxy_phos_enz1
+           2 7 0.000001 
+      oxy_phos_enz1
+           3 8 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  6   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz1
+           2 10 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  7   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz1
+           2 10 0.000001 
+      oxy_phos_enz1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  8   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz1
+           2 10 0.000001 
+      oxy_phos_enz1
+#
+namereac /nipart nopart jkin
+ oxy_phos_enz2
+  2   2   60011
+  oxy_phos_enz_comp 
+  FADH2
+            oxy_phos_enz_comp
+            FAD
+  ipm   ivpm   pmreac   jctreac   jbcreac
+  1     1     0.001     10     1
+  2     1     0     100     1
+  3     1     0.001      10     1
+  4     1     0     100     1
+  5     1     0.0000321963557535558     1     1
+  5     2     760.714976175373
+  5     3     0.1565
+  5     4     0.1565
+  5     5     0.1565
+  6     1     0.001      10     1
+  7     1     0.001      10     1
+  8     1     0.001      10     1
+  9     1     0.00100725086309702     1     1
+  9     2     13469.2805474572
+  9     3     3.683333335
+  9     4     3.683333335
+  9     5     3.683333335
+  10     1     1     1     1
+  10     2     100
+  10     3     10
+  10     4     10
+  10     5     10
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   2   1004   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 3 0.000001 
+     oxy_phos_enz2
+           2 5 0.000001 
+     oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  3   3   1002   -1
+  LOOK4_PM_IEXPT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 6 0.000001 
+      oxy_phos_enz2
+           2 7 0.000001 
+      oxy_phos_enz2
+           3 8 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  6   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz2
+           2 10 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  7   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz2
+           2 10 0.000001 
+      oxy_phos_enz2
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  8   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 9 0.000001 
+      oxy_phos_enz2
+           2 10 0.000001 
+      oxy_phos_enz2
+#
+## not used for following parts!
+####aerobic and anaerobic condition for reaction from succinate to fumarate in both condition 
+####use this to replace the original 1.3.5.1 block
+namereac /nipart nopart jkin
+ 1.3.5.1
+  2   2   100011
+  NCU00959 
+  succinate
+            NCU00959
+            fumarate
+  ipm   ivpm   pmreac   jctreac   jbcreac
+  1     1     0.001     10     1
+  2     1     0     100     1
+  3     1     0.001      10     1
+  4     1     0     100     1
+  5     1     2     1     1
+  5     2     2.2
+  5     3     2.0976176963403
+  5     4     2.0976176963403
+  5     5     2.0976176963403
+  6     1     0.001      10     1
+  7     1     0.001      10     1
+  8     1     0.001      10     1
+  9     1     0.001      10     1
+  10     1     0.001      10     1
+  11     1     0.001      10     1
+  12     1     165600     1     1
+  12     2     2368800
+  12     3     626317.235911642
+  12     4     626317.235911642
+  12     5     626317.235911642
+  13     1     0      100     1
+  14     1     1     100     1
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  1   2   1004   -1
+  DO_DIVIDE
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 3 0.000001 
+     oxy_phos_enz
+           2 5 0.000001 
+     oxy_phos_enz
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  3   6   1002   -1
+  LOOK4_PM_IEXPT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 6 0.000001 
+      oxy_phos_enz
+           2 7 0.000001 
+      oxy_phos_enz
+           3 8 0.000001 
+      oxy_phos_enz
+           4 9 0.000001 
+      oxy_phos_enz
+           5 10 0.000001 
+      oxy_phos_enz
+           6 11 0.000001 
+      oxy_phos_enz
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  6   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz
+           2 13 0.000001 
+      oxy_phos_enz
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  7   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz
+           2 13 0.000001 
+      oxy_phos_enz
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  8   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz
+           2 13 0.000001 
+      oxy_phos_enz
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  9   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz
+           2 14 0.000001 
+      oxy_phos_enz
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  10   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz
+           2 14 0.000001 
+      oxy_phos_enz
+#
+  ipm   mparn   jprio   jfunc/namefunc
+  11   2   1001   -1
+  DO_PRODUCT
+  iparn   ipm_parn   ti_parn / pmparn,nmparn
+           1 12 0.000001 
+      oxy_phos_enz
+           2 14 0.000001 
+      oxy_phos_enz
