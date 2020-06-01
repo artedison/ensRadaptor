@@ -11,3 +11,5 @@ archive/*
 temp/*
 tests/workflowtest_internal/*
 internal_data/*
+tests/temp/input_test/testmodel/*
+tests/temp/input_test/history/*
