@@ -11,4 +11,3 @@ archive/*
 temp/*
 tests/workflowtest_internal/*
 internal_data/*
-inst/extdata/enscode/*
