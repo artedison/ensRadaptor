@@ -6,31 +6,24 @@
 ## unit concentration: mM
 ## kinetic form: MM (assumed)
 ## optimized parameter: kcat, km, E
-##
-## the script is formulate in a way so that no internal information is needed
-## some of the comments out part need the code for ens model (ens.def ens.f90), to obtain which send a email to Bernd (hbs@uga.edu)
-## in this script, these files are represented by empty Place holder files
+## multiple folders will be created and "input" is the converted input files for ens and "res" is the folder for output from ens. In "input", mulitple different random seed is used
 rm(list=ls())
 options(warn=1)
 options(stringsAsFactors=FALSE)
 options(digits=15,scipen=999)
 require(stringr)
 require(magrittr)
-require(R.matlab)
 require(ggplot2)
-require(xml2)
 require(cowplot)
 require(scales)
 require(lhs)
 require(ensRadaptor)
 
 #------------------------------path setup-------------------#
-compdir="/Users/yuewu/"
-dirpack=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/package.formulate/ensRadaptor/")
-dir=paste0(dirpack,"temp/testworkflow_open/")##user defined location for testing
-dir_ext_data=paste0(dirpack,"inst/extdata/")## the open external data directory
-dir.lib=paste0(dir_ext_data,"template_format/")##this path is used within many functions
-dir.his=paste0(dir,"history/history.record.tab")
+dir="./temp/input_test/"## the working folder. User defined
+dir_ext_data="../inst/extdata/"## the folder for needed data files. User defined
+dir.lib=paste0(dir_ext_data,"template_format/")##this path is used within many functions. User defined
+dir.his=paste0(dir,"history/history.record.tab")##recording for running history. The time of running and project folder. User defined
 if(!file.exists(dir.his)){
   file.create(dir.his)
 }
@@ -51,7 +44,7 @@ foldcreate(dir.equala)
 dir.accumu=paste0(dir.res,"accumu/")
 foldcreate(dir.accumu)
 ##create the multiple run folder for independent start point
-nreplicate=10##number of model replicate to run in the model
+nreplicate=10##number of model replicate to run in the model. User defined
 for(replicatei in seq(nreplicate)){
   foldcreate(paste0(dir.input,replicatei,"/"))
 }
@@ -60,40 +53,40 @@ for(replicatei in seq(nreplicate)){
 # homoge_file(localpath,foldname)
 
 #------------------------------parameter setup--------------#
-modified.file="testmodel"
+modified.file="testmodel"#model name. User defined
 ##model parameter
-obsv=c("gluc_all","ethanol","lactate","succinate","citrate","glu_1_phos","fumarate") ##observable compounds (in the measurement)
-time1=12# the end time for simulation, the time length of data
-extend=1#extend of all parameters range
-extendrag=100#extend of parameters without range (no informaiton from database or just one value)
-smallvalue<-0.0000000000000000001#used to replace 0 when math on 0 is not working. used within many functions
-refenz="NCU05627"#the enzyme used to scale different experimental globally(as they are with different concentration)
+obsv=c("gluc_all","ethanol","lactate","succinate","citrate","glu_1_phos","fumarate") ##observable compounds (in the measurement). User defined
+time1=12# the end time for simulation, time0 is assumed to be 0 but you can always shift your measuremnt to make start time to 0. User defined
+extend=1#extend of all parameters range. User defined
+extendrag=100#extend of parameters without range (no informaiton from database or just one value). User defined
+smallvalue<-0.0000000000000000001#used to replace 0 when math on 0 is not working. used within many functions. should be fine under different models
+refenz="NCU05627"#the enzyme used to scale different experimental globally(as they are with different concentration). Choose the first enzyme as the reference but it doesn't matter. User defined
 
 ##measurement parameter
-classnum=1# scale class for measurement. the class number for measurement. if not 0 the scale class, if 0 not using scale factor
-conv.factor=c(1,3600)#unit converting factor for km and kcat
+classnum=1# start scale class for measurement. the class number for measurement. if not 0 the scale class, if 0 not using scale factor. User defined
+conv.factor=c(1,3600)#unit converting factor for km and kcat. User defined
 names(conv.factor)=c("km","kcat")
-zspec_wid=0.3# the default relative uncerntainty for measurement
-experiments=c(4:6)#4,5,6anaerobic, 1,2,3 aerobic
+zspec_wid=0.3# the default relative uncerntainty for measurement. User defined
+experiments=c(4:6)#4,5,6anaerobic, 1,2,3 aerobic. User defined
 
-lhsmatrix<-c()#global variable as used by a function multiple times
+lhsmatrix<-c()#global variable as used by a function multiple times. used for randloglhs function
 # lowthrespec=0.00000000000000001
 # highthrespec=100.00006
 
 #----------------------construt template setup--------------#
-### code files not open just use fake files
-templatepath=list(input.template=paste0(dir_ext_data,"template_input/"),enscode=paste0(dir_ext_data,"enscode/"))
+###the template files are used for easy construction of different reactions and species
+templatepath=list(input.template=paste0(dir_ext_data,"template_input/"),enscode=paste0(dir_ext_data,"enscode/"))#User defined
 pre_file_prepare(dir.tempt,templatepath)
-specformat=list(metabolites=paste0(dir.template.format,"spec.metabolite.tab"),enzyme=paste0(dir.template.format,"spec.enz.massscal.tab"))
-reacformat=list(rev=paste0(dir.template.format,"reac.rev.mm.tab"),irrev=paste0(dir.template.format,"reac.irrev.mm.tab"))
+specformat=list(metabolites=paste0(dir.template.format,"spec.metabolite.tab"),enzyme=paste0(dir.template.format,"spec.enz.massscal.tab"))#User defined
+reacformat=list(rev=paste0(dir.template.format,"reac.rev.mm.tab"),irrev=paste0(dir.template.format,"reac.irrev.mm.tab"))#User defined
 
 #----------------------pathway setup -----------------------#
-pathfile=paste0(dir_ext_data,"pathway/testpathway.tab")
-list.res=summary_reac(pathfile,"(^NCU)|(comp$)")
+pathfile=paste0(dir_ext_data,"pathway/testpathway.tab")#pathway decide the species and reactions. User defined
+list.res=summary_reac(pathfile,"(^NCU)|(comp$)")#User defined
 enz=list.res$enz
 
 meta.real=list.res$compounds##metabolites
-meta.comb=c("gluc_all")## addon species to represent a combination of intracellular and extracellular part
+meta.comb=c("gluc_all")## addon species to represent a combination of intracellular and extracellular part. User defined
 meta.list=c(meta.real,meta.comb)
 
 sub_var=c(enz,meta.real)##those species that do not depends on other species
@@ -102,7 +95,7 @@ reacs_dependent=list.res[["reacs"]]
 names(reacs_dependent)=NULL
 const=enz##not change through time
 
-##reversibility list
+##reversibility list.  User defined
 rev=unlist(list(
   "NCU05627"=0,"NCU00575"=0,"NCU07281"=1,"NCU00629"=0,
   "NCU06075"=0,"NCU02193"=0,"NCU02476"=1,"NCU02179"=0,
@@ -115,12 +108,12 @@ rev=unlist(list(
 ))
 
 #----------------------kinetic parameters-------------------#
-##stored kinetic parameters for enzyme
+##stored kinetic parameters for enzyme. User defined
 load(paste0(dir_ext_data,"kin_infor/Neurospora crassa.kine.new.RData"))
 load(paste0(dir_ext_data,"kin_infor/all.kine.RData"))
 parameter.list=kine_para_refine(list.res.refine=list.res.refine,range.speci=range.speci,extendrag=extendrag)
 
-##further refinement of the value range
+##further refinement of the value range. User defined
 ##for km: 2.7.1.1 is proper choice as it is with larger range than 2.7.1.2. Both are used in glucose->glu-6-p
 parameter.list[["kcat"]][["2.7.1.1"]]=parameter.list[["kcat"]][["2.7.1.2"]]##choose larger one
 parameter.list[["kcat"]][["comb_glycolysis"]]=parameter.list[["kcat"]][["4.1.2.13"]]#choose the slowest one kcat
@@ -150,7 +143,7 @@ len.metab=length(sub_var)
 # len.reacs=length(reacs_dependent)
 
 #-----------------species parameter range-------------------#
-changedrag=c(obsv,"gluc_in","glycogen","fattyacid","Gluc_ex")
+changedrag=c(obsv,"gluc_in","glycogen","fattyacid","Gluc_ex")#User defined
 ini.names=c(meta.list,enz)
 meta.val=rep(0.00000001,times=length(meta.list))
 names(meta.val)=meta.list
@@ -158,7 +151,7 @@ meta.val[changedrag]=rep(0.00001,times=length(changedrag))
 meta.val[c("Gluc_ex","gluc_all")]=c(200,200)
 enz.val=rep(0.0000000001,times=length(enz))
 names(enz.val)=enz
-low.ini.spec=c(unlist(meta.val),enz.val)
+low.ini.spec=c(unlist(meta.val),enz.val)#User defined
 #
 meta.val=rep(1,times=length(meta.list))
 names(meta.val)=meta.list
@@ -166,10 +159,10 @@ meta.val[changedrag]=rep(2000,times=length(changedrag))
 meta.val[c("gluc_in")]=c(20)
 enz.val=rep(0.1,times=length(enz))
 names(enz.val)=enz
-high.ini.spec=c(unlist(meta.val),enz.val)
+high.ini.spec=c(unlist(meta.val),enz.val)#User defined
 #
 low.all.spec=c(rep(0.000000000001,times=length(meta.list)),
-              rep(0.000000000001,times=length(enz)))
+              rep(0.000000000001,times=length(enz)))#User defined
 names(low.all.spec)=ini.names
 #
 meta.val=rep(2,times=length(meta.list))
@@ -177,11 +170,11 @@ names(meta.val)=meta.list
 meta.val[changedrag]=rep(2000,times=length(changedrag))
 enz.val=rep(0.1,times=length(enz))
 names(enz.val)=enz
-high.all.spec=c(unlist(meta.val),enz.val)
+high.all.spec=c(unlist(meta.val),enz.val)#User defined
 
 #---------------------regulation values---------------------#
-reg_rang=c(0.000000000001,2000)#c(low high)
-alpha_vec=c(-5,5,1)#c(low,high,value)
+reg_rang=c(0.000000000001,2000)#c(low high). User defined
+alpha_vec=c(-5,5,1)#c(low,high,value). User defined
 
 #---------------------pack up values-----------------------#
 regupara=list(reg_low=reg_rang[1],reg_high=reg_rang[2],alpha_low=alpha_vec[1],alpha_high=alpha_vec[2],alpha_val=alpha_vec[3])
@@ -195,7 +188,7 @@ reac.list=list(kine=parameter.list,enz=enz,rev=rev,
                format=TRUE,
                formatfile=reacformat)
 
-##this is previous setting parameters for dependence, which turn out not flexible enough for new condition, so not used anymore
+##this is previous setting parameters for dependence, which turn out not flexible enough for new condition, so not used anymore. This block of code and function are still in script (NULL) and functions but will later be discarded.
 reactdep=NULL
 specdep=NULL
 depend=list(spec=specdep,react=reactdep)
@@ -216,7 +209,7 @@ submit.sh=paste0(dir.tempt,"submit.sh")
 
 #----------------------i01 construct------------------------#
 len.list.temp<-template_spec_reac(pathfile,
-                   type="mm",
+                   type="mm",##Michaelis Menten reaction
                    dir.data=dir.tempt,modified.file=modified.file,
                    para.list=para.list,list.exi=c(),extend=extend)
 ##only len.list produced by one loop is needed as they are the same
@@ -224,7 +217,7 @@ if(is.null(len.list)){
   len.list=len.list.temp
 }
 
-##addon blocks
+##addon blocks User defined
 ##!change backward km (ipm=6) for comb_glycolysis as 4.2.1.11
 # 0.0018 7.5000 0.116189500386223
 change_block(list(pattern0="namereac\\s+\\/nipart\\s+nopart\\sjkin\\n\\s+comb_glycolysis",pattern1="namereac\\s+\\/nipart\\s+nopart\\s+jkin\\n\\s+2.7.1.40",shift=c(26,-31)),
@@ -244,7 +237,7 @@ change_block(list(pattern0="namereac\\s+\\/nipart\\s+nopart\\s+jkin\\n\\s+oxy\\_
              list(file=paste0(dir.template.format,"addon.aero.vs.anaero.tab"),ilinerag=c(245,392)),
              infile=temp.change.file1,outfile=temp.change.file1,type="edit")
 
-## change dimension parameters
+## change dimension parameters. User defined
 nspec=length(change_para("namespec",NA,infile=temp.change.file1,outfile=NA,type="show")[[1]])
 ndepn=length(change_para("iparn",NA,infile=temp.change.file1,outfile=NA,type="show")[[1]])
 list.i01.para=list(nspec=nspec,nreac=len.list[["reac"]],time1=time1,nexpt=length(experiments),"th\\_opt1"=102010001,##supress unuseful information in o02 file
@@ -255,15 +248,17 @@ for(para.name in names(list.i01.para)){
 }
 
 #----------------------def modificate-----------------------#
+# User defined
 list.def.para=list("mp\\_dim\\_yspec\\_x"=120000,"iline\\_x"="200+2*nspec_x+2*nreac_x+5500",## the two array size parameter that seldom need modification
                    "npart\\_x"=8,"nms\\_spec\\_x"=18,
                    "nspec\\_x"=nspec,"nreac\\_x"=len.list[["reac"]],"ndpen\\_tot\\_x"=ndepn)
-# for(paraname in names(list.def.para)){
-#   change_def(paraname,list.def.para[[paraname]],
-#              infile=ens.def,outfile=ens.def,type="edit")
-# }
+for(paraname in names(list.def.para)){
+  change_def(paraname,list.def.para[[paraname]],
+             infile=ens.def,outfile=ens.def,type="edit")
+}
 
 #-------------------submit.sh modificate--------------------#
+# User defined
 lines=readLines(submit.sh)
 lines=str_replace(string=lines,pattern="N\\_REPLICATE",replacement=as.character(nreplicate))
 cat(lines,sep="\n",file=submit.sh)
@@ -335,26 +330,7 @@ for(replicatei in seq(nreplicate)){
 
 #-----------------------summary input-----------------------#
 list.exi<-summary_input(i01=paste0(dir.tempt,"ens.modified3.i01"),i02=paste0(dir.tempt,"ens.i02"))
-##!check the files according to ensem.info and compare files(i01 i02 between replicate and previous version)
-##transfer the folder, cd into the folder
-##!work in qlogin environment
+##transfer the folder to sever, cd into the folder
 ##!a small local interactive run(if debug clear the whole folder)
 ##chmod +x submit.sh
 ##./submit.sh
-
-##compare with previous result
-cat("\n\nidentity check\n")
-predatadir=paste0(dirpack,"internal_data/pre_result_1/")
-filelist=c("ens.sh","ens.i01","ens.i02")#"ens.def","ens.f90",
-for(file in filelist){
-  cat(paste0(file,"\n"))
-  system(paste0("diff \'",dir.input,"1/",file,"\' \'",predatadir,file,"\'"))
-}
-listpre1=mget(load(paste0(predatadir,"local.prior.pre.170008_01102020.RData")))
-listnew=mget(load(savedrdata))
-flagmatch=sapply(names(listpre1),function(namedata){
-  identical(listpre1[[namedata]],listnew[[namedata]])
-})
-cat(paste0(">difference in data \n"))## there can be differences in folder
-cat(length(flagmatch[!flagmatch]),"\n")
-cat(paste0(names(flagmatch[!flagmatch]),"\n"))
