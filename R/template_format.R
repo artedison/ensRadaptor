@@ -28,7 +28,7 @@ react_output_format<-function(){
       # infor[["jkin"]]=jkin
       # infor[["name"]]=x[["name"]]
       name=x[["name"]]
-      print(name)
+      # print(name)
       ##reactants formulation
       reactants=c(x[["subs"]],x[["prods"]])
       reactants=reactants[!is.null(reactants)&reactants!=""]
@@ -158,7 +158,7 @@ spec_output_format<-function(){
   })
   parareg=para.list[["regu"]][["parameter"]]
   spec_output=sapply(vec_spec_addon,function(x){
-      print(x)
+      # print(x)
       ###regulation format?
       templatetrans=c()
       if(x%in%reguinfor[["regutab"]][,"enz"]){

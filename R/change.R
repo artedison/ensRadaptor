@@ -25,9 +25,9 @@ change_para<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show",
   comment_ind=str_detect(string=lines,pattern="^#")
   ind=str_which(string=lines,pattern=term)
   uncomm=which(!comment_ind[ind])
-  if(is.na(outfile)||infile==outfile){
-    print("pay attention to file name!")
-  }
+  # if(is.na(outfile)||infile==outfile){
+  #   print("pay attention to file name!")
+  # }
   if(length(uncomm)!=1&&indrep==1){
     print("the term is duplicated!\n")
     print("only \'show\' value is possible\n")
@@ -88,9 +88,9 @@ change_block<-function(paternlist=NULL,contentlist=NULL,infile=NULL,outfile=NULL
   if(is.null(infile)){
     stop("please provide full path for input at least")
   }
-  if(is.na(outfile)||infile==outfile){
-    print("pay attention to file name!")
-  }
+  # if(is.na(outfile)||infile==outfile){
+  #   print("pay attention to file name!")
+  # }
   lines=readLines(infile)
   lenlines=length(lines)
   shifts=paternlist[["shift"]]
@@ -141,9 +141,9 @@ change_def<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show"){
   repalcewrap=paste0("parameter(",term_nonescape,"=",value,")")
   ind=str_which(string=lines,pattern=patternwrap)
   uncomm=which(!comment_ind[ind])
-  if(is.na(outfile)||infile==outfile){
-    print("pay attention to file name!")
-  }
+  # if(is.na(outfile)||infile==outfile){
+  #   print("pay attention to file name!")
+  # }
   ind=ind[!comment_ind[ind]]
   if(type=="show"){
     matchpart=lines[ind]
@@ -181,9 +181,9 @@ change_sh<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show"){
   patternwrap=paste0(term,"\\=.+")
   repalcewrap=paste0(term,"=",value)
   ind=str_which(string=lines,pattern=patternwrap)
-  if(is.na(outfile)||infile==outfile){
-    print("pay attention to file name!")
-  }
+  # if(is.na(outfile)||infile==outfile){
+  #   print("pay attention to file name!")
+  # }
   if(type=="show"){
     matchpart=lines[ind]
     print(matchpart)
