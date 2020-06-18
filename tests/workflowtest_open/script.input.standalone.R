@@ -82,7 +82,8 @@ reacformat=list(rev=paste0(dir.template.format,"reac.rev.mm.tab"),irrev=paste0(d
 
 #----------------------pathway setup -----------------------#
 pathfile=paste0(dir_ext_data,"pathway/testpathway.tab")#pathway decide the species and reactions. User defined
-list.res=summary_reac(pathfile,"(^NCU)|(comp$)")#User defined
+# the wrapper invisible(capture.output()) to stop print out. In practice, reading the output might be really helpful to obtain information on the model
+invisible(capture.output(list.res<-summary_reac(pathfile,"(^NCU)|(comp$)")))#User defined
 enz=list.res$enz
 
 meta.real=list.res$compounds##metabolites
@@ -277,7 +278,7 @@ for(replicatei in seq(nreplicate)){
   system(paste0("cp \"",ens.sh,"\" \"",dir.input,replicatei,"/ens.sh\""))
 }
 savedrdata=paste0(dir.res,"local.prior.pre.",format(Sys.time(), "%H%M%S_%m%d%Y"),".RData")
-save(len.list,rev,meta.list,list.res,experiments,obsv,modified.file,foldname,dir.res,enz,file=savedrdata)
+save(len.list,rev,meta.list,list.res,experiments,obsv,modified.file,foldname,dir.res,enz,refenz,file=savedrdata)
 
 #-----------------------i02 construct-----------------------#
 load(paste0(dir_ext_data,"measurements/compound.quan.record.absmore.upd.RData"))
@@ -329,7 +330,8 @@ for(replicatei in seq(nreplicate)){
 }
 
 #-----------------------summary input-----------------------#
-list.exi<-summary_input(i01=paste0(dir.tempt,"ens.modified3.i01"),i02=paste0(dir.tempt,"ens.i02"))
+# the wrapper invisible(capture.output()) to stop print out. In practice, reading the output might be really helpful to obtain information on the model
+invisible(capture.output(list.exi<-summary_input(i01=paste0(dir.tempt,"ens.modified3.i01"),i02=paste0(dir.tempt,"ens.i02"))))
 ##transfer the folder to sever, cd into the folder
 ##!a small local interactive run(if debug clear the whole folder)
 ##chmod +x submit.sh

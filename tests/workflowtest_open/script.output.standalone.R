@@ -12,33 +12,35 @@ options(stringsAsFactors=FALSE)
 options(digits=15)
 require(stringr)
 require(magrittr)
-require(R.matlab)
 require(ggplot2)
-require(xml2)
 require(cowplot)
 require(scales)
 require(lhs)
-require(foreach)
-require(doMC)
+# require(foreach)
+# require(doMC)
 require(ensRadaptor)
-registerDoMC(cores=10)
+# registerDoMC(cores=10)
 
 #------------------------------path setup------------------------------#
-compdir="/Users/yuewu/"
-dirpack=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/package.formulate/ensRadaptor/")
-dir=paste0(dirpack,"temp/testworkflow/")
-dir_ext_data=paste0(dirpack,"inst/extdata/")## the open external data directory
-dir.lib=paste0(dir_ext_data,"template_format/")##this path is used within many functions
-dir.data=paste0(dirpack,"internal_data/pre_input_testplotting/")
-# dir.template.format=paste0(compdir,"Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/ensemble_infor/doc/template.file/")
-foldname="1"
-dir.res=paste0(dir,"testmodel/",foldname,"/res/")
+dir=paste0("./temp/output_test/")##project folder. User defined
+dir_ext_data=paste0("../inst/extdata/")## the external data directory. User defined
+dir.lib=paste0(dir_ext_data,"template_format/")##this path is used within many functions. User defined
+dir.data=paste0("../internal_data/pre_input_testplotting/")## the data to based on. User defined. For user's own model, this corresponding to the files produced by script.input.standalone.R
+refenz="NCU05627"
+load(paste0(dir.data,"local.prior.pre.122657_06242019.RData")) ## this need setup manually. fetch of information from output file (to be reused)
 
-load(paste0(dir.data,"local.prior.pre.122657_06242019.RData")) ## this need setup manually
 foldname="1"
-dir.res=paste0(dir,"testmodel/",foldname,"/res/")
-##fetch of information from output file
+dir.proj=paste0(dir,"testmodel/",foldname)
+dir.res=paste0(dir.proj,"/res/")
+foldcreate(paste0(dir,"testmodel/"))
+foldcreate(dir.proj)
+foldcreate(dir.res)
+
 name=modified.file
+
+#------------------------------original o02 summary------------------------------#
+# for mutliple replicate runs
+### not run because of the input file size and time cost
 # replicateseq=c("1","2","3","4","5","8","10","11","12","13")
 # not run as data not provided for file size
 # info<-foreach(replicatei=replicateseq)%dopar%{
@@ -50,15 +52,15 @@ name=modified.file
 ### accumulation combine
 # comb.accum("/Users/mikeaalv/Dropbox (Edison_Lab@UGA)/Projects/Bioinformatics_modeling/nc_model/model/nc.glucose.fermetation/inputens/addon_model_measurement_new_cor_speed3_inivar_rem_aa_anaerobic/accumu.comb/ens.o02")
 
-#------------------------------o02 summary------------------------------#
+#------------------------------simplified o02 summary------------------------------#
+# test on one example replicate
 replicatei=1
 path.accumu=paste0(dir.data,"/ens.o02")
 o02.data.accumu=o02_reader(path.accumu)
 summary_o02(o02.data=o02.data.accumu,dir.res=dir.res,addonname=paste0("accumu.",name,".",replicatei),linethick=TRUE)
-equa_check(o02.data.accumu,sweeps=1000,dir.res=dir.res,
-          addon=paste0("accumu.",name,".",replicatei),comp="chi2")
+equa_check(o02.data.accumu,sweeps=1000,dir.res=dir.res,addon=paste0("accumu.",name,".",replicatei),comp="chi2")
 
-##new method return while output ens.i01
+##data reformating
 list.prior.pre=vector(mode="list")
 list.prior.pre[["enz"]][["comb"]]=as_data_frame_rowname(len.list[["localpara"]][["enz"]])
 list.prior.pre[["kcat"]][["comb"]]=as_data_frame_rowname(len.list[["localpara"]][["kcat"]])
@@ -75,7 +77,7 @@ list.prior.pre[["km"]][["comb"]]=rbind(list.prior.pre[["km"]][["comb"]],list.pri
 
 #------------------------------o01 summary------------------------------#
 
-##overlap with experiment data
+##model prediction overlap with experiment data
 paths.accu.01=paste0(dir.data,"/ens.o01")
 for(exp in seq(length(experiments))){
   for(comp in obsv){
@@ -85,7 +87,7 @@ for(exp in seq(length(experiments))){
   }
 }
 
-##metabolite concentration
+##metabolite concentration of multiple species
 # allspe=list.exi[["species"]]
 # meta.list=allspe[!str_detect(string=allspe,pattern="^NCU")]
 names(meta.list)=meta.list
@@ -98,7 +100,7 @@ for(exp in seq(length(experiments))){
             exp=exp,dir.res=dir.res)
 }
 
-# distribution of estimated enzyme
+# distribution of estimated enzyme concentration (boxplot)
 # compare between different extend range in parameters
 reac.rank=unique(str_replace(string=rownames(list.prior.pre[["kcat"]][["comb"]]),pattern="\\_[SP]+$",replacement=""))
 enz.all.list=vector(mode="list")
@@ -116,7 +118,7 @@ for(y in seq(length(enz.all.list))){
   names=names(enz.all.list[[1]][[y]])
   names=str_replace(string=names,pattern="\\_\\d+$",replacement="")
   for(x in seq(length(enz.all.list[[y]]))){
-    tempvec=enz.all.list[[1]][[x]]*enz.all.list[[y]][[x]][[paste0("NCU05627_",y)]]
+    tempvec=enz.all.list[[1]][[x]]*enz.all.list[[y]][[x]][[paste0(refenz,"_",y)]]
     names(tempvec)=paste0(names,"_",y)
     enzrealval.list[[y]][[x]]=tempvec
   }
@@ -127,7 +129,8 @@ temp=sapply(list.res[[4]],function(x){
     ind=str_which(string=reac.rank,pattern=fixed(name))
     rank[ind]<<-x[["enzy"]]
 })
-boxplot_multi_exp(enzrealval.list,paste0(dir.res,"boxplot.enz.ini.all.multiexp",".",replicatei,".pdf"),
+boxplot_multi_exp(enzrealval.list,
+            paste0(dir.res,"boxplot.enz.ini.all.multiexp",".",replicatei,".pdf"),
             rank=rank,
             xlab="enzymes",ylab="log_concentration",
             list.prior.part=NULL,logtrans=TRUE)
@@ -137,12 +140,13 @@ names(temptest)="comb"
 list.prior.pre[["enz"]][["comb"]]=list.prior.pre[["enz"]][["comb"]][enz,]
 list.prior.pre[["enz"]][["comb"]][,1]=0.0000000001
 list.prior.pre[["enz"]][["comb"]][,2]=0.1
-boxplot_multi_exp_comb(temptest,paste0(dir.res,"boxplot.enz.ini.all.multiexp.single",".",replicatei,".pdf"),
+boxplot_multi_exp_comb(temptest,
+            paste0(dir.res,"boxplot.enz.ini.all.multiexp.single",".",replicatei,".pdf"),
             rank=rank,
             xlab="enzymes",ylab="log_concentration",
             list.prior.part=list.prior.pre[["enz"]],logtrans=TRUE)
 
-# distribution of estimated kinetic parameters
+# distribution of estimated kinetic parameters (boxplot)
 # compare between different extend range in parameters
 kine.all.list=list(km=vector(mode="list"),kcat=vector(mode="list"))
 inikinelist=o02.data.accumu[["theta_reac_para"]]
@@ -186,16 +190,18 @@ temp=sapply(inikinelist,simplify=FALSE,function(x){
 })
 kine.all.list[["km"]][[nameexp]]=kine.km.list
 kine.all.list[["kcat"]][[nameexp]]=kine.kcat.list
-boxplot_multi_exp_comb(kine.all.list[["km"]],paste0(dir.res,"boxplot.km.all",".",replicatei,".pdf"),
+boxplot_multi_exp_comb(kine.all.list[["km"]],
+            paste0(dir.res,"boxplot.km.all",".",replicatei,".pdf"),
             rank=kine.rank,
             xlab="enzymes",ylab="log_km",
             list.prior.part=list.prior.pre[["km"]],logtrans=TRUE)
-boxplot_multi_exp_comb(kine.all.list[["kcat"]],paste0(dir.res,"boxplot.kcat.all",".",replicatei,".pdf"),
+boxplot_multi_exp_comb(kine.all.list[["kcat"]],
+            paste0(dir.res,"boxplot.kcat.all",".",replicatei,".pdf"),
             rank=kine.rank,
             xlab="enzymes",ylab="log_kcat",
             list.prior.part=list.prior.pre[["kcat"]],logtrans=TRUE)
 
-#vmax distribution
+#vmax distribution (boxplot)
 enz.list=enz.all.list
 vmax.list=vector(mode="list")
 model_len=length(kine.kcat.list)
@@ -207,7 +213,7 @@ temp=sapply(kine.rank,function(x){
 })
 temp=sapply(seq(model_len),function(x){
   sapply(seq(rep_len),function(y){
-    vmax.list[[length(vmax.list)+1]]<<-kine.kcat.list[[x]][kine.rank]*enz.list[[1]][[x]][paste0(enz.rank,"_1")]*enz.list[[y]][[x]][[paste0("NCU05627_",y)]]
+    vmax.list[[length(vmax.list)+1]]<<-kine.kcat.list[[x]][kine.rank]*enz.list[[1]][[x]][paste0(enz.rank,"_1")]*enz.list[[y]][[x]][[paste0(refenz,"_",y)]]
   })
 })
 ##prior range
@@ -222,12 +228,3 @@ boxplot_multi_exp_comb(vmax.list.list,paste0(dir.res,"boxplot.vmax.all",".",repl
             rank=kine.rank,
             xlab="reaction",ylab="log_vmax",
             list.prior.part=list.prior.pre[["vmax"]],logtrans=TRUE)
-
-#compare expected one difference in each comparison as it is from time
-#skip first 100 bytes in pdf file
-predatadir=predatadir=paste0(dirpack,"internal_data/pre_result_testplotting/")
-pdflist=list.files(dir.res,pattern="*.pdf")
-for(file in pdflist){
-  cat(paste0(file,"\n"))
-  system(paste0("cmp -i 100 \'",dir.res,file,"\' \'",predatadir,file,"\'"))
-}
