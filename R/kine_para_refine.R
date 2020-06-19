@@ -16,8 +16,14 @@ kine_para_refine<-function(list.res.refine=NULL,range.speci=NULL,extendrag=NULL)
     stop("please provide the extension range")
   }
   ## the enzyme with kinetic parameter
-  ecs=unique(c(names(list.res.refine[[1]]),names(list.res.refine[[2]]), ##for all species
-               names(range.speci[[1]]),names(range.speci[[2]]))) ## for NC
+  ecsvec=c()
+  for(i in seq(length(list.res.refine))){
+    ecsvec=c(ecsvec,names(list.res.refine[[i]]))
+  }
+  for(i in seq(length(range.speci))){
+    ecsvec=c(ecsvec,names(range.speci[[i]]))
+  }
+  ecs=unique(ecsvec) ## for NC
   ##expected variance and value in general
   general.val=list(km=median(as.numeric(unlist(list.res.refine[["km"]]))),
                    kcat=median(unlist(list.res.refine[["kcat"]])),
@@ -34,7 +40,7 @@ kine_para_refine<-function(list.res.refine=NULL,range.speci=NULL,extendrag=NULL)
     temp=sapply(ecs,simplify=FALSE,function(x){
             datatemp=range.speci[[type]][[x]]
             datalist=range.speci[[paste0(type,"list")]][[x]]
-            ##if not in the nc specific struct then find if rom teh more general one
+            ##if not in the nc specific struct then find it from teh more general one
             if(is.null(datatemp)){
               datatemp=list.res.refine[[type]][[x]]
               datalist=list.res.refine[[paste0(type,"list")]][[x]]
@@ -44,6 +50,7 @@ kine_para_refine<-function(list.res.refine=NULL,range.speci=NULL,extendrag=NULL)
                 datatemp[1]=datatemp[1]/general.val[[paste0(type,".var")]]
                 datatemp[2]=datatemp[2]*general.val[[paste0(type,".var")]]
               }
+              datatemp=sort(datatemp)
               ## 0 is not allowed for lower limit
               lowrag=datatemp[1]
               if(lowrag==0){
