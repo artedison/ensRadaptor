@@ -15,6 +15,3 @@ list. return the list containing c(reaction_name, substrates, products)
 \description{
 load the reaction list file
 }
-\examples{
-
-}

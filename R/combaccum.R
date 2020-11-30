@@ -6,6 +6,7 @@
 #' @param path string. the input o02 file. must be provided
 #' @return no return
 #' @export
+#' @import stringr magrittr
 comb_accum<-function(path=NULL){
   if(is.null(path)){
     stop("please provide the path to o02 file")

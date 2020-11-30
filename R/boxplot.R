@@ -13,6 +13,7 @@
 #' @return just plot no return
 #' @export
 #' @seealso [boxplot_multi_exp_comb()]
+#' @import ggplot2 stringr scales
 boxplot_multi_exp<-function(list.spe=NULL,path=NULL,rank=NULL,xlab="x",ylab="y",list.prior.part=NULL,logtrans=FALSE){
     if(is.null(rank)){
       stop("please provide rank of xlab")
@@ -111,6 +112,7 @@ boxplot_multi_exp<-function(list.spe=NULL,path=NULL,rank=NULL,xlab="x",ylab="y",
 #' @return just plot no return
 #' @export
 #' @seealso [boxplot_multi_exp()]
+#' @import ggplot2 stringr scales
 boxplot_multi_exp_comb<-function(list.spe=NULL,path=NULL,rank=NULL,xlab="x",ylab="y",list.prior.part=NULL,logtrans=FALSE){
   if(is.null(rank)){
     stop("please provide rank of xlab")

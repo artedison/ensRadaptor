@@ -6,6 +6,7 @@
 #' @param foldname string. the name of the project folder. must be provided
 #' @return print out result no return
 #' @export
+#' @import stringr
 homoge_file<-function(localpath=NULL,foldname=NULL){
   if(is.null(localpath)){
     stop("please provide directory path")

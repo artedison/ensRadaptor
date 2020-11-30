@@ -6,6 +6,7 @@
 #' @param path string. input file. must be provided
 #' @return string. the path to the cleaned file
 #' @export
+#' @import stringr
 o02_clean<-function(path=NULL){
   if(is.null(path)){
     stop("please provide input path")

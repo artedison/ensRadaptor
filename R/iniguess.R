@@ -6,6 +6,7 @@
 #' @param output string. output file path. must be provided
 #' @param valvec array. named vector of values for initial guess. block of value that wasn't inlcuded in the vector will be initilized as lowval + smallvalue. must be provided
 #' @return no return just change the file
+#' @import stringr magrittr
 iniguess<-function(input=NULL,output=NULL,valvec=NULL){
   if(is.null(input)){
     stop("please provide input path")

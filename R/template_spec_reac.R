@@ -22,6 +22,7 @@
 #' @param rand.seed numeric. the seed for sampling initial condiiton. default 0
 #' @return list. parameters and related sizes
 #' @export
+#' @import stringr
 template_spec_reac<-function(path=NULL,type="mm",dir.data=NULL,modified.file="",para.list=NULL,list.exi=NULL,extend=1,rand=FALSE,rand.seed=0){
   if(is.null(path)){
     stop("please provide the reaction file path")

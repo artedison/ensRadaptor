@@ -17,7 +17,7 @@ depend_for(y, x, func)
 string. output information
 }
 \description{
-automatic dependence formulation with default format
+automatic dependence formulation with default format. depricated soon.
 }
 \seealso{
 [spec_output()] for producing species block in i01 for default format

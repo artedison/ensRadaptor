@@ -6,6 +6,7 @@
 #' @param loci string. location for result(add on string for name). default ""
 #' @param xlab string. x axis. default "xlab"
 #' @return no return just plot the histogram
+#' @import ggplot2
 draw_hist<-function(tab=NULL,loci="",xlab="xlab"){
   if(is.null(tab)){
     stop("please provide input data")

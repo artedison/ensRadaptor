@@ -8,6 +8,7 @@
 #' @return list. input on file information and size
 #' @seealso [spec_output_format()] for producing species block in i01 for default format
 #'          [react_output()] for similar function based on default format
+#' @import stringr
 react_output_format<-function(){
   oldstr<-options(stringsAsFactors=FALSE)
   on.exit(options(oldstr),add=TRUE)
@@ -136,7 +137,7 @@ react_output_format<-function(){
 #' @return array. input on file information
 #' @seealso [react_output_format()] for producing reaction block in i01 for default format
 #'          [spec_output()] for similar function based on default format
-#' @examples
+#' @import stringr
 spec_output_format<-function(){
   # print("****")
   # print(search())

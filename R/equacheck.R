@@ -13,8 +13,6 @@
 #'       "all": plot all
 #' @return no return just plot
 #' @export
-#' @examples
-#'
 equa_check<-function(o02data=NULL,sweeps=NULL,dir.res=NULL,addon="",comp="chi2"){
   if(is.null(o02data)){
     stop("please provide input data")

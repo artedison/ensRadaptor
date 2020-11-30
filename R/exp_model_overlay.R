@@ -11,6 +11,7 @@
 #' @param logtrans bool. whether log transformaed is performed on dat. default FALSE
 #' @return figure. return the figure itself
 #' @export
+#' @import stringr magrittr ggplot2
 exp_model_overlay<-function(o01=NULL,species=NULL,addon="",exp=NULL,dir.res=NULL,logtrans=FALSE){
   if(is.null(o01)){
     stop("please provide input path")

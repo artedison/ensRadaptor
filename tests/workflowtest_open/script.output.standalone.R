@@ -12,20 +12,31 @@ options(stringsAsFactors=FALSE)
 options(digits=15)
 require(stringr)
 require(magrittr)
-require(ggplot2)
-require(cowplot)
-require(scales)
-require(lhs)
+# require(ggplot2)
+# require(cowplot)
+# require(scales)
+# require(lhs)
+
 # require(foreach)
 # require(doMC)
 require(ensRadaptor)
 # registerDoMC(cores=10)
 
 #------------------------------path setup------------------------------#
-dir=paste0("./temp/output_test/")##project folder. User defined
-dir_ext_data=paste0("../inst/extdata/")## the external data directory. User defined
+currdir=getwd()
+dir=paste0(currdir,"/temp/output_test/")##project folder. User defined
+dir_ext_data=system.file("extdata","", package = "ensRadaptor")#paste0("../inst/extdata/")## the external data directory. User defined
+if(!str_detect(string=dir_ext_data,pattern="\\/$")){
+  dir_ext_data=paste0(dir_ext_data,"/")
+}
 dir.lib=paste0(dir_ext_data,"template_format/")##this path is used within many functions. User defined
-dir.data=paste0("../internal_data/pre_input_testplotting/")## the data to based on. User defined. For user's own model, this corresponding to the files produced by script.input.standalone.R
+dir.data=paste0(dir_ext_data,"internal_data/pre_input_testplotting/")# the data to based on. User defined. For user's own model, this corresponding to the files produced by script.input.standalone.R
+if(!dir.exists("./temp")){
+  foldcreate("./temp")
+}
+if(!dir.exists(dir)){
+  foldcreate(dir)
+}
 refenz="NCU05627"
 load(paste0(dir.data,"local.prior.pre.122657_06242019.RData")) ## this need setup manually. fetch of information from output file (to be reused)
 

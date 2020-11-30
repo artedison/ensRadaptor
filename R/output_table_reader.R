@@ -11,6 +11,7 @@
 #' @param species string. the specie to fetch. must be provided
 #' @return array. the informaiton table
 #' @seealso [mod_model_tab()] for similar function on model estimation information
+#' @import stringr magrittr
 exp_model_tab<-function(lines=NULL,start=NULL,end=NULL,specname_ind=NULL,power_ind=NULL,ch_ind=NULL,species=NULL){
   if(is.null(lines)){
     stop("please provide lines to parse")
@@ -63,10 +64,11 @@ exp_model_tab<-function(lines=NULL,start=NULL,end=NULL,specname_ind=NULL,power_i
 #' @param start array. start of the index range. must be provided
 #' @param end array. end of the index range. must be provided
 #' @param specname_ind array. the index of species part. must be provided
-#' @param ch_ind array. the index of the number line. must be provided
+#' @param power_ind array. the index of the number line. must be provided
 #' @param species string. the specie to fetch. must be provided
 #' @return array. the informaiton table
 #' @seealso [exp_model_tab()] for similar function on model estimation information
+#' @import stringr magrittr
 mod_model_tab<-function(lines=NULL,start=NULL,end=NULL,specname_ind=NULL,power_ind=NULL,species=NULL){
   if(is.null(lines)){
     stop("please provide lines to parse")

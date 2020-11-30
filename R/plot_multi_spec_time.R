@@ -11,6 +11,7 @@
 #' @param logtrans bool. whether log transformation is  performed. default FALSE
 #' @return figure. the figure itself
 #' @export
+#' @import stringr magrittr ggplot2 cowplot
 plot_multi_spec_time<-function(o01=NULL,species.list=NULL,addon="",exp=NULL,dir.res=NULL,ncol=5,logtrans=FALSE){
   if(is.null(o01)){
     stop("please provide input path")

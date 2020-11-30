@@ -2,6 +2,7 @@
 #'
 #' formulate the species part for i01 file with default format
 #' the argument is not set explicit and they are transferred by environment (the function that call spec_output())
+#' depricated soon
 #'
 #' @return array. output information
 #' @seealso [spec_output_format()] for similar function based on user defined format files
@@ -109,10 +110,12 @@ spec_output<-function(){
 #'
 #' formulate the species part for i01 file with default format
 #' the argument is not set explicit and they are transferred by environment (the function that call react_output())
+#' depricated soon
 #'
 #' @return list. output information
 #' @seealso [react_output_format()] for similar function based on user defined format files
 #'          [spec_output()] for producing species block in i01 for default format
+#' @import stringr
 react_output<-function(){
   oldstr<-options(stringsAsFactors=FALSE)
   on.exit(options(oldstr),add=TRUE)
@@ -285,7 +288,7 @@ react_output<-function(){
 
 #' dependences formulation
 #'
-#' automatic dependence formulation with default format
+#' automatic dependence formulation with default format. depricated soon.
 #'
 #' @param y array. the location of the dependent variable. must be provided
 #' @param x array. the independent variable. must be provided

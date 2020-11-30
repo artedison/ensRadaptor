@@ -11,4 +11,4 @@
 ^temp/*$
 ^tests/workflowtest_internal/*$
 ^internal_data/*$
-^inst/extdata/enscode/*$
+^inst/extdata/internal_data/pre_input_testplotting/*$

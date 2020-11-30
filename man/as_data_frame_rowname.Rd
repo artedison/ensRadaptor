@@ -15,3 +15,7 @@ dataframe. will return t(as.data.frame(list))
 \description{
 modified version of as.data.frame to remove the changed caused by make.name
 }
+\examples{
+inputlist=list("1.34"=c(1,2,3),"8.5"=c(3,2,3))
+as_data_frame_rowname(inputlist)
+}

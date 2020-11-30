@@ -9,6 +9,7 @@
 #' @param output string. output file path. must be provided
 #' @return just change the file no return
 #' @export
+#' @import stringr magrittr lhs
 randloglhs<-function(nsample=NULL,isample=NULL,input=NULL,output=NULL){
   if(is.null(nsample)){
     stop("please provide number of replicates")

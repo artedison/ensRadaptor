@@ -16,9 +16,9 @@ mod_model_tab(lines = NULL, start = NULL, end = NULL,
 
 \item{specname_ind}{array. the index of species part. must be provided}
 
-\item{species}{string. the specie to fetch. must be provided}
+\item{power_ind}{array. the index of the number line. must be provided}
 
-\item{ch_ind}{array. the index of the number line. must be provided}
+\item{species}{string. the specie to fetch. must be provided}
 }
 \value{
 array. the informaiton table

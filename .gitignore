@@ -13,3 +13,4 @@ tests/workflowtest_internal/*
 internal_data/*
 tests/temp/input_test/testmodel/*
 tests/temp/input_test/history/*
+inst/extdata/internal_data/pre_input_testplotting/*

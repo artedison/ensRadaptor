@@ -14,16 +14,29 @@ options(digits=15,scipen=999)
 require(stringr)
 require(magrittr)
 require(ggplot2)
-require(cowplot)
-require(scales)
-require(lhs)
+# require(cowplot)
+# require(scales)
+# require(lhs)
 require(ensRadaptor)
 
 #------------------------------path setup-------------------#
-dir="./temp/input_test/"## the working folder. User defined
-dir_ext_data="../inst/extdata/"## the folder for needed data files. User defined
+currdir=getwd()
+dir=paste0(currdir,"/temp/input_test/")## the working folder. User defined
+dir_ext_data=system.file("extdata","", package = "ensRadaptor")#"../inst/extdata/"## the folder for needed data files. User defined
+if(!str_detect(string=dir_ext_data,pattern="\\/$")){
+  dir_ext_data=paste0(dir_ext_data,"/")
+}
 dir.lib=paste0(dir_ext_data,"template_format/")##this path is used within many functions. User defined
 dir.his=paste0(dir,"history/history.record.tab")##recording for running history. The time of running and project folder. User defined
+if(!dir.exists("./temp")){
+  foldcreate("./temp")
+}
+if(!dir.exists(dir)){
+  foldcreate(dir)
+}
+if(!dir.exists(paste0(dir,"history/"))){
+  foldcreate(paste0(dir,"history/"))
+}
 if(!file.exists(dir.his)){
   file.create(dir.his)
 }

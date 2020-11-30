@@ -15,5 +15,5 @@ file_str_which(path = NULL, pattern = NULL)
 array. the index(line number) of matched position
 }
 \description{
-file verion of str_which, used especiall for large files
+file verion of str_which, used especially for large files
 }

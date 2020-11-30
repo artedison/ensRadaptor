@@ -8,6 +8,7 @@
 #' @param ind array. the index to define start searching point. must be provided
 #' @param pattern string. the pattern for titile. 'namespec' or 'namereac'. must be provided
 #' @return array. parameter name list
+#' @import stringr magrittr
 nameparser<-function(lines=NULL,ind=NULL,pattern=NULL){
   if(is.null(lines)){
     stop("please provide lines to parse")
@@ -40,6 +41,7 @@ nameparser<-function(lines=NULL,ind=NULL,pattern=NULL){
 #' @param next_ind array. define the range end. must be provided
 #' @param name array. name of the theta vector. default NULL. no names
 #' @return list. the named parameter list
+#' @import stringr
 numparse<-function(lines_models=NULL,this_ind=NULL,next_ind=NULL,name=NULL){
   if(is.null(lines_models)){
     stop("please provide lines to parse")
@@ -73,6 +75,7 @@ numparse<-function(lines_models=NULL,this_ind=NULL,next_ind=NULL,name=NULL){
 #' @examples
 #' lines_models=c("1 2 3 4 5","6 7 8  9 10","11 12 13\t14 15")
 #' tabparse(lines_models,c(1,3),c(2,4))
+#' @import stringr magrittr
 tabparse<-function(lines_models=NULL,rowrange=NULL,colrange=NULL){
   if(is.null(lines_models)){
     stop("please provide lines to parse")

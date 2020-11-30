@@ -3,10 +3,11 @@
 #' plot the variable through sweeps
 #'
 #' @param tab array. the data table. must be provided
-#' @param para string. y axis. default "ylab"
+#' @param ylab string. y axis. default "ylab"
 #' @param loci string. location for result (add on string for name). default ""
 #' @param linethick bool. whether make line thicker. default FALSE
 #' @return no return just plot
+#' @import ggplot2
 draw_sweep<-function(tab=NULL,ylab="ylab",loci="",linethick=FALSE){
   if(is.null(tab)){
     stop("please provide input data")

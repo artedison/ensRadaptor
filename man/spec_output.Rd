@@ -12,6 +12,7 @@ array. output information
 \description{
 formulate the species part for i01 file with default format
 the argument is not set explicit and they are transferred by environment (the function that call spec_output())
+depricated soon
 }
 \seealso{
 [spec_output_format()] for similar function based on user defined format files

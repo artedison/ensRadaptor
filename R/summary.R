@@ -9,6 +9,7 @@
 #' @param i02 string. the locaiton of i02. must be provided
 #' @return list. list of information contains in input files
 #' @export
+#' @import stringr magrittr
 summary_input<-function(i01=NULL,i02=NULL){
   if(is.null(i01)||is.null(i02)){
     stop("please provide path to both i01 and i02 files")
@@ -123,6 +124,7 @@ summary_input<-function(i01=NULL,i02=NULL){
 #' @param enzpattern string. the pattern to search for the enzyme entity. must be provided
 #' @return list. list containing enzyme information
 #' @export
+#' @import stringr
 summary_reac<-function(path=NULL,enzpattern=NULL){
   if(is.null(path)){
     stop("please provide the input path")

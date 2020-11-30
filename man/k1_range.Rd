@@ -20,4 +20,5 @@ list. formualted k1 range
 \description{
 this is for producing a constraint enough k1 range to start the training
 based on the assumption that each enzyme will have similar region size for kinetic parameter
+depricated soon
 }

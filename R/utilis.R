@@ -15,6 +15,7 @@
 #' multi_line_map(string=string,pattern=pattern)
 #' pattern="eea\\n"
 #' multi_line_map(string=string,pattern=pattern)
+#' @import stringr
 multi_line_map<-function(string=NULL,pattern=NULL){
   if(is.null(string)||is.null(pattern)){
     stop("please provide both the string and searching pattern")
@@ -59,7 +60,6 @@ multi_line_map<-function(string=NULL,pattern=NULL){
 #' @param projpath string. the current working project directory. must be provided
 #' @return no return just modify the file
 #' @export
-#' @examples
 update_history<-function(histpath=NULL,projpath=NULL){
   if(is.null(histpath)||is.null(projpath)){
     stop("please provide the path for both record file and current working folder")
@@ -75,8 +75,7 @@ update_history<-function(histpath=NULL,projpath=NULL){
 #'
 #' @param path string. the path to the reaction list file. must be provided
 #' @return list. return the list containing c(reaction_name, substrates, products)
-#' @examples
-#'
+#' @import stringr magrittr
 read_reac<-function(path=NULL){
   if(is.null(path)){
     stop("please provide the path for reaction file")
@@ -101,13 +100,13 @@ read_reac<-function(path=NULL){
 
 #' file based str_which
 #'
-#' file verion of str_which, used especiall for large files
+#' file verion of str_which, used especially for large files
 #'
 #' @param path string. input file for the string. must be provided
 #' @param pattern string. pattern to be matched. must be provided
 #' @return array. the index(line number) of matched position
 #' @export
-#' @examples
+#' @import stringr
 file_str_which<-function(path=NULL,pattern=NULL){
   if(is.null(path)||is.null(pattern)){
     stop("please provide both the file path and searching pattern")
@@ -192,6 +191,9 @@ densi_region<-function(list.intev=NULL,logtrans=FALSE){
 #' @param list list. list to be converted. must be provided
 #' @return dataframe. will return t(as.data.frame(list))
 #' @export
+#' @examples
+#' inputlist=list("1.34"=c(1,2,3),"8.5"=c(3,2,3))
+#' as_data_frame_rowname(inputlist)
 as_data_frame_rowname<-function(list=NULL){
   if(is.null(list)){
     stop("please provide the list")
@@ -225,6 +227,7 @@ foldcreate<-function(dirpath=NULL){
 #' @param path string. the file location. must be provided
 #' @return int. line number
 #' @export
+#' @import stringr
 linecount<-function(path=NULL){
   if(is.null(path)){
     stop("please provide file path")

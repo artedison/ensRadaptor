@@ -2,6 +2,7 @@
 #'
 #' this is for producing a constraint enough k1 range to start the training
 #' based on the assumption that each enzyme will have similar region size for kinetic parameter
+#' depricated soon
 #'
 #' @param list.reac.addon list. the list of reactions. must be provided
 #' @param list.kine kinetic list. parameter list. must be provided

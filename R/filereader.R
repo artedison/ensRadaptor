@@ -8,6 +8,7 @@
 #'        FALSE: output all blocks. Default FALSE
 #' @return list. list containing information in o02
 #' @export
+#' @import stringr
 o02_reader<-function(path=NULL,flagsweep=FALSE){
   if(is.null(path)){
     stop("please provide input path")
@@ -70,6 +71,7 @@ o02_reader<-function(path=NULL,flagsweep=FALSE){
 #' @param ioutselec int. the iout_id to be read. must be provided
 #' @return array. array of time series data. time x species x #blocks
 #' @export
+#' @import stringr magrittr
 o03_reader<-function(pathlist=NULL,ioutselec=NULL){
   if(is.null(pathlist)){
     stop("please provide input path")
@@ -198,6 +200,7 @@ o03_reader<-function(pathlist=NULL,ioutselec=NULL){
 #' @param path string. the location of i01 for prior information. must be provided
 #' @return list. list containing prioir information
 #' @export
+#' @import stringr magrittr
 prior_reader<-function(path=NULL){
   if(is.null(path)){
     stop("please provide input path")

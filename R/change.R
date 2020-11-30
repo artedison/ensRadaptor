@@ -14,6 +14,7 @@
 #'         If type="show" OR length(uncomm)!=1&&indrep==1, a list of value and line number will be returned
 #' @seealso [change_block()] for modifying one block
 #' @export
+#' @import stringr
 change_para<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show",indrep=1){
   if(is.null(term)){
     stop("please provide the term to change")
@@ -81,6 +82,7 @@ change_para<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show",
 #'         If type="show", return the show part
 #' @seealso [change_para()] for modifying one parameter
 #' @export
+#' @import stringr
 change_block<-function(paternlist=NULL,contentlist=NULL,infile=NULL,outfile=NULL,type="show"){
   if(is.null(paternlist)){
     stop("please provide correct searching pattern")
@@ -127,6 +129,7 @@ change_block<-function(paternlist=NULL,contentlist=NULL,infile=NULL,outfile=NULL
 #' @return If type="edit", no value is returned and just change the file correspondingly
 #'         If type="show", a list of value will be returned
 #' @export
+#' @import stringr
 change_def<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show"){
   if(is.null(term)){
     stop("please provide the term to change")
@@ -170,6 +173,7 @@ change_def<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show"){
 #' @return If type="edit", no value is returned and just change the file correspondingly
 #'         If type="show", a list of value will be returned
 #' @export
+#' @import stringr
 change_sh<-function(term=NULL,value=NULL,infile=NULL,outfile=NULL,type="show"){
   if(is.null(term)){
     stop("please provide the term to change")

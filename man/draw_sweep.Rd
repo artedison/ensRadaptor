@@ -9,11 +9,11 @@ draw_sweep(tab = NULL, ylab = "ylab", loci = "", linethick = FALSE)
 \arguments{
 \item{tab}{array. the data table. must be provided}
 
+\item{ylab}{string. y axis. default "ylab"}
+
 \item{loci}{string. location for result (add on string for name). default ""}
 
 \item{linethick}{bool. whether make line thicker. default FALSE}
-
-\item{para}{string. y axis. default "ylab"}
 }
 \value{
 no return just plot

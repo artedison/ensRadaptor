@@ -28,6 +28,3 @@ this function check the trend of chi^2 and parameters
 this is prefered before accumulation run
 it can check the chi^2~sweeps, initial_concentration~time, and kinetic parameters~time
 }
-\examples{
-
-}
