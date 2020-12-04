@@ -23,6 +23,7 @@ require(ensRadaptor)
 # registerDoMC(cores=10)
 
 #------------------------------path setup------------------------------#
+# because of file size the input data here wsan't shared through GitHub. They can be found here https://www.dropbox.com/sh/zy3gow5zq58r13n/AADlyP2L7lEXC5yQQI4Qtb0ca?dl=0
 currdir=getwd()
 dir=paste0(currdir,"/temp/output_test/")##project folder. User defined
 dir_ext_data=system.file("extdata","", package = "ensRadaptor")#paste0("../inst/extdata/")## the external data directory. User defined

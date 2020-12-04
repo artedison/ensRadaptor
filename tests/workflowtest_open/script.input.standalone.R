@@ -13,7 +13,7 @@ options(stringsAsFactors=FALSE)
 options(digits=15,scipen=999)
 require(stringr)
 require(magrittr)
-require(ggplot2)
+# require(ggplot2)
 # require(cowplot)
 # require(scales)
 # require(lhs)
@@ -57,7 +57,7 @@ foldcreate(dir.equala)
 dir.accumu=paste0(dir.res,"accumu/")
 foldcreate(dir.accumu)
 ##create the multiple run folder for independent start point
-nreplicate=10##number of model replicate to run in the model. User defined
+nreplicate=10##number of model replicate to run in the model (independent MCMC runs). User defined
 for(replicatei in seq(nreplicate)){
   foldcreate(paste0(dir.input,replicatei,"/"))
 }
@@ -68,15 +68,15 @@ for(replicatei in seq(nreplicate)){
 #------------------------------parameter setup--------------#
 modified.file="testmodel"#model name. User defined
 ##model parameter
-obsv=c("gluc_all","ethanol","lactate","succinate","citrate","glu_1_phos","fumarate") ##observable compounds (in the measurement). User defined
+obsv=c("gluc_all","ethanol","lactate","succinate","citrate","glu_1_phos","fumarate") ##observable compounds (in the measurement). all other compounds defined in the pathway file will be unobservable. User defined
 time1=12# the end time for simulation, time0 is assumed to be 0 but you can always shift your measuremnt to make start time to 0. User defined
-extend=1#extend of all parameters range. User defined
+extend=1#extend of all parameters range. For those kinetic parameters that a known range exist, the range will be extended by dividing (multiplying) this value for lower (upper) range. User defined
 extendrag=100#extend of parameters without range (no informaiton from database or just one value). User defined
 smallvalue<-0.0000000000000000001#used to replace 0 when math on 0 is not working. used within many functions. should be fine under different models
 refenz="NCU05627"#the enzyme used to scale different experimental globally(as they are with different concentration). Choose the first enzyme as the reference but it doesn't matter. User defined
 
 ##measurement parameter
-classnum=1# start scale class for measurement. the class number for measurement. if not 0 the scale class, if 0 not using scale factor. User defined
+classnum=1# start scale class for measurement (concept in ens program). the class number for measurement. if not 0 the scale class, if 0 not using scale factor. The same classs number define a group of measurements that change relative to each other. User defined
 conv.factor=c(1,3600)#unit converting factor for km and kcat. User defined
 names(conv.factor)=c("km","kcat")
 zspec_wid=0.3# the default relative uncerntainty for measurement. User defined
