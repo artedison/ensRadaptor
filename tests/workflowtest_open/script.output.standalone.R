@@ -2,6 +2,7 @@
 ## this testing script analyze output files from modeling central metabolism in Neurospora crassa based on experimental data.
 ## the output file should be fed to ens modeling for ODE parameter estimation
 ## works with sapelo2, template files need to be modified for adaption to other sever systems
+## the input files are collected after running script.input.standalone.R, reaching euqilibrium, and finishing accumulation runs. 
 ## unit time: hour h
 ## unit concentration: mM
 ## kinetic form: MM (assumed)

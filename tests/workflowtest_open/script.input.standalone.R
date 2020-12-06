@@ -79,7 +79,7 @@ refenz="NCU05627"#the enzyme used to scale different experimental globally(as th
 classnum=1# start scale class for measurement (concept in ens program). the class number for measurement. if not 0 the scale class, if 0 not using scale factor. The same classs number define a group of measurements that change relative to each other. User defined
 conv.factor=c(1,3600)#unit converting factor for km and kcat. User defined
 names(conv.factor)=c("km","kcat")
-zspec_wid=0.3# the default relative uncerntainty for measurement. User defined
+zspec_wid=0.3# the default relative uncerntainty for measurement. the estimation of variance level in experimental measurements. User defined
 experiments=c(4:6)#4,5,6anaerobic, 1,2,3 aerobic. User defined
 
 lhsmatrix<-c()#global variable as used by a function multiple times. used for randloglhs function
@@ -88,6 +88,7 @@ lhsmatrix<-c()#global variable as used by a function multiple times. used for ra
 
 #----------------------construt template setup--------------#
 ###the template files are used for easy construction of different reactions and species
+### example templates can be found in inst/extdata/template_format and inst/extdata/template_input, the user can modify and add new templates. Each template files should be self-explable
 templatepath=list(input.template=paste0(dir_ext_data,"template_input/"),enscode=paste0(dir_ext_data,"enscode/"))#User defined
 pre_file_prepare(dir.tempt,templatepath)
 specformat=list(metabolites=paste0(dir.template.format,"spec.metabolite.tab"),enzyme=paste0(dir.template.format,"spec.enz.massscal.tab"))#User defined
@@ -100,7 +101,7 @@ invisible(capture.output(list.res<-summary_reac(pathfile,"(^NCU)|(comp$)")))#Use
 enz=list.res$enz
 
 meta.real=list.res$compounds##metabolites
-meta.comb=c("gluc_all")## addon species to represent a combination of intracellular and extracellular part. User defined
+meta.comb=c("gluc_all")## addon species to represent a combination measurement of intracellular and extracellular part. Otherwise, a compound will only be measured by itself. User defined
 meta.list=c(meta.real,meta.comb)
 
 sub_var=c(enz,meta.real)##those species that do not depends on other species
@@ -109,7 +110,7 @@ reacs_dependent=list.res[["reacs"]]
 names(reacs_dependent)=NULL
 const=enz##not change through time
 
-##reversibility list.  User defined
+##reaction reversibility list.  User defined
 rev=unlist(list(
   "NCU05627"=0,"NCU00575"=0,"NCU07281"=1,"NCU00629"=0,
   "NCU06075"=0,"NCU02193"=0,"NCU02476"=1,"NCU02179"=0,
@@ -122,7 +123,7 @@ rev=unlist(list(
 ))
 
 #----------------------kinetic parameters-------------------#
-##stored kinetic parameters for enzyme. User defined
+##stored kinetic parameters for enzyme. the user probably need to collect and use their own kinetic parameter list if they are not working on Neurospora. User defined
 load(paste0(dir_ext_data,"kin_infor/Neurospora crassa.kine.new.RData"))
 load(paste0(dir_ext_data,"kin_infor/all.kine.RData"))
 parameter.list=kine_para_refine(list.res.refine=list.res.refine,range.speci=range.speci,extendrag=extendrag)
@@ -156,7 +157,7 @@ len.metab=length(sub_var)
 #                    func=rep("LOOK4_PM_IEXPT",times=len.metab))
 # len.reacs=length(reacs_dependent)
 
-#-----------------species parameter range-------------------#
+#-----------------species related parameter range-------------------#
 changedrag=c(obsv,"gluc_in","glycogen","fattyacid","Gluc_ex")#User defined
 ini.names=c(meta.list,enz)
 meta.val=rep(0.00000001,times=length(meta.list))
@@ -251,7 +252,7 @@ change_block(list(pattern0="namereac\\s+\\/nipart\\s+nopart\\s+jkin\\n\\s+oxy\\_
              list(file=paste0(dir.template.format,"addon.aero.vs.anaero.tab"),ilinerag=c(245,392)),
              infile=temp.change.file1,outfile=temp.change.file1,type="edit")
 
-## change dimension parameters. User defined
+## update dimension parameters. User defined
 nspec=length(change_para("namespec",NA,infile=temp.change.file1,outfile=NA,type="show")[[1]])
 ndepn=length(change_para("iparn",NA,infile=temp.change.file1,outfile=NA,type="show")[[1]])
 list.i01.para=list(nspec=nspec,nreac=len.list[["reac"]],time1=time1,nexpt=length(experiments),"th\\_opt1"=102010001,##supress unuseful information in o02 file
@@ -264,7 +265,8 @@ for(para.name in names(list.i01.para)){
 #----------------------def modificate-----------------------#
 # User defined
 list.def.para=list("mp\\_dim\\_yspec\\_x"=120000,"iline\\_x"="200+2*nspec_x+2*nreac_x+5500",## the two array size parameter that seldom need modification
-                   "npart\\_x"=8,"nms\\_spec\\_x"=18,
+                   "npart\\_x"=8,#this depends on the maximal number in substrates or products
+                   "nms\\_spec\\_x"=18,#this needs to be larger than observable compounds
                    "nspec\\_x"=nspec,"nreac\\_x"=len.list[["reac"]],"ndpen\\_tot\\_x"=ndepn)
 for(paraname in names(list.def.para)){
   change_def(paraname,list.def.para[[paraname]],
@@ -279,6 +281,7 @@ cat(lines,sep="\n",file=submit.sh)
 system(paste0("cp \"",submit.sh,"\" \"",dir.input,"submit.sh\""))
 
 #-------------------replicates construct---------------------#
+# the repliucates are contructed for parallel search of the equilibrium
 for(replicatei in seq(nreplicate)){
   print(paste0("replicate: ",replicatei))
   ##Latin Hypercube log uniform initial guess reformulating
@@ -345,7 +348,9 @@ for(replicatei in seq(nreplicate)){
 #-----------------------summary input-----------------------#
 # the wrapper invisible(capture.output()) to stop print out. In practice, reading the output might be really helpful to obtain information on the model
 invisible(capture.output(list.exi<-summary_input(i01=paste0(dir.tempt,"ens.modified3.i01"),i02=paste0(dir.tempt,"ens.i02"))))
-##transfer the folder to sever, cd into the folder
+##transfer the input folder to sever, cd into the folder
 ##!a small local interactive run(if debug clear the whole folder)
 ##chmod +x submit.sh
 ##./submit.sh
+## if a good chi^2 is obtained and enough accumulation samples are collected, the user can move on to steps in script.output.standalone.R
+## the user might need to modify the values in nmc_eql nmc_acc for accumulation run
