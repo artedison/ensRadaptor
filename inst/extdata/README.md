@@ -35,3 +35,6 @@ addon.comb.meas.tab: the template for formulating combined measurement: the meas
 addon.scalenz.tab: the template for formualting biomass proportions for all enzymes
 
 addon.aero.vs.anaero.tab: the template for formualting different reactions under aerobic and anaerobic conditions
+
+## data used in tests
+./internal_data
