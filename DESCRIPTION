@@ -10,6 +10,8 @@ Authors@R:
 Description: The package provide an easy way to create input files and analyze output files for ens method. By providing information of the metabolic model, the user can create the complex input file for ens (MCMC) method. Multiple template is provided for different dependency formulation. Distribution in parameters and Chi^2 can be plotted.
 Encoding: UTF-8
 LazyData: true
+Depends:
+        R (>= 3.5.1)
 Imports:
         stringr (>= 1.4.0),
         magrittr (>= 1.5),
