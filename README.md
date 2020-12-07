@@ -4,17 +4,19 @@ ensRadaptor makes conscutrucing biological ODE model easier. It works as a inter
 
 
 ## Examples
-For using ensRadaptor, please refer to the script in the folder ./tests/workflowtest_open/
+For examples on using ensRadaptor, please refer to the script in the folder ./tests/workflowtest_open/
 
 script.input.standalone.R: model contruction
 
-script.output.standalone.R: ens result visualization. To produce the input files for this script, the user need to run the ens program based on the files produced by script.input.standalone.R. Specifically, the user can upload the folder 'input' to an HPC environment and run submit.sh. The output ens.o01 and ens.o02 will be used in script.output.standalone.R. Example output figures can be found [here](https://www.dropbox.com/sh/u2qd4llz45400yn/AAAWrqQwEoCTj0jCKOWmBJ7Ka?dl=0).
+script.output.standalone.R: ens result visualization. To produce the input files for this script, the user need to run the ens program based on the files produced by script.input.standalone.R. Specifically, the user can upload the folder 'input' to an HPC environment, run submit.sh, and start another accumulation runs from there. The accumulation run output ens.o01 and ens.o02 will be used in script.output.standalone.R. Example output figures can be found [here](https://www.dropbox.com/sh/u2qd4llz45400yn/AAAWrqQwEoCTj0jCKOWmBJ7Ka?dl=0).
 
-To install the package:
+## Install
 
 ```
-github_install
+install_github("artedison/ensRadaptor")
 ```
+
+You might need to do `Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS="true")` before installation.
 
 ## Reference:
 
